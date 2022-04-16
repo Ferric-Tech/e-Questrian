@@ -10,6 +10,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { HomeComponent } from './pages/home/home.component';
 import { CalanderComponent } from './pages/calander/calander.component';
 import { FinancesComponent } from './pages/finances/finances.component';
+import { ClientsComponent } from './pages/clients/clients.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { FinancesComponent } from './pages/finances/finances.component';
     NavbarComponent,
     HomeComponent,
     CalanderComponent,
-    FinancesComponent
+    FinancesComponent,
+    ClientsComponent
   ],
   imports: [
     BrowserModule,
