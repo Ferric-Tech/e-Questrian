@@ -1,8 +1,13 @@
 <div class="page-container">
   <div class="home-page-header">e-Questrian</div>
   <div class="home-button-container">
-    <button (click)="oncalendarClick()">Calendar</button>
-    <button (click)="onFinancesClick()">Finanaces</button>
-    <button (click)="onClientsClick()">Clients</button>
+    <button
+      *ngFor="let option of menuOptions"
+      class="navbar-button"
+      (click)="onMenuOptionClicked(option.option)"
+      mat-button
+    >
+      {{ option.display }}
+    </button>
   </div>
 </div>
