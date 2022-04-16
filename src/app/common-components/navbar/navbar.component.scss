@@ -5,13 +5,21 @@
   background-color: aqua;
 }
 
-.navbar-logo-container {
+.navbar-logo-and-menu-button-container {
   display: flex;
-  width: 30%;
+  width: 100%;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
   max-width: 150px;
   min-width: 75px;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.navbar-logo-container {
+  display: flex;
+  width: 100%;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -26,19 +34,24 @@
 
 .navbar-button {
   height: 100%;
+  min-height: 25px;
   background-color: inherit;
   border: none;
 }
 
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 450px) {
   .navbar-container,
   .navbar-button-container {
     flex-direction: column;
   }
 
+  .navbar-logo-and-menu-button-container {
+    max-width: none;
+    padding: 0;
+  }
+
   .navbar-logo-container {
     width: 100%;
     max-width: none;
-    padding: 0;
   }
 }
