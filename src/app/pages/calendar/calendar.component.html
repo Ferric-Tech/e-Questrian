@@ -1,0 +1,10 @@
+<div class="page-header-container">Your Calendar</div>
+<div class="calendar-container">
+  <div
+    *ngFor="let block of calenderBlocks"
+    (click)="onCalendarBlockClick(block)"
+  >
+    <hr />
+    {{ block }}
+  </div>
+</div>
