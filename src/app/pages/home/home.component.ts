@@ -14,4 +14,8 @@ export class HomeComponent implements OnInit {
   onCalanderClick() {
     this.router.navigate(['/calander']);
   }
+
+  onFinancesClick() {
+    this.router.navigate(['/finances']);
+  }
 }
