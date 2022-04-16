@@ -7,6 +7,9 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class CalendarComponent implements OnInit {
   calenderBlocks: string[] = [];
+  displayNewAppointmentForm = false;
+  proposedStartTime: string | undefined;
+
   constructor() {
     this.setCalendarBlocks();
   }
@@ -14,7 +17,8 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {}
 
   onCalendarBlockClick(block: string) {
-    console.log(block);
+    this.proposedStartTime = block;
+    this.displayNewAppointmentForm = true;
   }
 
   private setCalendarBlocks() {

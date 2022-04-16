@@ -8,3 +8,7 @@
     {{ block }}
   </div>
 </div>
+<app-new-appointment
+  *ngIf="displayNewAppointmentForm"
+  [startTime]="proposedStartTime"
+></app-new-appointment>
