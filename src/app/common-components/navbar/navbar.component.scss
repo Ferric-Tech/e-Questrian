@@ -4,3 +4,17 @@
   height: 50px;
   background-color: aqua;
 }
+
+.navbar-logo-container {
+  display: flex;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+.navbar-button {
+  background-color: inherit;
+  border: none;
+}
