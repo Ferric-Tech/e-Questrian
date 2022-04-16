@@ -11,8 +11,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onCalanderClick() {
-    this.router.navigate(['/calander']);
+  oncalendarClick() {
+    this.router.navigate(['/calendar']);
   }
 
   onFinancesClick() {

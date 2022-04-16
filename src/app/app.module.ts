@@ -6,29 +6,28 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './common-components/navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { HomeComponent } from './pages/home/home.component';
-import { CalanderComponent } from './pages/calander/calander.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    CalanderComponent,
+    CalendarComponent,
     FinancesComponent,
-    ClientsComponent
+    ClientsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
