@@ -54,14 +54,18 @@
     padding: 0;
   }
 
-  .navbar-menu-icon-container {
-    display: flex;
-    padding-right: 20px;
-    justify-content: flex-end;
+  .navbar-logo-container {
+    width: calc(100% - 70px);
+    max-width: none;
+    font-weight: bold;
+    font-size: large;
+    padding-left: 70px;
   }
 
-  .navbar-logo-container {
-    width: 80%;
-    max-width: none;
+  .navbar-menu-icon-container {
+    display: flex;
+    width: 50px;
+    padding-right: 20px;
+    justify-content: flex-end;
   }
 }
