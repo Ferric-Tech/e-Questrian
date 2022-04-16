@@ -1,8 +1,11 @@
 <div class="navbar-container">
-  <div class="navbar-logo-and-menu-button-container" (click)="onLogoClick()">
-    <div class="navbar-logo-container">e-Questrian</div>
+  <div class="navbar-logo-and-menu-button-container">
+    <div class="navbar-logo-container" (click)="onLogoClick()">e-Questrian</div>
+    <div class="navbar-menu-icon-container" (click)="onMenuIconClick()">
+      <mat-icon>menu</mat-icon>
+    </div>
   </div>
-  <div class="navbar-button-container">
+  <div *ngIf="displayMenu" class="navbar-button-container">
     <button class="navbar-button" mat-button>Calendar</button>
     <button class="navbar-button" mat-button>Financial</button>
     <button class="navbar-button" mat-button>Clients</button>

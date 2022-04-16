@@ -26,6 +26,10 @@
   font-weight: bold;
 }
 
+.navbar-menu-icon-container {
+  display: none;
+}
+
 .navbar-button-container {
   display: flex;
   width: 100%;
@@ -50,8 +54,15 @@
     padding: 0;
   }
 
+  .navbar-menu-icon-container {
+    display: flex;
+    width: 20%;
+    padding-right: 20px;
+    justify-content: flex-end;
+  }
+
   .navbar-logo-container {
-    width: 100%;
+    width: 80%;
     max-width: none;
   }
 }
