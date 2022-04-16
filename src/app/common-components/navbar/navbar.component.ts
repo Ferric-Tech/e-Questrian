@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 export enum MenuOptions {
@@ -33,7 +33,14 @@ export class NavbarComponent implements OnInit {
     this.determineView();
   }
 
-  constructor(public router: Router) {}
+  @HostListener('document:click', ['$event'])
+  clickout(event: { target: any }) {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.displayMenu = false;
+    }
+  }
+
+  constructor(public router: Router, private eRef: ElementRef) {}
 
   ngOnInit(): void {
     this.determineView();
@@ -48,6 +55,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onMenuOptionClicked(option: MenuOptions) {
+    this.displayMenu = false;
     switch (option) {
       case MenuOptions.CALENDAR: {
         this.router.navigate(['/calendar']);
