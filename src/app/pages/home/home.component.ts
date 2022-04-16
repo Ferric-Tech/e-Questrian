@@ -18,4 +18,8 @@ export class HomeComponent implements OnInit {
   onFinancesClick() {
     this.router.navigate(['/finances']);
   }
+
+  onClientsClick() {
+    this.router.navigate(['/clients']);
+  }
 }
