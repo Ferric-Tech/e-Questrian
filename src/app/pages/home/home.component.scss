@@ -1,0 +1,27 @@
+.home-page-header {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  padding-top: 50px;
+  font-size: 45px;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: Arial;
+}
+
+.home-button-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  background-color: hotpink;
+}
+
+@media only screen and (max-width: 600px) {
+  .home-button-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+}

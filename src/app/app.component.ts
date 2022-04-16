@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,5 +9,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'e-questrian';
 
-  constructor(public router: Router) {}
+  constructor(public router: Router) {
+    router.navigate(['/home']);
+  }
 }

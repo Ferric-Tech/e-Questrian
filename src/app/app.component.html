@@ -1,9 +1,2 @@
 <app-navbar *ngIf="!router.url.includes('home')"></app-navbar>
-<div class="page-container">
-  <div class="home-page-header">e-Questrian</div>
-  <div class="home-button-container">
-    <button>Calander</button>
-    <button>Finanaces</button>
-    <button>Clients</button>
-  </div>
-</div>
+<router-outlet></router-outlet>
