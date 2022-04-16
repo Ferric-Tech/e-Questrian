@@ -6,8 +6,13 @@
     </div>
   </div>
   <div *ngIf="displayMenu" class="navbar-button-container">
-    <button class="navbar-button" mat-button>Calendar</button>
-    <button class="navbar-button" mat-button>Financial</button>
-    <button class="navbar-button" mat-button>Clients</button>
+    <button
+      *ngFor="let option of menuOptions"
+      class="navbar-button"
+      (click)="onMenuOptionClicked(option.option)"
+      mat-button
+    >
+      {{ option.display }}
+    </button>
   </div>
 </div>
