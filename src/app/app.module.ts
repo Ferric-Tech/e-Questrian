@@ -8,13 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatMenuModule} from '@angular/material/menu';
 import { HomeComponent } from './pages/home/home.component';
+import { CalanderComponent } from './pages/calander/calander.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    CalanderComponent
   ],
   imports: [
     BrowserModule,
