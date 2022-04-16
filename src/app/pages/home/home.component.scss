@@ -7,6 +7,7 @@
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
   font-style: Arial;
+  background-color: aqua;
 }
 
 .home-button-container {
@@ -24,7 +25,8 @@
 button {
   width: 100px;
   height: 100px;
-  margin: 20px;
+  margin: 30px;
+  margin-bottom: 0;
 }
 
 // @media only screen and (max-width: 600px) {
