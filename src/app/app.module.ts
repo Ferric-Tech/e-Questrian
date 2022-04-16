@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatMenuModule} from '@angular/material/menu';
 import { HomeComponent } from './pages/home/home.component';
 import { CalanderComponent } from './pages/calander/calander.component';
+import { FinancesComponent } from './pages/finances/finances.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { CalanderComponent } from './pages/calander/calander.component';
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    CalanderComponent
+    CalanderComponent,
+    FinancesComponent
   ],
   imports: [
     BrowserModule,
