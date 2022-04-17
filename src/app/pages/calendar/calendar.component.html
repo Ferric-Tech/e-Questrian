@@ -11,5 +11,6 @@
 <app-new-appointment
   *ngIf="displayNewAppointmentForm"
   [startTime]="proposedStartTime"
+  (newAppointment)="newAppointmentCreated($event)"
   (canceled)="newAppointmentCanceled()"
 ></app-new-appointment>

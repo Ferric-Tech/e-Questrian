@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-calendar',
@@ -19,6 +20,11 @@ export class CalendarComponent implements OnInit {
   onCalendarBlockClick(block: string) {
     this.proposedStartTime = block;
     this.displayNewAppointmentForm = true;
+  }
+
+  newAppointmentCreated(newAppointment: FormGroup) {
+    console.log(newAppointment.value);
+    this.displayNewAppointmentForm = false;
   }
 
   newAppointmentCanceled() {

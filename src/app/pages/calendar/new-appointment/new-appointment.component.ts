@@ -9,6 +9,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class NewAppointmentComponent implements OnInit {
   @Input() startTime: string = '';
   @Output() canceled = new EventEmitter<void>();
+  @Output() newAppointment = new EventEmitter<any>();
 
   newAppoitmentForm = new FormGroup({
     title: new FormControl('New appointment'),
@@ -32,7 +33,9 @@ export class NewAppointmentComponent implements OnInit {
     // Delete all the times before this
   }
 
-  onSubmit() {}
+  onSubmit() {
+    this.newAppointment.emit(this.newAppoitmentForm);
+  }
 
   onCancelClick() {
     this.canceled.emit();
