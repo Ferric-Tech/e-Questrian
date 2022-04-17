@@ -29,14 +29,40 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  height: 40px;
+  padding: 5px;
   align-items: center;
+  height: 25px;
 }
 
 .form-line-title {
   width: 40%;
 }
 
+.button-container {
+  display: flex;
+  width: calc(100% - 20px);
+  flex-wrap: nowrap;
+  flex-direction: row;
+  margin: 10px;
+}
+
 mat-select {
   width: 60px;
+  background-color: white;
+  height: 25px;
+  align-items: center;
+}
+
+input {
+  border: none;
+  height: 25px;
+}
+
+button {
+  display: flex;
+  flex-grow: 1;
+  margin: 5px;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
 }

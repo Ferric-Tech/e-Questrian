@@ -27,9 +27,12 @@
         </mat-select>
       </div>
     </div>
-
-    <button (click)="onCancelClick()">Cancel</button>
-    <button type="submit" [disabled]="!newAppoitmentForm.valid">Submit</button>
+    <div class="button-container">
+      <button (click)="onCancelClick()">Cancel</button>
+      <button type="submit" [disabled]="!newAppoitmentForm.valid">
+        Submit
+      </button>
+    </div>
   </form>
 </div>
 
