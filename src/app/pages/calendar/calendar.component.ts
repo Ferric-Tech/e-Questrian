@@ -8,7 +8,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class CalendarComponent implements OnInit {
   calenderBlocks: string[] = [];
   displayNewAppointmentForm = false;
-  proposedStartTime: string | undefined;
+  proposedStartTime: string = '';
 
   constructor() {
     this.setCalendarBlocks();
@@ -19,6 +19,10 @@ export class CalendarComponent implements OnInit {
   onCalendarBlockClick(block: string) {
     this.proposedStartTime = block;
     this.displayNewAppointmentForm = true;
+  }
+
+  newAppointmentCanceled() {
+    this.displayNewAppointmentForm = false;
   }
 
   private setCalendarBlocks() {

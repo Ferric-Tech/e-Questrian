@@ -14,6 +14,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { NewAppointmentComponent } from './pages/calendar/new-appointment/new-appointment.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NewAppointmentComponent } from './pages/calendar/new-appointment/new-ap
     BrowserAnimationsModule,
     MatMenuModule,
     MatIconModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
