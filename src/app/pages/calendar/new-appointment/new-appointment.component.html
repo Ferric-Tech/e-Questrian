@@ -1,21 +1,36 @@
 <div class="main-container">
-  <div class="form-container">
+  <form
+    class="form-container"
+    [formGroup]="newAppoitmentForm"
+    (ngSubmit)="onSubmit()"
+  >
     <div class="form-header">New appointment</div>
+
     <div class="form-line">
       <div class="form-line-title">Title:</div>
-      <input type="text" />
+      <input type="text" formControlName="title" />
     </div>
+
     <div class="form-line">
       <div class="form-line-title">Start time:</div>
       <div>
-        <mat-select [(value)]="displayTime">
+        <mat-select formControlName="startTime">
           <mat-option [value]="option" *ngFor="let option of times">{{
             option
           }}</mat-option>
         </mat-select>
-        until {{ startTime }}
+        until
+        <mat-select formControlName="endTime">
+          <mat-option [value]="option" *ngFor="let option of times">{{
+            option
+          }}</mat-option>
+        </mat-select>
       </div>
     </div>
+
     <button (click)="onCancelClick()">Cancel</button>
-  </div>
+    <button type="submit" [disabled]="!newAppoitmentForm.valid">Submit</button>
+  </form>
 </div>
+
+<!-- (selectionChange)="onStartTimeSelected($event.value)" -->
