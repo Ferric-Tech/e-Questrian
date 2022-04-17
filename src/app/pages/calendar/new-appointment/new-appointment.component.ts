@@ -15,6 +15,7 @@ export class NewAppointmentComponent implements OnInit {
     title: new FormControl('New appointment'),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
+    Client: new FormControl(''),
   });
 
   times: string[] = [];
