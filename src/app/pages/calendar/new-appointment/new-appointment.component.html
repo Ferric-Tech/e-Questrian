@@ -13,19 +13,17 @@
 
     <div class="form-line">
       <div class="form-line-title">Start time:</div>
-      <div>
-        <mat-select formControlName="startTime">
-          <mat-option [value]="option" *ngFor="let option of times">{{
-            option
-          }}</mat-option>
-        </mat-select>
-        until
-        <mat-select formControlName="endTime">
-          <mat-option [value]="option" *ngFor="let option of times">{{
-            option
-          }}</mat-option>
-        </mat-select>
-      </div>
+      <mat-select class="form-selector" formControlName="startTime">
+        <mat-option [value]="option" *ngFor="let option of times">{{
+          option
+        }}</mat-option>
+      </mat-select>
+      until
+      <mat-select class="form-selector" formControlName="endTime">
+        <mat-option [value]="option" *ngFor="let option of times">{{
+          option
+        }}</mat-option>
+      </mat-select>
     </div>
     <div class="button-container">
       <button (click)="onCancelClick()">Cancel</button>
