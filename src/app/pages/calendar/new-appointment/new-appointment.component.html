@@ -26,6 +26,14 @@
         }}</mat-option>
       </mat-select>
     </div>
+    <div class="form-line">
+      <div class="form-line-title">Client:</div>
+      <mat-select class="client-selector" formControlName="client">
+        <mat-option [value]="option" *ngFor="let option of clients">{{
+          option
+        }}</mat-option>
+      </mat-select>
+    </div>
     <div class="button-container">
       <button (click)="onCancelClick()">Cancel</button>
       <button type="submit" [disabled]="!newAppoitmentForm.valid">

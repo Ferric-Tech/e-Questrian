@@ -15,10 +15,11 @@ export class NewAppointmentComponent implements OnInit {
     title: new FormControl('New appointment'),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
-    Client: new FormControl(''),
+    client: new FormControl(''),
   });
 
   times: string[] = [];
+  clients: string[] = ['Cleint 1', 'Client 2'];
   displayTime = '';
 
   constructor() {}
