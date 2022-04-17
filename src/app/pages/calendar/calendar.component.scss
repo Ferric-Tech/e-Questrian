@@ -15,3 +15,18 @@
   height: 100%;
   margin: 10px;
 }
+
+.block-container {
+  height: 25px;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.block-time-container {
+  width: 10%;
+}
+
+hr {
+  margin: 0;
+}

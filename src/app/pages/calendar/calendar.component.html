@@ -2,10 +2,18 @@
 <div class="calendar-container">
   <div
     *ngFor="let block of calenderBlocks"
-    (click)="onCalendarBlockClick(block)"
+    (click)="onCalendarBlockClick(block.time)"
   >
     <hr />
-    {{ block }}
+    <div class="block-container">
+      <div class="block-time-container">{{ block.time }}</div>
+      <div
+        class="block-appointment-container"
+        *ngFor="let appointment of block.appointments"
+      >
+        <button>{{ appointment.client }}</button>
+      </div>
+    </div>
   </div>
 </div>
 <app-new-appointment

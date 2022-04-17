@@ -1,13 +1,25 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
+export interface Appointment {
+  title: string;
+  startTime: string;
+  endTime: string;
+  client: string;
+}
+
+export interface CalendarBlock {
+  time: string;
+  appointments: Appointment[];
+}
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  calenderBlocks: string[] = [];
+  calenderBlocks: CalendarBlock[] = [];
   displayNewAppointmentForm = false;
   proposedStartTime: string = '';
 
@@ -23,7 +35,12 @@ export class CalendarComponent implements OnInit {
   }
 
   newAppointmentCreated(newAppointment: FormGroup) {
-    console.log(newAppointment.value);
+    this.calenderBlocks.forEach((block) => {
+      if (block.time == newAppointment.controls['startTime'].value) {
+        block.appointments.push(newAppointment.value);
+      }
+    });
+
     this.displayNewAppointmentForm = false;
   }
 
@@ -33,8 +50,8 @@ export class CalendarComponent implements OnInit {
 
   private setCalendarBlocks() {
     for (let i = 6; i < 18; i++) {
-      this.calenderBlocks.push(i + ':00');
-      this.calenderBlocks.push(i + ':30');
+      this.calenderBlocks.push({ time: i + ':00', appointments: [] });
+      this.calenderBlocks.push({ time: i + ':30', appointments: [] });
     }
   }
 }
