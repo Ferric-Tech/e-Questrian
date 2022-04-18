@@ -1,17 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-export interface Appointment {
-  title: string;
-  startTime: string;
-  endTime: string;
-  client: string;
-}
-
-export interface CalendarBlock {
-  time: string;
-  appointments: Appointment[];
-}
+import { CalendarBlock } from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-calendar',
