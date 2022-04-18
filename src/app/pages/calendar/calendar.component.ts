@@ -1,6 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CalendarBlock, CalendarData } from 'src/interfaces/calander.interface';
+import {
+  Appointment,
+  CalendarBlock,
+  CalendarData,
+} from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -14,6 +18,7 @@ export class CalendarComponent implements OnInit {
   displayNewAppointmentForm = false;
   proposedStartTime: string = '';
   calenderData: CalendarData = {};
+  appointment = {} as Appointment;
 
   constructor() {}
 
@@ -46,7 +51,14 @@ export class CalendarComponent implements OnInit {
   }
 
   onCalendarBlockClick(block: string) {
+    this.appointment = {} as Appointment;
     this.proposedStartTime = block;
+    this.displayNewAppointmentForm = true;
+  }
+
+  onAppointmentClick(appointment: Appointment) {
+    console.log(appointment);
+    this.appointment = appointment;
     this.displayNewAppointmentForm = true;
   }
 

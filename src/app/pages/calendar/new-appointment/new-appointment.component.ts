@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Appointment } from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-new-appointment',
@@ -8,11 +9,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class NewAppointmentComponent implements OnInit {
   @Input() startTime: string = '';
+  @Input() appointment = {} as Appointment;
   @Output() canceled = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<any>();
 
   newAppoitmentForm = new FormGroup({
-    title: new FormControl('New appointment'),
+    title: new FormControl(''),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
     client: new FormControl(''),
@@ -25,10 +27,8 @@ export class NewAppointmentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.setForm();
     this.setCalendarBlocks();
-    this.newAppoitmentForm.controls['startTime'].setValue(this.startTime);
-    let endTime = this.determineEndTime(this.startTime);
-    this.newAppoitmentForm.controls['endTime'].setValue(endTime);
   }
 
   onStartTimeSelected(time: string) {
@@ -41,6 +41,25 @@ export class NewAppointmentComponent implements OnInit {
 
   onCancelClick() {
     this.canceled.emit();
+  }
+
+  setForm() {
+    if (Object.keys(this.appointment).length != 0) {
+      this.newAppoitmentForm = new FormGroup({
+        title: new FormControl(this.appointment.title || ''),
+        startTime: new FormControl(this.appointment.startTime || ''),
+        endTime: new FormControl(this.appointment.endTime || ''),
+        client: new FormControl(this.appointment.client || ''),
+      });
+      return;
+    }
+    let endTime = this.determineEndTime(this.startTime);
+    this.newAppoitmentForm = new FormGroup({
+      title: new FormControl('New appointment'),
+      startTime: new FormControl(this.startTime),
+      endTime: new FormControl(endTime),
+      client: new FormControl(''),
+    });
   }
 
   private determineEndTime(startTime: string) {
