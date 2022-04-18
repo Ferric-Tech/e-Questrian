@@ -38,6 +38,13 @@
       <button (click)="onCancelClick()">Cancel</button>
       <button type="submit" [disabled]="!appoitmentForm.valid">Submit</button>
     </div>
+    <button
+      class="remove-button"
+      *ngIf="!isNewAppointment"
+      (click)="onRemoveAppointmentClick()"
+    >
+      Remove appointment
+    </button>
   </form>
 </div>
 

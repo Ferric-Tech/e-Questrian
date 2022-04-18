@@ -65,7 +65,7 @@ export class CalendarComponent implements OnInit {
     this.displayNewAppointmentForm = true;
   }
 
-  newAppointmentCreated(newAppointment: Appointment) {
+  appointmentCreated(newAppointment: Appointment) {
     this.testDataService.addNewAppointment(this.dateFormatted, newAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
@@ -77,6 +77,16 @@ export class CalendarComponent implements OnInit {
       this.dateFormatted,
       this.currentAppointment,
       newAppointment
+    );
+    this.addAppointmentsToCalendar();
+    this.displayNewAppointmentForm = false;
+  }
+
+  appointmentRemoved() {
+    this.appointmentEditActive = false;
+    this.testDataService.cancelAppointment(
+      this.dateFormatted,
+      this.currentAppointment
     );
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;

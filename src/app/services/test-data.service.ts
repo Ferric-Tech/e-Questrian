@@ -24,7 +24,12 @@ export class TestDataService {
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  removeAppointment(date: string, appointment: Appointment) {
+  cancelAppointment(date: string, appointment: Appointment) {
+    this.removeAppointment(date, appointment);
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+  }
+
+  private removeAppointment(date: string, appointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
@@ -36,7 +41,6 @@ export class TestDataService {
           if (
             JSON.stringify(appointments[index2]) === JSON.stringify(appointment)
           ) {
-            console.log('Here now');
             this.calendarData[date][block].appointments.splice(index2, 1);
             return;
           }

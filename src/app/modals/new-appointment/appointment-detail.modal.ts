@@ -13,8 +13,10 @@ export class NewAppointmentComponent implements OnInit {
   @Output() canceled = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<Appointment>();
   @Output() editedAppointment = new EventEmitter<Appointment>();
+  @Output() removeAppointment = new EventEmitter<void>();
 
   isNewAppointment: boolean | undefined;
+  isRemoveAppointment = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
     title: new FormControl(''),
@@ -39,9 +41,15 @@ export class NewAppointmentComponent implements OnInit {
 
   // Main call to actions callbacks
   onSubmitClick() {
-    this.isNewAppointment
+    this.isRemoveAppointment
+      ? this.removeAppointment.emit()
+      : this.isNewAppointment
       ? this.newAppointment.emit(this.appoitmentForm.value as Appointment)
       : this.editedAppointment.emit(this.appoitmentForm.value as Appointment);
+  }
+
+  onRemoveAppointmentClick() {
+    this.isRemoveAppointment = true;
   }
 
   onCancelClick() {
