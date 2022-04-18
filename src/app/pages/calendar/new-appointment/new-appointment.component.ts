@@ -22,7 +22,7 @@ export class NewAppointmentComponent implements OnInit {
   });
 
   times: string[] = [];
-  clients: string[] = ['Cleint 1', 'Client 2'];
+  clients: string[] = [];
   displayTime = '';
 
   constructor() {}
@@ -30,6 +30,7 @@ export class NewAppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.setScreen();
     this.setForm();
+    this.loadClients();
     this.setCalendarBlocks();
   }
 
@@ -95,5 +96,10 @@ export class NewAppointmentComponent implements OnInit {
       this.times.push(i + ':00');
       this.times.push(i + ':30');
     }
+  }
+
+  private loadClients() {
+    let calanderString = localStorage.getItem('clients');
+    this.clients = JSON.parse(calanderString || '[]');
   }
 }
