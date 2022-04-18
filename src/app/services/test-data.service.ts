@@ -24,7 +24,7 @@ export class TestDataService {
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  private removeAppointment(date: string, appointment: Appointment) {
+  removeAppointment(date: string, appointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
