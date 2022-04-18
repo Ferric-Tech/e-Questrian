@@ -51,6 +51,7 @@ export class TestDataService {
     this.calendarData = JSON.parse(calanderString || '{}');
 
     this.addAppointment(date, newAppointment);
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
   private addAppointment(date: string, appointment: Appointment) {
@@ -59,7 +60,6 @@ export class TestDataService {
       for (let index = 0; index < this.calendarData[date].length; index++) {
         if (this.calendarData[date][index].time == appointment.startTime) {
           this.calendarData[date][index].appointments.push(appointment);
-          localStorage.setItem('calendar', JSON.stringify(this.calendarData));
           return;
         }
       }
@@ -67,7 +67,6 @@ export class TestDataService {
         time: appointment.startTime,
         appointments: [appointment],
       });
-      localStorage.setItem('calendar', JSON.stringify(this.calendarData));
       return;
     }
     this.calendarData[date] = [
@@ -76,7 +75,6 @@ export class TestDataService {
         appointments: [appointment],
       },
     ];
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
   loadTestDataToLocal() {
