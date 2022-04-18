@@ -13,6 +13,7 @@ export class NewAppointmentComponent implements OnInit {
   @Output() canceled = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<any>();
 
+  modalHeader = '';
   newAppoitmentForm = new FormGroup({
     title: new FormControl(''),
     startTime: new FormControl(''),
@@ -27,12 +28,13 @@ export class NewAppointmentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.setScreen();
     this.setForm();
     this.setCalendarBlocks();
   }
 
   onStartTimeSelected(time: string) {
-    // Delete all the times before this
+    // Delete all the times before startTime
   }
 
   onSubmit() {
@@ -41,6 +43,14 @@ export class NewAppointmentComponent implements OnInit {
 
   onCancelClick() {
     this.canceled.emit();
+  }
+
+  private setScreen() {
+    if (Object.keys(this.appointment).length != 0) {
+      this.modalHeader = 'Edit appointment';
+      return;
+    }
+    this.modalHeader = 'New appointment';
   }
 
   setForm() {
