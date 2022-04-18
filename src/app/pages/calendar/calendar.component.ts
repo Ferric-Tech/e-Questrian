@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TestDataService } from 'src/app/services/test-data.service';
 import {
   Appointment,
   CalendarBlock,
@@ -17,10 +18,10 @@ export class CalendarComponent implements OnInit {
   calenderBlocks: CalendarBlock[] = [];
   displayNewAppointmentForm = false;
   proposedStartTime: string = '';
-  calenderData: CalendarData = {};
+  calendarData: CalendarData = {};
   appointment = {} as Appointment;
 
-  constructor() {}
+  constructor(private testDataService: TestDataService) {}
 
   ngOnInit(): void {
     this.setCalendarBlocks();
@@ -62,6 +63,10 @@ export class CalendarComponent implements OnInit {
   }
 
   newAppointmentCreated(newAppointment: FormGroup) {
+    this.testDataService.addNewAppointment(
+      this.dateFormatted,
+      newAppointment.value
+    );
     this.calenderBlocks.forEach((block) => {
       if (block.time == newAppointment.controls['startTime'].value) {
         block.appointments.push(newAppointment.value);
@@ -95,10 +100,10 @@ export class CalendarComponent implements OnInit {
   private addAppointments() {
     this.setCalendarBlocks();
     this.loadCalendarData();
-    if (!this.calenderData[this.dateFormatted]) {
+    if (!this.calendarData[this.dateFormatted]) {
       return;
     }
-    this.calenderData[this.dateFormatted].forEach((dataBlock) => {
+    this.calendarData[this.dateFormatted].forEach((dataBlock) => {
       this.calenderBlocks.forEach((block) => {
         if (block.time == dataBlock.time) {
           dataBlock.appointments.forEach((appointment) => {
@@ -110,7 +115,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private loadCalendarData() {
-    let calanderString = localStorage.getItem('calendar');
-    this.calenderData = JSON.parse(calanderString || '{}');
+    let calandarString = localStorage.getItem('calendar');
+    this.calendarData = JSON.parse(calandarString || '{}');
   }
 }

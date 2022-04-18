@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CalendarData } from 'src/interfaces/calander.interface';
+import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +14,46 @@ export class TestDataService {
 
   constructor() {}
 
+  addNewAppointment(date: string, newAppointment: Appointment) {
+    // Get current object on local
+    let calanderString = localStorage.getItem('calendar');
+    this.calendarData = JSON.parse(calanderString || '{}');
+
+    // Add new appointment to object as required
+    if (Object.keys(this.calendarData).indexOf(date) > -1) {
+      for (let index = 0; index < this.calendarData[date].length; index++) {
+        console.log(this.calendarData[date][index].time);
+        console.log(newAppointment.startTime);
+        console.log(
+          this.calendarData[date][index].time == newAppointment.startTime
+        );
+        if (this.calendarData[date][index].time == newAppointment.startTime) {
+          this.calendarData[date][index].appointments.push(newAppointment);
+          localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+          return;
+        }
+      }
+      this.calendarData[date].push({
+        time: newAppointment.startTime,
+        appointments: [newAppointment],
+      });
+      localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+      return;
+    }
+    this.calendarData[date] = [
+      {
+        time: newAppointment.startTime,
+        appointments: [newAppointment],
+      },
+    ];
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+  }
+
   loadTestDataToLocal() {
     this.setDates();
     this.setCalendarObjects();
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
     this.setClientsList();
-    console.log(this.clients);
     localStorage.setItem('clients', JSON.stringify(this.clients));
   }
 
