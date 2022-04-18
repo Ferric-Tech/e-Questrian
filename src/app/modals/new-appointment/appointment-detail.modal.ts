@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Appointment } from 'src/interfaces/calander.interface';
+import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-new-appointment-modal',
@@ -9,10 +9,10 @@ import { Appointment } from 'src/interfaces/calander.interface';
 })
 export class NewAppointmentComponent implements OnInit {
   @Input() startTime: string = '';
-  @Input() appointment = {} as Appointment;
+  @Input() currentAppointment = {} as Appointment;
   @Output() canceled = new EventEmitter<void>();
-  @Output() newAppointment = new EventEmitter<any>();
-  @Output() editedAppointment = new EventEmitter<any>();
+  @Output() newAppointment = new EventEmitter<Appointment>();
+  @Output() editedAppointment = new EventEmitter<Appointment>();
 
   isNewAppointment: boolean | undefined;
   modalHeader = '';
@@ -30,7 +30,7 @@ export class NewAppointmentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.isNewAppointment = Object.keys(this.appointment).length == 0;
+    this.isNewAppointment = Object.keys(this.currentAppointment).length == 0;
     this.setScreen();
     this.setForm();
     this.setClients();
@@ -40,8 +40,8 @@ export class NewAppointmentComponent implements OnInit {
   // Main call to actions callbacks
   onSubmitClick() {
     this.isNewAppointment
-      ? this.newAppointment.emit(this.appoitmentForm)
-      : this.editedAppointment.emit(this.appoitmentForm);
+      ? this.newAppointment.emit(this.appoitmentForm.value as Appointment)
+      : this.editedAppointment.emit(this.appoitmentForm.value as Appointment);
   }
 
   onCancelClick() {
@@ -76,10 +76,10 @@ export class NewAppointmentComponent implements OnInit {
 
   private setFormForEdit() {
     this.appoitmentForm = new FormGroup({
-      title: new FormControl(this.appointment.title || ''),
-      startTime: new FormControl(this.appointment.startTime || ''),
-      endTime: new FormControl(this.appointment.endTime || ''),
-      client: new FormControl(this.appointment.client || ''),
+      title: new FormControl(this.currentAppointment.title || ''),
+      startTime: new FormControl(this.currentAppointment.startTime || ''),
+      endTime: new FormControl(this.currentAppointment.endTime || ''),
+      client: new FormControl(this.currentAppointment.client || ''),
     });
   }
 

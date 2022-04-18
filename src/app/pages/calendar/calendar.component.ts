@@ -19,7 +19,7 @@ export class CalendarComponent implements OnInit {
   displayNewAppointmentForm = false;
   proposedStartTime: string = '';
   calendarData: CalendarData = {};
-  appointment = {} as Appointment;
+  currentAppointment = {} as Appointment;
 
   constructor(private testDataService: TestDataService) {}
 
@@ -52,31 +52,30 @@ export class CalendarComponent implements OnInit {
   }
 
   onCalendarBlockClick(block: string) {
-    this.appointment = {} as Appointment;
+    this.currentAppointment = {} as Appointment;
     this.proposedStartTime = block;
     this.displayNewAppointmentForm = true;
   }
 
   onAppointmentClick(appointment: Appointment) {
-    this.appointment = appointment;
+    this.currentAppointment = appointment;
     this.displayNewAppointmentForm = true;
   }
 
-  newAppointmentCreated(newAppointment: FormGroup) {
-    this.testDataService.addNewAppointment(
-      this.dateFormatted,
-      newAppointment.value
-    );
+  newAppointmentCreated(newAppointment: Appointment) {
+    this.testDataService.addNewAppointment(this.dateFormatted, newAppointment);
     this.calenderBlocks.forEach((block) => {
-      if (block.time == newAppointment.controls['startTime'].value) {
-        block.appointments.push(newAppointment.value);
+      if (block.time == newAppointment.startTime) {
+        block.appointments.push(newAppointment);
       }
     });
 
     this.displayNewAppointmentForm = false;
   }
 
-  newAppointmentCanceled() {
+  appointmentEdited() {}
+
+  appointmentDetailModalCanceled() {
     this.displayNewAppointmentForm = false;
   }
 
