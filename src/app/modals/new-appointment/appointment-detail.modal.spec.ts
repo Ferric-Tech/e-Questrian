@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewAppointmentComponent } from './new-appointment.component';
+import { NewAppointmentComponent } from './appointment-detail.modal';
 
 describe('NewAppointmentComponent', () => {
   let component: NewAppointmentComponent;
@@ -8,9 +8,8 @@ describe('NewAppointmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewAppointmentComponent ]
-    })
-    .compileComponents();
+      declarations: [NewAppointmentComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

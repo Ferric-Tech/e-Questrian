@@ -4,8 +4,8 @@ import { Appointment } from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-new-appointment',
-  templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.scss'],
+  templateUrl: './appointment-detail.modal.html',
+  styleUrls: ['./appointment-detail.modal.scss'],
 })
 export class NewAppointmentComponent implements OnInit {
   @Input() startTime: string = '';
