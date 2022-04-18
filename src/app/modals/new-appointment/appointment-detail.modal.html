@@ -1,8 +1,8 @@
 <div class="main-container">
   <form
     class="form-container"
-    [formGroup]="newAppoitmentForm"
-    (ngSubmit)="onSubmit()"
+    [formGroup]="appoitmentForm"
+    (ngSubmit)="onSubmitClick()"
   >
     <div class="form-header">{{ modalHeader }}</div>
 
@@ -14,31 +14,29 @@
     <div class="form-line">
       <div class="form-line-title">Start time:</div>
       <mat-select class="time-selector" formControlName="startTime">
-        <mat-option [value]="option" *ngFor="let option of times">{{
-          option
-        }}</mat-option>
+        <mat-option [value]="option" *ngFor="let option of times"
+          >{{ option }}</mat-option
+        >
       </mat-select>
       <div class="mid-selector-container">until</div>
 
       <mat-select class="time-selector" formControlName="endTime">
-        <mat-option [value]="option" *ngFor="let option of times">{{
-          option
-        }}</mat-option>
+        <mat-option [value]="option" *ngFor="let option of times"
+          >{{ option }}</mat-option
+        >
       </mat-select>
     </div>
     <div class="form-line">
       <div class="form-line-title">Client:</div>
       <mat-select class="client-selector" formControlName="client">
-        <mat-option [value]="option" *ngFor="let option of clients">{{
-          option
-        }}</mat-option>
+        <mat-option [value]="option" *ngFor="let option of clients"
+          >{{ option }}</mat-option
+        >
       </mat-select>
     </div>
     <div class="button-container">
       <button (click)="onCancelClick()">Cancel</button>
-      <button type="submit" [disabled]="!newAppoitmentForm.valid">
-        Submit
-      </button>
+      <button type="submit" [disabled]="!appoitmentForm.valid">Submit</button>
     </div>
   </form>
 </div>

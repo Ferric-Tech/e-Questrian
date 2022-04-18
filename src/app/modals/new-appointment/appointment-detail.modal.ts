@@ -12,9 +12,10 @@ export class NewAppointmentComponent implements OnInit {
   @Input() appointment = {} as Appointment;
   @Output() canceled = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<any>();
+  @Output() editedAppointment = new EventEmitter<any>();
 
   modalHeader = '';
-  newAppoitmentForm = new FormGroup({
+  appoitmentForm = new FormGroup({
     title: new FormControl(''),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
@@ -30,22 +31,28 @@ export class NewAppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.setScreen();
     this.setForm();
-    this.loadClients();
+    this.setClients();
     this.setCalendarBlocks();
   }
 
-  onStartTimeSelected(time: string) {
-    // Delete all the times before startTime
-  }
-
-  onSubmit() {
-    this.newAppointment.emit(this.newAppoitmentForm);
+  // Main call to actions callbacks
+  onSubmitClick() {
+    if (Object.keys(this.appointment).length != 0) {
+      this.editedAppointment.emit(this.appoitmentForm);
+    }
+    this.newAppointment.emit(this.appoitmentForm);
   }
 
   onCancelClick() {
     this.canceled.emit();
   }
 
+  // Minor actions callbacks
+  onStartTimeSelected(time: string) {
+    // Delete all the times before startTime
+  }
+
+  // Private functions related to initialisation of the component
   private setScreen() {
     if (Object.keys(this.appointment).length != 0) {
       this.modalHeader = 'Edit appointment';
@@ -54,9 +61,9 @@ export class NewAppointmentComponent implements OnInit {
     this.modalHeader = 'New appointment';
   }
 
-  setForm() {
+  private setForm() {
     if (Object.keys(this.appointment).length != 0) {
-      this.newAppoitmentForm = new FormGroup({
+      this.appoitmentForm = new FormGroup({
         title: new FormControl(this.appointment.title || ''),
         startTime: new FormControl(this.appointment.startTime || ''),
         endTime: new FormControl(this.appointment.endTime || ''),
@@ -65,7 +72,7 @@ export class NewAppointmentComponent implements OnInit {
       return;
     }
     let endTime = this.determineEndTime(this.startTime);
-    this.newAppoitmentForm = new FormGroup({
+    this.appoitmentForm = new FormGroup({
       title: new FormControl('New appointment'),
       startTime: new FormControl(this.startTime),
       endTime: new FormControl(endTime),
@@ -91,15 +98,15 @@ export class NewAppointmentComponent implements OnInit {
     return endHour + ':' + endMinutes;
   }
 
+  private setClients() {
+    let calanderString = localStorage.getItem('clients');
+    this.clients = JSON.parse(calanderString || '[]');
+  }
+
   private setCalendarBlocks() {
     for (let i = 6; i < 18; i++) {
       this.times.push(i + ':00');
       this.times.push(i + ':30');
     }
-  }
-
-  private loadClients() {
-    let calanderString = localStorage.getItem('clients');
-    this.clients = JSON.parse(calanderString || '[]');
   }
 }
