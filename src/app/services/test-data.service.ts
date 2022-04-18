@@ -10,6 +10,7 @@ export class TestDataService {
   todayFormatted = '';
   tomorrowFormatted = '';
   calendarData: CalendarData = {};
+  clients: string[] = [];
 
   constructor() {}
 
@@ -17,6 +18,9 @@ export class TestDataService {
     this.setDates();
     this.setCalendarObjects();
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+    this.setClientsList();
+    console.log(this.clients);
+    localStorage.setItem('clients', JSON.stringify(this.clients));
   }
 
   private setDates() {
@@ -99,5 +103,18 @@ export class TestDataService {
         ],
       },
     ];
+  }
+
+  private setClientsList() {
+    Object.keys(this.calendarData).forEach((date) => {
+      this.calendarData[date].forEach((time) => {
+        time.appointments.forEach((appointment) => {
+          if (this.clients.indexOf(appointment.client) < 0) {
+            this.clients.push(appointment.client);
+          }
+        });
+      });
+    });
+    this.clients.sort();
   }
 }
