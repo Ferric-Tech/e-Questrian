@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Appointment } from 'src/interfaces/calander.interface';
 
 @Component({
-  selector: 'app-new-appointment',
+  selector: 'app-new-appointment-modal',
   templateUrl: './appointment-detail.modal.html',
   styleUrls: ['./appointment-detail.modal.scss'],
 })
