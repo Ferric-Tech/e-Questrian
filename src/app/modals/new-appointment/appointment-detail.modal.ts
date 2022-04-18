@@ -14,6 +14,7 @@ export class NewAppointmentComponent implements OnInit {
   @Output() newAppointment = new EventEmitter<any>();
   @Output() editedAppointment = new EventEmitter<any>();
 
+  isNewAppointment: boolean | undefined;
   modalHeader = '';
   appoitmentForm = new FormGroup({
     title: new FormControl(''),
@@ -29,6 +30,7 @@ export class NewAppointmentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.isNewAppointment = Object.keys(this.appointment).length == 0;
     this.setScreen();
     this.setForm();
     this.setClients();
@@ -37,10 +39,9 @@ export class NewAppointmentComponent implements OnInit {
 
   // Main call to actions callbacks
   onSubmitClick() {
-    if (Object.keys(this.appointment).length != 0) {
-      this.editedAppointment.emit(this.appoitmentForm);
-    }
-    this.newAppointment.emit(this.appoitmentForm);
+    this.isNewAppointment
+      ? this.newAppointment.emit(this.appoitmentForm)
+      : this.editedAppointment.emit(this.appoitmentForm);
   }
 
   onCancelClick() {
@@ -54,29 +55,31 @@ export class NewAppointmentComponent implements OnInit {
 
   // Private functions related to initialisation of the component
   private setScreen() {
-    if (Object.keys(this.appointment).length != 0) {
-      this.modalHeader = 'Edit appointment';
-      return;
-    }
-    this.modalHeader = 'New appointment';
+    this.modalHeader = this.isNewAppointment
+      ? 'New appointment'
+      : 'Edit appointment';
   }
 
   private setForm() {
-    if (Object.keys(this.appointment).length != 0) {
-      this.appoitmentForm = new FormGroup({
-        title: new FormControl(this.appointment.title || ''),
-        startTime: new FormControl(this.appointment.startTime || ''),
-        endTime: new FormControl(this.appointment.endTime || ''),
-        client: new FormControl(this.appointment.client || ''),
-      });
-      return;
-    }
+    this.isNewAppointment ? this.setFormForEdit() : this.setFormForNew();
+  }
+
+  private setFormForNew() {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
       title: new FormControl('New appointment'),
       startTime: new FormControl(this.startTime),
       endTime: new FormControl(endTime),
       client: new FormControl(''),
+    });
+  }
+
+  private setFormForEdit() {
+    this.appoitmentForm = new FormGroup({
+      title: new FormControl(this.appointment.title || ''),
+      startTime: new FormControl(this.appointment.startTime || ''),
+      endTime: new FormControl(this.appointment.endTime || ''),
+      client: new FormControl(this.appointment.client || ''),
     });
   }
 
