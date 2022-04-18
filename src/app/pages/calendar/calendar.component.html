@@ -1,5 +1,10 @@
 <div class="page-header-container">Your Calendar</div>
-<div class="date-container">{{ todayFormatted }}</div>
+
+<div class="date-container">
+  <mat-icon (click)="onLeftArrowClick()">keyboard_arrow_left</mat-icon>
+  {{ dateFormatted }}
+  <mat-icon (click)="onRightArrowClick()">keyboard_arrow_right</mat-icon>
+</div>
 <div class="calendar-container">
   <div
     *ngFor="let block of calenderBlocks"
