@@ -24,10 +24,10 @@
     </div>
   </div>
 </div>
-<app-new-appointment
+<app-new-appointment-modal
   *ngIf="displayNewAppointmentForm"
   [startTime]="proposedStartTime"
   [appointment]="appointment"
   (newAppointment)="newAppointmentCreated($event)"
   (canceled)="newAppointmentCanceled()"
-></app-new-appointment>
+></app-new-appointment-modal>
