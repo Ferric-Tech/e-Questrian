@@ -93,6 +93,7 @@ export class CalendarComponent implements OnInit {
   }
 
   appointmentDetailModalCanceled() {
+    this.appointmentEditActive = false;
     this.displayNewAppointmentForm = false;
   }
 
