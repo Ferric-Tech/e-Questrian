@@ -14,6 +14,31 @@ export class TestDataService {
 
   constructor() {}
 
+  editCurrentAppointment(
+    date: string,
+    priorDetails: Appointment,
+    newDetails: Appointment
+  ) {
+    // Get current object on local
+    let calanderString = localStorage.getItem('calendar');
+    this.calendarData = JSON.parse(calanderString || '{}');
+
+    for (let index1 = 0; index1 < this.calendarData[date].length; index1++) {
+      if (this.calendarData[date][index1].time == priorDetails.startTime) {
+        let appointments = this.calendarData[date][index1].appointments;
+        for (let index2 = 0; index2 < appointments.length; index2++) {
+          if (
+            JSON.stringify(appointments[index2]) ===
+            JSON.stringify(priorDetails)
+          ) {
+            this.calendarData[date][index1].appointments[index2] = newDetails;
+            return;
+          }
+        }
+      }
+    }
+  }
+
   addNewAppointment(date: string, newAppointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
@@ -22,11 +47,6 @@ export class TestDataService {
     // Add new appointment to object as required
     if (Object.keys(this.calendarData).indexOf(date) > -1) {
       for (let index = 0; index < this.calendarData[date].length; index++) {
-        console.log(this.calendarData[date][index].time);
-        console.log(newAppointment.startTime);
-        console.log(
-          this.calendarData[date][index].time == newAppointment.startTime
-        );
         if (this.calendarData[date][index].time == newAppointment.startTime) {
           this.calendarData[date][index].appointments.push(newAppointment);
           localStorage.setItem('calendar', JSON.stringify(this.calendarData));

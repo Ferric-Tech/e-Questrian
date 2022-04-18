@@ -29,6 +29,6 @@
   [startTime]="proposedStartTime"
   [currentAppointment]="currentAppointment"
   (newAppointment)="newAppointmentCreated($event)"
-  (editedAppointment)="appointmentEdited()"
+  (editedAppointment)="appointmentEdited($event)"
   (canceled)="appointmentDetailModalCanceled()"
 ></app-new-appointment-modal>

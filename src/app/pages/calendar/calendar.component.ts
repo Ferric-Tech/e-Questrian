@@ -26,7 +26,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.setCalendarBlocks();
     this.setTodaysDate();
-    this.addAppointments();
+    this.addAppointmentsToCalendar();
   }
 
   onLeftArrowClick() {
@@ -37,7 +37,7 @@ export class CalendarComponent implements OnInit {
       (this.date.getMonth() + 1) +
       '-' +
       this.date.getDate();
-    this.addAppointments();
+    this.addAppointmentsToCalendar();
   }
 
   onRightArrowClick() {
@@ -48,7 +48,7 @@ export class CalendarComponent implements OnInit {
       (this.date.getMonth() + 1) +
       '-' +
       this.date.getDate();
-    this.addAppointments();
+    this.addAppointmentsToCalendar();
   }
 
   onCalendarBlockClick(block: string) {
@@ -64,16 +64,19 @@ export class CalendarComponent implements OnInit {
 
   newAppointmentCreated(newAppointment: Appointment) {
     this.testDataService.addNewAppointment(this.dateFormatted, newAppointment);
-    this.calenderBlocks.forEach((block) => {
-      if (block.time == newAppointment.startTime) {
-        block.appointments.push(newAppointment);
-      }
-    });
-
+    this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }
 
-  appointmentEdited() {}
+  appointmentEdited(newAppointment: Appointment) {
+    this.testDataService.editCurrentAppointment(
+      this.dateFormatted,
+      this.currentAppointment,
+      newAppointment
+    );
+    this.addAppointmentsToCalendar();
+    this.displayNewAppointmentForm = false;
+  }
 
   appointmentDetailModalCanceled() {
     this.displayNewAppointmentForm = false;
@@ -96,7 +99,7 @@ export class CalendarComponent implements OnInit {
       this.date.getDate();
   }
 
-  private addAppointments() {
+  private addAppointmentsToCalendar() {
     this.setCalendarBlocks();
     this.loadCalendarData();
     if (!this.calendarData[this.dateFormatted]) {

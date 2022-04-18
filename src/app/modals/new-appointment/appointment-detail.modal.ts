@@ -30,7 +30,7 @@ export class NewAppointmentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.isNewAppointment = Object.keys(this.currentAppointment).length == 0;
+    this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
     this.setScreen();
     this.setForm();
     this.setClients();
@@ -61,7 +61,7 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   private setForm() {
-    this.isNewAppointment ? this.setFormForEdit() : this.setFormForNew();
+    this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
   }
 
   private setFormForNew() {
