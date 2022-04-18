@@ -19,19 +19,25 @@ export class TestDataService {
     priorDetails: Appointment,
     newDetails: Appointment
   ) {
+    this.removeAppointment(date, priorDetails);
+    this.addAppointment(date, newDetails);
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+  }
+
+  private removeAppointment(date: string, appointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
 
-    for (let index1 = 0; index1 < this.calendarData[date].length; index1++) {
-      if (this.calendarData[date][index1].time == priorDetails.startTime) {
-        let appointments = this.calendarData[date][index1].appointments;
+    for (let block = 0; block < this.calendarData[date].length; block++) {
+      if (this.calendarData[date][block].time == appointment.startTime) {
+        let appointments = this.calendarData[date][block].appointments;
         for (let index2 = 0; index2 < appointments.length; index2++) {
           if (
-            JSON.stringify(appointments[index2]) ===
-            JSON.stringify(priorDetails)
+            JSON.stringify(appointments[index2]) === JSON.stringify(appointment)
           ) {
-            this.calendarData[date][index1].appointments[index2] = newDetails;
+            console.log('Here now');
+            this.calendarData[date][block].appointments.splice(index2, 1);
             return;
           }
         }
@@ -44,26 +50,30 @@ export class TestDataService {
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
 
+    this.addAppointment(date, newAppointment);
+  }
+
+  private addAppointment(date: string, appointment: Appointment) {
     // Add new appointment to object as required
     if (Object.keys(this.calendarData).indexOf(date) > -1) {
       for (let index = 0; index < this.calendarData[date].length; index++) {
-        if (this.calendarData[date][index].time == newAppointment.startTime) {
-          this.calendarData[date][index].appointments.push(newAppointment);
+        if (this.calendarData[date][index].time == appointment.startTime) {
+          this.calendarData[date][index].appointments.push(appointment);
           localStorage.setItem('calendar', JSON.stringify(this.calendarData));
           return;
         }
       }
       this.calendarData[date].push({
-        time: newAppointment.startTime,
-        appointments: [newAppointment],
+        time: appointment.startTime,
+        appointments: [appointment],
       });
       localStorage.setItem('calendar', JSON.stringify(this.calendarData));
       return;
     }
     this.calendarData[date] = [
       {
-        time: newAppointment.startTime,
-        appointments: [newAppointment],
+        time: appointment.startTime,
+        appointments: [appointment],
       },
     ];
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));

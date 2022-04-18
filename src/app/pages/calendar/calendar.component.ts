@@ -20,6 +20,7 @@ export class CalendarComponent implements OnInit {
   proposedStartTime: string = '';
   calendarData: CalendarData = {};
   currentAppointment = {} as Appointment;
+  appointmentEditActive = false;
 
   constructor(private testDataService: TestDataService) {}
 
@@ -52,12 +53,14 @@ export class CalendarComponent implements OnInit {
   }
 
   onCalendarBlockClick(block: string) {
+    if (this.appointmentEditActive) return;
     this.currentAppointment = {} as Appointment;
     this.proposedStartTime = block;
     this.displayNewAppointmentForm = true;
   }
 
   onAppointmentClick(appointment: Appointment) {
+    this.appointmentEditActive = true;
     this.currentAppointment = appointment;
     this.displayNewAppointmentForm = true;
   }
@@ -69,6 +72,7 @@ export class CalendarComponent implements OnInit {
   }
 
   appointmentEdited(newAppointment: Appointment) {
+    this.appointmentEditActive = false;
     this.testDataService.editCurrentAppointment(
       this.dateFormatted,
       this.currentAppointment,
