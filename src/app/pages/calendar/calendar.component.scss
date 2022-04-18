@@ -1,11 +1,21 @@
 .page-header-container {
   display: flex;
   width: 100%;
-  height: 75px;
+  height: 50px;
   font-size: large;
   justify-content: center;
   align-items: center;
   font-weight: bold;
+}
+
+.date-container {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  font-size: larger;
+  justify-content: center;
+  align-items: center;
+  font-weight: normal;
 }
 
 .calendar-container {

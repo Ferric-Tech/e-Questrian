@@ -8,6 +8,8 @@ import { CalendarBlock } from 'src/interfaces/calander.interface';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  today: Date | undefined;
+  todayFormatted = '';
   calenderBlocks: CalendarBlock[] = [];
   displayNewAppointmentForm = false;
   proposedStartTime: string = '';
@@ -16,7 +18,9 @@ export class CalendarComponent implements OnInit {
     this.setCalendarBlocks();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.setTodaysDate();
+  }
 
   onCalendarBlockClick(block: string) {
     this.proposedStartTime = block;
@@ -42,5 +46,15 @@ export class CalendarComponent implements OnInit {
       this.calenderBlocks.push({ time: i + ':00', appointments: [] });
       this.calenderBlocks.push({ time: i + ':30', appointments: [] });
     }
+  }
+
+  private setTodaysDate() {
+    this.today = new Date();
+    this.todayFormatted =
+      this.today.getFullYear() +
+      '-' +
+      (this.today.getMonth() + 1) +
+      '-' +
+      this.today.getDate();
   }
 }
