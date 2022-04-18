@@ -96,6 +96,9 @@ export class CalendarComponent implements OnInit {
   private addAppointments() {
     this.setCalendarBlocks();
     this.loadCalendarData();
+    if (!this.calenderData[this.dateFormatted]) {
+      return;
+    }
     this.calenderData[this.dateFormatted].forEach((dataBlock) => {
       this.calenderBlocks.forEach((block) => {
         if (block.time == dataBlock.time) {
