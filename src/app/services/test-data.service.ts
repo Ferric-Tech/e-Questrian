@@ -16,7 +16,6 @@ export class TestDataService {
   loadTestDataToLocal() {
     this.setDates();
     this.setCalendarObjects();
-    console.log(this.calendarData);
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 

@@ -57,7 +57,6 @@ export class CalendarComponent implements OnInit {
   }
 
   onAppointmentClick(appointment: Appointment) {
-    console.log(appointment);
     this.appointment = appointment;
     this.displayNewAppointmentForm = true;
   }
