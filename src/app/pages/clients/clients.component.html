@@ -15,7 +15,7 @@
 
   <div *ngSwitchCase="viewStateEnum.VIEW">
     <div *ngFor="let client of clients">
-      <div>{{ client.displayName }}</div>
+      <div (click)="viewClient(client)">{{ client.displayName }}</div>
     </div>
     <button (click)="backToClientMain()">Back to client menu</button>
   </div>
@@ -25,5 +25,6 @@
     [currentClient]="currentClient"
     (canceled)="cancelAddEditClient()"
     (newClient)="addNewClient($event)"
+    (editedClient)="editClient($event)"
   ></app-client-details>
 </div>

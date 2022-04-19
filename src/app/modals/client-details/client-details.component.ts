@@ -57,7 +57,6 @@ export class ClientDetailsComponent implements OnInit {
   }
 
   updateDisplayName() {
-    console.log('Here now');
     if (
       this.clientForm.controls['firstName'].value != '' ||
       this.clientForm.controls['lastName'].value != ''
