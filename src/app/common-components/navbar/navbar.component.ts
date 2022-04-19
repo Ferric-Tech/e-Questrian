@@ -9,7 +9,7 @@ export enum MenuOptions {
 
 export interface MenuOption {
   display: string;
-  option: MenuOptions;
+  path: string;
 }
 
 @Component({
@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
   displayMenu: boolean = true;
 
   readonly menuOptions: MenuOption[] = [
-    { display: 'Calendar', option: MenuOptions.CALENDAR },
-    { display: 'Finances', option: MenuOptions.FINANCES },
-    { display: 'Clients', option: MenuOptions.CLIENTS },
+    { display: 'Calendar', path: '/calendar' },
+    { display: 'Finances', path: '/finances' },
+    { display: 'Clients', path: '/clients' },
   ];
 
   @HostListener('window:resize', ['$event'])
@@ -54,21 +54,9 @@ export class NavbarComponent implements OnInit {
     this.displayMenu = !this.displayMenu;
   }
 
-  onMenuOptionClicked(option: MenuOptions) {
+  onMenuOptionClicked(path: string) {
     this.displayMenu = false;
-    switch (option) {
-      case MenuOptions.CALENDAR: {
-        this.router.navigate(['/calendar']);
-        break;
-      }
-      case MenuOptions.FINANCES: {
-        this.router.navigate(['/finances']);
-        break;
-      }
-      case MenuOptions.CLIENTS: {
-        this.router.navigate(['/clients']);
-      }
-    }
+    this.router.navigate([path]);
   }
 
   private determineView() {

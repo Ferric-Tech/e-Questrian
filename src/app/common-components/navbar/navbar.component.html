@@ -9,7 +9,7 @@
     <button
       *ngFor="let option of menuOptions"
       class="navbar-button"
-      (click)="onMenuOptionClicked(option.option)"
+      (click)="onMenuOptionClicked(option.path)"
       mat-button
     >
       {{ option.display }}
