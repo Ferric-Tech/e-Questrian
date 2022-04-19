@@ -20,7 +20,7 @@ export class TestDataService {
     newDetails: Appointment
   ) {
     this.removeAppointment(date, priorDetails);
-    this.addAppointment(date, newDetails);
+    this.addAppointment(newDetails);
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
@@ -54,26 +54,41 @@ export class TestDataService {
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
 
-    this.addAppointment(date, newAppointment);
+    this.addAppointment(newAppointment);
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  private addAppointment(date: string, appointment: Appointment) {
-    // Add new appointment to object as required
-    if (Object.keys(this.calendarData).indexOf(date) > -1) {
-      for (let index = 0; index < this.calendarData[date].length; index++) {
-        if (this.calendarData[date][index].time == appointment.startTime) {
-          this.calendarData[date][index].appointments.push(appointment);
+  private addAppointment(appointment: Appointment) {
+    const newDateFormatted =
+      appointment.date.getFullYear() +
+      '-' +
+      (appointment.date.getMonth() + 1) +
+      '-' +
+      appointment.date.getDate();
+
+    if (Object.keys(this.calendarData).indexOf(newDateFormatted) > -1) {
+      for (
+        let index = 0;
+        index < this.calendarData[newDateFormatted].length;
+        index++
+      ) {
+        if (
+          this.calendarData[newDateFormatted][index].time ==
+          appointment.startTime
+        ) {
+          this.calendarData[newDateFormatted][index].appointments.push(
+            appointment
+          );
           return;
         }
       }
-      this.calendarData[date].push({
+      this.calendarData[newDateFormatted].push({
         time: appointment.startTime,
         appointments: [appointment],
       });
       return;
     }
-    this.calendarData[date] = [
+    this.calendarData[newDateFormatted] = [
       {
         time: appointment.startTime,
         appointments: [appointment],

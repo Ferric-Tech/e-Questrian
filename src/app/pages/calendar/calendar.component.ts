@@ -71,12 +71,12 @@ export class CalendarComponent implements OnInit {
     this.displayNewAppointmentForm = false;
   }
 
-  appointmentEdited(newAppointment: Appointment) {
+  appointmentEdited(appointment: Appointment) {
     this.appointmentEditActive = false;
     this.testDataService.editCurrentAppointment(
       this.dateFormatted,
       this.currentAppointment,
-      newAppointment
+      appointment
     );
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
