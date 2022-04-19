@@ -288,15 +288,12 @@ export class TestDataService {
       lastInvoiceNumber++;
     });
 
-    console.log(newInvoices);
     // Add new invoices to stored data
     let invoiceList = localStorage.getItem('invoices');
     this.invoices = JSON.parse(invoiceList || '[]');
     newInvoices.forEach((invoice) => {
-      console.log(invoice);
       this.invoices.push(invoice);
     });
-    console.log(this.invoices);
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
   }
 }
