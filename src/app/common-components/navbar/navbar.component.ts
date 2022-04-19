@@ -1,12 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-export enum MenuOptions {
-  CALENDAR,
-  FINANCES,
-  CLIENTS,
-}
-
 export interface MenuOption {
   display: string;
   path: string;
