@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { Client } from './clients.interface';
 
 export interface CalendarData {
@@ -5,15 +6,15 @@ export interface CalendarData {
 }
 
 export interface CalendarBlock {
-  time: string;
+  time: Time;
   appointments: Appointment[];
 }
 
 export interface Appointment {
   title: string;
   date: Date;
-  startTime: string;
-  endTime: string;
+  startTime: Time;
+  endTime: Time;
   client: Client;
   invoice: number;
 }

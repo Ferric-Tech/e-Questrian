@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TestDataService } from 'src/app/services/test-data.service';
@@ -17,7 +18,7 @@ export class CalendarComponent implements OnInit {
   dateFormatted = '';
   calenderBlocks: CalendarBlock[] = [];
   displayNewAppointmentForm = false;
-  proposedStartTime: string = '';
+  proposedStartTime: Time = {} as Time;
   calendarData: CalendarData = {};
   currentAppointment = {} as Appointment;
   appointmentEditActive = false;
@@ -52,7 +53,7 @@ export class CalendarComponent implements OnInit {
     this.addAppointmentsToCalendar();
   }
 
-  onCalendarBlockClick(block: string) {
+  onCalendarBlockClick(block: Time) {
     if (this.appointmentEditActive) return;
     this.currentAppointment = {} as Appointment;
     this.proposedStartTime = block;
@@ -99,9 +100,15 @@ export class CalendarComponent implements OnInit {
 
   private setCalendarBlocks() {
     this.calenderBlocks = [];
-    for (let i = 6; i < 18; i++) {
-      this.calenderBlocks.push({ time: i + ':00', appointments: [] });
-      this.calenderBlocks.push({ time: i + ':30', appointments: [] });
+    for (let hour = 6; hour < 18; hour++) {
+      this.calenderBlocks.push({
+        time: { hours: hour, minutes: 0 },
+        appointments: [],
+      });
+      this.calenderBlocks.push({
+        time: { hours: hour, minutes: 30 },
+        appointments: [],
+      });
     }
   }
 

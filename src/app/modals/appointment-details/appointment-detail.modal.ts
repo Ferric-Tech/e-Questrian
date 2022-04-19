@@ -1,5 +1,7 @@
+import { Time } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { min } from 'rxjs';
 import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 
@@ -10,7 +12,7 @@ import { Client } from 'src/interfaces/clients.interface';
 })
 export class NewAppointmentComponent implements OnInit {
   @Input() date: Date | undefined;
-  @Input() startTime: string = '';
+  @Input() startTime: Time = {} as Time;
   @Input() currentAppointment = {} as Appointment;
   @Output() canceled = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<Appointment>();
@@ -28,7 +30,7 @@ export class NewAppointmentComponent implements OnInit {
     client: new FormControl(''),
   });
 
-  times: string[] = [];
+  times: Time[] = [];
   clients: Client[] = [];
   displayTime = '';
 
@@ -96,22 +98,15 @@ export class NewAppointmentComponent implements OnInit {
     });
   }
 
-  private determineEndTime(startTime: string) {
-    let hour = startTime.substring(0, startTime.indexOf(':'));
-    let minutes = startTime.substring(
-      startTime.indexOf(':') + 1,
-      startTime.length
-    );
-    let endHour = '';
-    let endMinutes = '';
-    if (minutes == '30') {
-      endHour = (parseInt(hour, 10) + 1).toString();
-      endMinutes = '00';
-    } else {
-      endHour = hour;
-      endMinutes = '30';
+  private determineEndTime(startTime: Time) {
+    let minutes = startTime.minutes + 30;
+    let hours = startTime.hours;
+    if (minutes >= 60) {
+      minutes = minutes - 60;
+      hours = hours + 1;
     }
-    return endHour + ':' + endMinutes;
+
+    return { hours: hours, minutes: minutes } as Time;
   }
 
   private setClients() {
@@ -120,9 +115,9 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   private setCalendarBlocks() {
-    for (let i = 6; i < 18; i++) {
-      this.times.push(i + ':00');
-      this.times.push(i + ':30');
+    for (let hour = 6; hour < 18; hour++) {
+      this.times.push({ hours: hour, minutes: 0 });
+      this.times.push({ hours: hour, minutes: 30 });
     }
   }
 }

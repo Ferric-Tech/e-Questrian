@@ -125,34 +125,34 @@ export class TestDataService {
   private setCalendarObjects() {
     this.calendarData[this.today.toString()] = [
       {
-        time: '8:00',
+        time: { hours: 8, minutes: 0 },
         appointments: [
           {
-            title: 'Lesson with Joan',
+            title: 'Lesson with' + this.clients[0].firstName,
             date: this.today,
-            startTime: '8:00',
-            endTime: '8:30',
+            startTime: { hours: 8, minutes: 0 },
+            endTime: { hours: 8, minutes: 30 },
             client: this.clients[0],
             invoice: 0,
           },
           {
-            title: 'Lesson with Bill',
+            title: 'Lesson with' + this.clients[1].firstName,
             date: this.today,
-            startTime: '8:00',
-            endTime: '8:30',
+            startTime: { hours: 8, minutes: 0 },
+            endTime: { hours: 8, minutes: 30 },
             client: this.clients[1],
             invoice: 0,
           },
         ],
       },
       {
-        time: '8:30',
+        time: { hours: 8, minutes: 30 },
         appointments: [
           {
             title: 'Lesson with Ashley',
             date: this.today,
-            startTime: '8:30',
-            endTime: '9:00',
+            startTime: { hours: 8, minutes: 30 },
+            endTime: { hours: 9, minutes: 0 },
             client: this.clients[2],
             invoice: 0,
           },
@@ -162,34 +162,34 @@ export class TestDataService {
 
     this.calendarData[this.tomorrow.toString()] = [
       {
-        time: '7:30',
+        time: { hours: 7, minutes: 30 },
         appointments: [
           {
             title: 'Lesson with Jill',
             date: this.tomorrow,
-            startTime: '8:00',
-            endTime: '8:30',
+            startTime: { hours: 7, minutes: 30 },
+            endTime: { hours: 8, minutes: 0 },
             client: this.clients[3],
             invoice: 0,
           },
         ],
       },
       {
-        time: '8:00',
+        time: { hours: 8, minutes: 0 },
         appointments: [
           {
             title: 'Lesson with Ashley',
             date: this.tomorrow,
-            startTime: '8:30',
-            endTime: '9:00',
+            startTime: { hours: 8, minutes: 0 },
+            endTime: { hours: 8, minutes: 30 },
             client: this.clients[0],
             invoice: 0,
           },
           {
             title: 'Lesson with Joan',
             date: this.tomorrow,
-            startTime: '8:00',
-            endTime: '8:30',
+            startTime: { hours: 8, minutes: 0 },
+            endTime: { hours: 8, minutes: 30 },
             client: this.clients[1],
             invoice: 0,
           },
