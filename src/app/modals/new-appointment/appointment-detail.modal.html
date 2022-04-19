@@ -12,6 +12,17 @@
     </div>
 
     <div class="form-line">
+      <div class="form-line-title">Date:</div>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <input
+        class="date-input"
+        [matDatepicker]="picker"
+        formControlName="date"
+      />
+    </div>
+
+    <div class="form-line">
       <div class="form-line-title">Start time:</div>
       <mat-select class="time-selector" formControlName="startTime">
         <mat-option [value]="option" *ngFor="let option of times"

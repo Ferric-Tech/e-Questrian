@@ -8,6 +8,7 @@ import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
   styleUrls: ['./appointment-detail.modal.scss'],
 })
 export class NewAppointmentComponent implements OnInit {
+  @Input() date: Date | undefined;
   @Input() startTime: string = '';
   @Input() currentAppointment = {} as Appointment;
   @Output() canceled = new EventEmitter<void>();
@@ -20,6 +21,7 @@ export class NewAppointmentComponent implements OnInit {
   modalHeader = '';
   appoitmentForm = new FormGroup({
     title: new FormControl(''),
+    date: new FormControl(''),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
     client: new FormControl(''),
@@ -76,6 +78,7 @@ export class NewAppointmentComponent implements OnInit {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
       title: new FormControl('New appointment'),
+      date: new FormControl(this.date),
       startTime: new FormControl(this.startTime),
       endTime: new FormControl(endTime),
       client: new FormControl(''),
@@ -85,6 +88,7 @@ export class NewAppointmentComponent implements OnInit {
   private setFormForEdit() {
     this.appoitmentForm = new FormGroup({
       title: new FormControl(this.currentAppointment.title || ''),
+      date: new FormControl(this.date || ''),
       startTime: new FormControl(this.currentAppointment.startTime || ''),
       endTime: new FormControl(this.currentAppointment.endTime || ''),
       client: new FormControl(this.currentAppointment.client || ''),
