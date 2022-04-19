@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
+import { Invoice } from 'src/interfaces/invoices.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,11 @@ export class TestDataService {
   tomorrow: Date = new Date();
   todayFormatted = '';
   tomorrowFormatted = '';
+  yesterday: Date = new Date();
   calendarData: CalendarData = {};
   clients: Client[] = [];
   clientDisplayNames: string[] = [];
+  invoices: Invoice[] = [];
 
   constructor() {}
 
@@ -104,12 +107,16 @@ export class TestDataService {
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
+    this.setInvoices();
+    localStorage.setItem('invoices', JSON.stringify(this.invoices));
   }
 
   private setDates() {
     this.today = new Date();
     this.tomorrow = new Date();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.yesterday = new Date();
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
     this.todayFormatted =
       this.today.getFullYear() +
       '-' +
@@ -233,5 +240,13 @@ export class TestDataService {
   addClient(client: Client) {
     this.clients.push(client);
     localStorage.setItem('clients', JSON.stringify(this.clients));
+  }
+
+  private setInvoices() {
+    this.invoices = [
+      { number: 1, client: this.clients[0], date: this.yesterday, amount: 250 },
+      { number: 2, client: this.clients[1], date: this.yesterday, amount: 175 },
+      { number: 3, client: this.clients[2], date: this.yesterday, amount: 300 },
+    ];
   }
 }

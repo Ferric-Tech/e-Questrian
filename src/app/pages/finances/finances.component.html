@@ -1,0 +1,33 @@
+<div class="page-container" [ngSwitch]="currentViewState">
+  <div
+    *ngSwitchCase="viewStateEnum.MAIN"
+    class="navigation-page-button-container"
+  >
+    <button
+      *ngFor="let option of menuOptions"
+      class="navbar-button"
+      (click)="onMenuOptionClicked(option.viewState)"
+      mat-button
+    >
+      {{ option.display }}
+    </button>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
+    <div *ngFor="let invoice of invoices">
+      <div (click)="viewInvoice(invoice)">
+        {{ invoice.number }} {{ invoice.date }} {{ invoice.client.displayName }}
+      </div>
+    </div>
+    <button (click)="backToFinancetMain()">Back to client menu</button>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.INVOICE_DETAIL">
+    <div *ngFor="let detail of currentInvoice | keyvalue">
+      <div *ngIf="detail.key !== 'client'">
+        {{ detail.key }}: {{ detail.value }}
+      </div>
+    </div>
+    <button (click)="backToInvoiceList()">Back to client menu</button>
+  </div>
+</div>
