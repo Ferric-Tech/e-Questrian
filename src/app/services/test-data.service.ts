@@ -113,26 +113,17 @@ export class TestDataService {
 
   private setDates() {
     this.today = new Date();
+    this.today.setHours(0, 0, 0, 0);
     this.tomorrow = new Date();
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.tomorrow.setHours(0, 0, 0, 0);
     this.yesterday = new Date();
     this.yesterday.setDate(this.yesterday.getDate() - 1);
-    this.todayFormatted =
-      this.today.getFullYear() +
-      '-' +
-      (this.today.getMonth() + 1) +
-      '-' +
-      this.today.getDate();
-    this.tomorrowFormatted =
-      this.tomorrow.getFullYear() +
-      '-' +
-      (this.tomorrow.getMonth() + 1) +
-      '-' +
-      this.tomorrow.getDate();
+    this.yesterday.setHours(0, 0, 0, 0);
   }
 
   private setCalendarObjects() {
-    this.calendarData[this.todayFormatted] = [
+    this.calendarData[this.today.toString()] = [
       {
         time: '8:00',
         appointments: [
@@ -169,7 +160,7 @@ export class TestDataService {
       },
     ];
 
-    this.calendarData[this.tomorrowFormatted] = [
+    this.calendarData[this.tomorrow.toString()] = [
       {
         time: '7:30',
         appointments: [
