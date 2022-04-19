@@ -28,6 +28,16 @@
         {{ detail.key }}: {{ detail.value }}
       </div>
     </div>
-    <button (click)="backToInvoiceList()">Back to client menu</button>
+    <button (click)="backToInvoiceList()">Back to invoice list</button>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES">
+    <div *ngIf="!isInvoiceGenerationComplete">
+      Generating invoices - one moment
+    </div>
+    <div *ngIf="isInvoiceGenerationComplete">
+      <div>Invoices generated</div>
+      <button (click)="backToInvoiceList()">View invoices</button>
+    </div>
   </div>
 </div>

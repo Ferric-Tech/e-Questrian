@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TestDataService } from 'src/app/services/test-data.service';
 import { Invoice } from 'src/interfaces/invoices.interface';
 
 export interface InvoiceForDisplay extends Invoice {
@@ -33,8 +34,9 @@ export class FinancesComponent implements OnInit {
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
   currentInvoice: InvoiceForDisplay = {} as InvoiceForDisplay;
+  isInvoiceGenerationComplete = true;
 
-  constructor() {}
+  constructor(private testDataService: TestDataService) {}
 
   ngOnInit(): void {
     this.setInvoices();
@@ -42,6 +44,9 @@ export class FinancesComponent implements OnInit {
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
     this.currentViewState = viewStateSelected;
+    if (this.currentViewState == ViewState.GENERATE_INVOICES) {
+      this.generateInvoices();
+    }
   }
 
   viewInvoice(invoice: InvoiceForDisplay) {
@@ -54,6 +59,7 @@ export class FinancesComponent implements OnInit {
   }
 
   backToInvoiceList() {
+    this.setInvoices();
     this.currentViewState = ViewState.VIEW_INVOICES;
   }
 
@@ -64,5 +70,11 @@ export class FinancesComponent implements OnInit {
       this.invoices[index].displayName =
         this.invoices[index].client.displayName;
     });
+  }
+
+  private generateInvoices() {
+    this.isInvoiceGenerationComplete = false;
+    this.testDataService.generateInvoices();
+    this.isInvoiceGenerationComplete = true;
   }
 }
