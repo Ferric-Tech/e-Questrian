@@ -1,10 +1,10 @@
 <div class="page-container">
   <div class="home-page-header">e-Questrian</div>
-  <div class="home-button-container">
+  <div class="navigation-page-button-container">
     <button
       *ngFor="let option of menuOptions"
       class="navbar-button"
-      (click)="onMenuOptionClicked(option.option)"
+      (click)="onMenuOptionClicked(option.path)"
       mat-button
     >
       {{ option.display }}

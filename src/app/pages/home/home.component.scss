@@ -9,14 +9,14 @@
   background-color: aqua;
 }
 
-.home-button-container {
+.navigation-page-button-container {
   display: flex;
   flex-flow: row wrap;
   width: 100%;
   justify-content: space-around;
 }
 
-.home-button-container ::after {
+.navigation-page-button-container ::after {
   content: "";
   flex: auto;
 }
