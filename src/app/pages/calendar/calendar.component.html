@@ -12,7 +12,9 @@
   >
     <hr />
     <div class="block-container">
-      <div class="block-time-container">{{ block.time }}</div>
+      <div class="block-time-container">
+        {{ block.time.hours }}:{{ block.time.minutes | number: "2.0" }}
+      </div>
       <div
         class="block-appointment-container"
         *ngFor="let appointment of block.appointments"

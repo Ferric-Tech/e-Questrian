@@ -103,10 +103,10 @@ export class TestDataService {
 
   loadTestDataToLocal() {
     this.setDates();
-    this.setCalendarObjects();
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
+    this.setCalendarObjects();
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
     this.setInvoices();
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
   }
