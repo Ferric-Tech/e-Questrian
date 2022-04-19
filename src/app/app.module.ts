@@ -18,7 +18,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
-import { NewAppointmentComponent } from './modals/new-appointment/appointment-detail.modal';
+import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
 
 @NgModule({
   declarations: [
