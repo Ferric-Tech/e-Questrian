@@ -114,8 +114,8 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   private setClients() {
-    let calanderString = localStorage.getItem('clients');
-    this.clients = JSON.parse(calanderString || '[]');
+    let clientList = localStorage.getItem('clients');
+    this.clients = JSON.parse(clientList || '[]');
   }
 
   private setCalendarBlocks() {
