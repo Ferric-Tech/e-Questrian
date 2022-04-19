@@ -1,1 +1,54 @@
-<p>client-details works!</p>
+<div class="main-container">
+  <form
+    class="form-container"
+    [formGroup]="clientForm"
+    (ngSubmit)="onSubmitClick()"
+  >
+    <div class="form-header">
+      {{ clientForm.controls["displayName"].value }}
+      <mat-icon *ngIf="isDisplayNameEditable">edit</mat-icon>
+    </div>
+
+    <div class="form-line">
+      <div class="form-line-title">First name:</div>
+      <input
+        type="text"
+        (change)="updateDisplayName()"
+        formControlName="firstName"
+      />
+    </div>
+
+    <div class="form-line">
+      <div class="form-line-title">Last name:</div>
+      <input
+        type="text"
+        (change)="updateDisplayName()"
+        formControlName="lastName"
+      />
+    </div>
+
+    <div class="form-line">
+      <div class="form-line-title">Contact email:</div>
+      <input type="text" formControlName="email" />
+    </div>
+
+    <div class="form-line">
+      <div class="form-line-title">Contact number:</div>
+      <input type="text" formControlName="telephoneNumber" />
+    </div>
+
+    <div class="button-container">
+      <button (click)="onCancelClick()">Cancel</button>
+      <button type="submit" [disabled]="!clientForm.valid">Submit</button>
+    </div>
+    <button
+      class="remove-button"
+      *ngIf="!isNewClient"
+      (click)="onRemoveAppointmentClick()"
+    >
+      Remove appointment
+    </button>
+  </form>
+</div>
+
+<!-- (selectionChange)="onStartTimeSelected($event.value)" -->

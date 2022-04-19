@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Client } from 'src/interfaces/clients.interface';
 
 export enum ViewState {
   MAIN,
@@ -24,7 +25,8 @@ export class ClientsComponent implements OnInit {
 
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
-  clients: string[] = [];
+  clients: Client[] = [];
+  currentClient: Client = {} as Client;
 
   constructor() {}
 
@@ -34,6 +36,20 @@ export class ClientsComponent implements OnInit {
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
     this.currentViewState = viewStateSelected;
+  }
+
+  backToClientMain() {
+    this.currentViewState = ViewState.MAIN;
+  }
+
+  cancelAddEditClient() {
+    this.currentViewState = ViewState.VIEW;
+  }
+
+  addNewClient(client: Client) {
+    this.clients.push(client);
+    localStorage.setItem('clients', JSON.stringify(this.clients));
+    this.currentViewState = ViewState.VIEW;
   }
 
   private setClients() {

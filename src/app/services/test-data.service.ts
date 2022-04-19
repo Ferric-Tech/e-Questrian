@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
+import { Client } from 'src/interfaces/clients.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,8 @@ export class TestDataService {
   todayFormatted = '';
   tomorrowFormatted = '';
   calendarData: CalendarData = {};
-  clients: string[] = [];
+  clients: Client[] = [];
+  clientDisplayNames: string[] = [];
 
   constructor() {}
 
@@ -196,8 +198,15 @@ export class TestDataService {
     Object.keys(this.calendarData).forEach((date) => {
       this.calendarData[date].forEach((time) => {
         time.appointments.forEach((appointment) => {
-          if (this.clients.indexOf(appointment.client) < 0) {
-            this.clients.push(appointment.client);
+          if (this.clientDisplayNames.indexOf(appointment.client) < 0) {
+            this.clientDisplayNames.push(appointment.client);
+            this.clients.push({
+              displayName: appointment.client,
+              firstName: appointment.client,
+              lastName: '',
+              email: 'No email',
+              telephoneNumber: 'No number',
+            });
           }
         });
       });

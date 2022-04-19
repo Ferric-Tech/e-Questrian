@@ -15,7 +15,15 @@
 
   <div *ngSwitchCase="viewStateEnum.VIEW">
     <div *ngFor="let client of clients">
-      <div>{{ client }}</div>
+      <div>{{ client.displayName }}</div>
     </div>
+    <button (click)="backToClientMain()">Back to client menu</button>
   </div>
+
+  <app-client-details
+    *ngSwitchCase="viewStateEnum.ADD_EDIT"
+    [currentClient]="currentClient"
+    (canceled)="cancelAddEditClient()"
+    (newClient)="addNewClient($event)"
+  ></app-client-details>
 </div>
