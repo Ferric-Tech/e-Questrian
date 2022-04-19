@@ -1,3 +1,5 @@
+import { Client } from './clients.interface';
+
 export interface CalendarData {
   [key: string]: CalendarBlock[];
 }
@@ -12,5 +14,6 @@ export interface Appointment {
   date: Date;
   startTime: string;
   endTime: string;
-  client: string;
+  client: Client;
+  invoice: number;
 }

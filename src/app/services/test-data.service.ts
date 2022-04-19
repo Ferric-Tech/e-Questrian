@@ -141,14 +141,16 @@ export class TestDataService {
             date: this.today,
             startTime: '8:00',
             endTime: '8:30',
-            client: 'Joan',
+            client: this.clients[0],
+            invoice: 0,
           },
           {
             title: 'Lesson with Bill',
             date: this.today,
             startTime: '8:00',
             endTime: '8:30',
-            client: 'Bill',
+            client: this.clients[1],
+            invoice: 0,
           },
         ],
       },
@@ -160,7 +162,8 @@ export class TestDataService {
             date: this.today,
             startTime: '8:30',
             endTime: '9:00',
-            client: 'Ashley',
+            client: this.clients[2],
+            invoice: 0,
           },
         ],
       },
@@ -175,7 +178,8 @@ export class TestDataService {
             date: this.tomorrow,
             startTime: '8:00',
             endTime: '8:30',
-            client: 'Jill',
+            client: this.clients[3],
+            invoice: 0,
           },
         ],
       },
@@ -187,14 +191,16 @@ export class TestDataService {
             date: this.tomorrow,
             startTime: '8:30',
             endTime: '9:00',
-            client: 'Ashley',
+            client: this.clients[0],
+            invoice: 0,
           },
           {
             title: 'Lesson with Joan',
             date: this.tomorrow,
             startTime: '8:00',
             endTime: '8:30',
-            client: 'Joan',
+            client: this.clients[1],
+            invoice: 0,
           },
         ],
       },
@@ -202,23 +208,39 @@ export class TestDataService {
   }
 
   private setClientsList() {
-    Object.keys(this.calendarData).forEach((date) => {
-      this.calendarData[date].forEach((time) => {
-        time.appointments.forEach((appointment) => {
-          if (this.clientDisplayNames.indexOf(appointment.client) < 0) {
-            this.clientDisplayNames.push(appointment.client);
-            this.clients.push({
-              displayName: appointment.client,
-              firstName: appointment.client,
-              lastName: '',
-              email: 'No email',
-              telephoneNumber: 'No number',
-            });
-          }
-        });
-      });
-    });
-    this.clients.sort();
+    this.clients = [
+      {
+        displayName: 'Little Ash',
+        firstName: 'Ashley',
+        lastName: 'Novello',
+        email: 'cedric@telkomsa.co.za',
+        telephoneNumber: '072 462 4685',
+      },
+      {
+        displayName: 'Jill Henry',
+        firstName: 'Jill',
+        lastName: 'Henry',
+        email: 'jill@gmail.com',
+        telephoneNumber: '072 879 5421',
+      },
+      {
+        displayName: 'Kenny Timson',
+        firstName: 'Kenny',
+        lastName: 'Timson',
+        email: 'kenny@yahoo.com',
+        telephoneNumber: '083 357 2205',
+      },
+      {
+        displayName: 'Nurse Ash',
+        firstName: 'Ashley',
+        lastName: 'van der Merwe',
+        email: 'nurseash@life.co.za',
+        telephoneNumber: '066 565 0000',
+      },
+    ];
+    this.clients.sort((a, b) =>
+      a.displayName > b.displayName ? 1 : b.displayName > a.displayName ? -1 : 0
+    );
   }
 
   editClient(oldClient: Client, newClient: Client) {
@@ -259,12 +281,14 @@ export class TestDataService {
       this.calendarData[date].forEach((calendarBlock) => {
         calendarBlock.appointments.forEach((appointment) => {
           if (
-            Object.keys(clientsToBeInvoiced).indexOf(appointment.client) < 0
+            Object.keys(clientsToBeInvoiced).indexOf(
+              appointment.client.displayName
+            ) < 0
           ) {
-            clientsToBeInvoiced[appointment.client] = 1;
+            clientsToBeInvoiced[appointment.client.displayName] = 1;
           } else {
-            clientsToBeInvoiced[appointment.client] =
-              clientsToBeInvoiced[appointment.client] + 1;
+            clientsToBeInvoiced[appointment.client.displayName] =
+              clientsToBeInvoiced[appointment.client.displayName] + 1;
           }
         });
       });
