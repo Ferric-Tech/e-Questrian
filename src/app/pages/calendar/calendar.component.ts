@@ -31,25 +31,10 @@ export class CalendarComponent implements OnInit {
     this.addAppointmentsToCalendar();
   }
 
-  onLeftArrowClick() {
-    this.date.setDate(this.date.getDate() - 1);
-    this.dateFormatted =
-      this.date.getFullYear() +
-      '-' +
-      (this.date.getMonth() + 1) +
-      '-' +
-      this.date.getDate();
-    this.addAppointmentsToCalendar();
-  }
-
-  onRightArrowClick() {
-    this.date.setDate(this.date.getDate() + 1);
-    this.dateFormatted =
-      this.date.getFullYear() +
-      '-' +
-      (this.date.getMonth() + 1) +
-      '-' +
-      this.date.getDate();
+  changeDate(movement: number) {
+    this.date.setDate(this.date.getDate() + movement);
+    this.date.setHours(0, 0, 0, 0);
+    this.dateFormatted = this.date.toString();
     this.addAppointmentsToCalendar();
   }
 
@@ -113,12 +98,8 @@ export class CalendarComponent implements OnInit {
   }
 
   private setTodaysDate() {
-    this.dateFormatted =
-      this.date.getFullYear() +
-      '-' +
-      (this.date.getMonth() + 1) +
-      '-' +
-      this.date.getDate();
+    this.date.setHours(0, 0, 0, 0);
+    this.dateFormatted = this.date.toString();
   }
 
   private addAppointmentsToCalendar() {
@@ -129,7 +110,10 @@ export class CalendarComponent implements OnInit {
     }
     this.calendarData[this.dateFormatted].forEach((dataBlock) => {
       this.calenderBlocks.forEach((block) => {
-        if (block.time == dataBlock.time) {
+        if (
+          block.time.hours == dataBlock.time.hours &&
+          block.time.minutes == dataBlock.time.minutes
+        ) {
           dataBlock.appointments.forEach((appointment) => {
             block.appointments.push(appointment);
           });

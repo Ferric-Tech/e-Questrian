@@ -1,9 +1,9 @@
 <div class="page-header-container">Your Calendar</div>
 
 <div class="date-container">
-  <mat-icon (click)="onLeftArrowClick()">keyboard_arrow_left</mat-icon>
+  <mat-icon (click)="changeDate(-1)">keyboard_arrow_left</mat-icon>
   {{ dateFormatted }}
-  <mat-icon (click)="onRightArrowClick()">keyboard_arrow_right</mat-icon>
+  <mat-icon (click)="changeDate(1)">keyboard_arrow_right</mat-icon>
 </div>
 <div class="calendar-container">
   <div
