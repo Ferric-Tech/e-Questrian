@@ -19,6 +19,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
+import { ClientDetailsComponent } from './modals/client-details/client-details.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NewAppointmentComponent } from './modals/appointment-details/appointmen
     FinancesComponent,
     ClientsComponent,
     NewAppointmentComponent,
+    ClientDetailsComponent,
   ],
   imports: [
     BrowserModule,
