@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
+import { Client } from 'src/interfaces/clients.interface';
 
 @Component({
   selector: 'app-new-appointment-modal',
@@ -28,7 +29,7 @@ export class NewAppointmentComponent implements OnInit {
   });
 
   times: string[] = [];
-  clients: string[] = [];
+  clients: Client[] = [];
   displayTime = '';
 
   constructor() {}

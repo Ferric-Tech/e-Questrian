@@ -40,8 +40,8 @@
     <div class="form-line">
       <div class="form-line-title">Client:</div>
       <mat-select class="client-selector" formControlName="client">
-        <mat-option [value]="option" *ngFor="let option of clients"
-          >{{ option }}</mat-option
+        <mat-option [value]="option.displayName" *ngFor="let option of clients"
+          >{{ option.displayName }}</mat-option
         >
       </mat-select>
     </div>
