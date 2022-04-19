@@ -9,6 +9,7 @@ export interface CalendarBlock {
 
 export interface Appointment {
   title: string;
+  date: Date;
   startTime: string;
   endTime: string;
   client: string;

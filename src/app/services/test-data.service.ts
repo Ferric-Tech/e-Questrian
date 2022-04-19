@@ -5,8 +5,8 @@ import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
   providedIn: 'root',
 })
 export class TestDataService {
-  today: Date | undefined;
-  tomorrow: Date | undefined;
+  today: Date = new Date();
+  tomorrow: Date = new Date();
   todayFormatted = '';
   tomorrowFormatted = '';
   calendarData: CalendarData = {};
@@ -114,12 +114,14 @@ export class TestDataService {
         appointments: [
           {
             title: 'Lesson with Joan',
+            date: this.today,
             startTime: '8:00',
             endTime: '8:30',
             client: 'Joan',
           },
           {
             title: 'Lesson with Bill',
+            date: this.today,
             startTime: '8:00',
             endTime: '8:30',
             client: 'Bill',
@@ -131,6 +133,7 @@ export class TestDataService {
         appointments: [
           {
             title: 'Lesson with Ashley',
+            date: this.today,
             startTime: '8:30',
             endTime: '9:00',
             client: 'Ashley',
@@ -145,6 +148,7 @@ export class TestDataService {
         appointments: [
           {
             title: 'Lesson with Jill',
+            date: this.tomorrow,
             startTime: '8:00',
             endTime: '8:30',
             client: 'Jill',
@@ -156,12 +160,14 @@ export class TestDataService {
         appointments: [
           {
             title: 'Lesson with Ashley',
+            date: this.tomorrow,
             startTime: '8:30',
             endTime: '9:00',
             client: 'Ashley',
           },
           {
             title: 'Lesson with Joan',
+            date: this.tomorrow,
             startTime: '8:00',
             endTime: '8:30',
             client: 'Joan',
