@@ -59,7 +59,7 @@ export class CalendarComponent implements OnInit {
   appointmentEdited(appointment: Appointment) {
     this.appointmentEditActive = false;
     this.testDataService.editCurrentAppointment(
-      this.dateFormatted,
+      this.date,
       this.currentAppointment,
       appointment
     );
@@ -69,10 +69,7 @@ export class CalendarComponent implements OnInit {
 
   appointmentRemoved() {
     this.appointmentEditActive = false;
-    this.testDataService.cancelAppointment(
-      this.dateFormatted,
-      this.currentAppointment
-    );
+    this.testDataService.cancelAppointment(this.date, this.currentAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }

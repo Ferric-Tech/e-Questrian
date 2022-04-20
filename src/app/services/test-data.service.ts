@@ -20,7 +20,7 @@ export class TestDataService {
   constructor() {}
 
   editCurrentAppointment(
-    date: string,
+    date: Date,
     priorDetails: Appointment,
     newDetails: Appointment
   ) {
@@ -29,24 +29,31 @@ export class TestDataService {
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  cancelAppointment(date: string, appointment: Appointment) {
+  cancelAppointment(date: Date, appointment: Appointment) {
     this.removeAppointment(date, appointment);
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  private removeAppointment(date: string, appointment: Appointment) {
+  private removeAppointment(date: Date, appointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
 
-    for (let block = 0; block < this.calendarData[date].length; block++) {
-      if (this.calendarData[date][block].time == appointment.startTime) {
-        let appointments = this.calendarData[date][block].appointments;
-        for (let index2 = 0; index2 < appointments.length; index2++) {
+    const stringDate = date.toDateString();
+    for (let block = 0; block < this.calendarData[stringDate].length; block++) {
+      if (
+        JSON.stringify(this.calendarData[stringDate][block].time) ===
+        JSON.stringify(appointment.startTime)
+      ) {
+        let appointmentsInBlock =
+          this.calendarData[stringDate][block].appointments;
+        console.log(appointmentsInBlock);
+        for (let index2 = 0; index2 < appointmentsInBlock.length; index2++) {
           if (
-            JSON.stringify(appointments[index2]) === JSON.stringify(appointment)
+            JSON.stringify(appointmentsInBlock[index2]) ===
+            JSON.stringify(appointment)
           ) {
-            this.calendarData[date][block].appointments.splice(index2, 1);
+            this.calendarData[stringDate][block].appointments.splice(index2, 1);
             return;
           }
         }
@@ -119,7 +126,7 @@ export class TestDataService {
         time: { hours: 8, minutes: 0 },
         appointments: [
           {
-            title: 'Lesson with' + this.clients[0].firstName,
+            title: 'Lesson with ' + this.clients[0].firstName,
             date: this.today,
             startTime: { hours: 8, minutes: 0 },
             endTime: { hours: 8, minutes: 30 },
@@ -127,7 +134,7 @@ export class TestDataService {
             invoice: 0,
           },
           {
-            title: 'Lesson with' + this.clients[1].firstName,
+            title: 'Lesson with ' + this.clients[1].firstName,
             date: this.today,
             startTime: { hours: 8, minutes: 0 },
             endTime: { hours: 8, minutes: 30 },
@@ -140,7 +147,7 @@ export class TestDataService {
         time: { hours: 8, minutes: 30 },
         appointments: [
           {
-            title: 'Lesson with Ashley',
+            title: 'Lesson with ' + this.clients[2].firstName,
             date: this.today,
             startTime: { hours: 8, minutes: 30 },
             endTime: { hours: 9, minutes: 0 },
@@ -156,7 +163,7 @@ export class TestDataService {
         time: { hours: 7, minutes: 30 },
         appointments: [
           {
-            title: 'Lesson with Jill',
+            title: 'Lesson with ' + this.clients[3].firstName,
             date: this.tomorrow,
             startTime: { hours: 7, minutes: 30 },
             endTime: { hours: 8, minutes: 0 },
@@ -169,7 +176,7 @@ export class TestDataService {
         time: { hours: 8, minutes: 0 },
         appointments: [
           {
-            title: 'Lesson with Ashley',
+            title: 'Lesson with ' + this.clients[0].firstName,
             date: this.tomorrow,
             startTime: { hours: 8, minutes: 0 },
             endTime: { hours: 8, minutes: 30 },
@@ -177,7 +184,7 @@ export class TestDataService {
             invoice: 0,
           },
           {
-            title: 'Lesson with Joan',
+            title: 'Lesson with ' + this.clients[1].firstName,
             date: this.tomorrow,
             startTime: { hours: 8, minutes: 0 },
             endTime: { hours: 8, minutes: 30 },
