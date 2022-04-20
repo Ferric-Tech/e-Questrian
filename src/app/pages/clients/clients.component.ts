@@ -48,6 +48,7 @@ export class ClientsComponent implements OnInit {
   }
 
   viewClient(client: Client) {
+    this.setClients();
     this.currentClient = client;
     this.currentViewState = ViewState.ADD_EDIT;
   }
