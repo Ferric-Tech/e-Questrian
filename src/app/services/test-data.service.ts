@@ -47,7 +47,6 @@ export class TestDataService {
       ) {
         let appointmentsInBlock =
           this.calendarData[stringDate][block].appointments;
-        console.log(appointmentsInBlock);
         for (let index2 = 0; index2 < appointmentsInBlock.length; index2++) {
           if (
             JSON.stringify(appointmentsInBlock[index2]) ===
