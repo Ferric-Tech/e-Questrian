@@ -34,7 +34,6 @@ export class CalendarComponent implements OnInit {
   changeDate(movement: number) {
     this.date.setDate(this.date.getDate() + movement);
     this.date.setHours(0, 0, 0, 0);
-    this.dateFormatted = this.date.toString();
     this.addAppointmentsToCalendar();
   }
 
@@ -52,7 +51,7 @@ export class CalendarComponent implements OnInit {
   }
 
   appointmentCreated(newAppointment: Appointment) {
-    this.testDataService.addNewAppointment(this.dateFormatted, newAppointment);
+    this.testDataService.addNewAppointment(newAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }
@@ -105,10 +104,11 @@ export class CalendarComponent implements OnInit {
   private addAppointmentsToCalendar() {
     this.setCalendarBlocks();
     this.loadCalendarData();
-    if (!this.calendarData[this.dateFormatted]) {
+    const stringDate = this.date.toDateString();
+    if (!this.calendarData[stringDate]) {
       return;
     }
-    this.calendarData[this.dateFormatted].forEach((dataBlock) => {
+    this.calendarData[stringDate].forEach((dataBlock) => {
       this.calenderBlocks.forEach((block) => {
         if (
           block.time.hours == dataBlock.time.hours &&

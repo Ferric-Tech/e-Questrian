@@ -54,7 +54,7 @@ export class TestDataService {
     }
   }
 
-  addNewAppointment(date: string, newAppointment: Appointment) {
+  addNewAppointment(newAppointment: Appointment) {
     // Get current object on local
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
@@ -64,36 +64,27 @@ export class TestDataService {
   }
 
   private addAppointment(appointment: Appointment) {
-    const newDateFormatted =
-      appointment.date.getFullYear() +
-      '-' +
-      (appointment.date.getMonth() + 1) +
-      '-' +
-      appointment.date.getDate();
-
-    if (Object.keys(this.calendarData).indexOf(newDateFormatted) > -1) {
+    const dateString = appointment.date.toDateString();
+    if (Object.keys(this.calendarData).indexOf(dateString) > -1) {
       for (
         let index = 0;
-        index < this.calendarData[newDateFormatted].length;
+        index < this.calendarData[dateString].length;
         index++
       ) {
         if (
-          this.calendarData[newDateFormatted][index].time ==
-          appointment.startTime
+          this.calendarData[dateString][index].time == appointment.startTime
         ) {
-          this.calendarData[newDateFormatted][index].appointments.push(
-            appointment
-          );
+          this.calendarData[dateString][index].appointments.push(appointment);
           return;
         }
       }
-      this.calendarData[newDateFormatted].push({
+      this.calendarData[dateString].push({
         time: appointment.startTime,
         appointments: [appointment],
       });
       return;
     }
-    this.calendarData[newDateFormatted] = [
+    this.calendarData[dateString] = [
       {
         time: appointment.startTime,
         appointments: [appointment],
@@ -123,7 +114,7 @@ export class TestDataService {
   }
 
   private setCalendarObjects() {
-    this.calendarData[this.today.toString()] = [
+    this.calendarData[this.today.toDateString()] = [
       {
         time: { hours: 8, minutes: 0 },
         appointments: [
@@ -160,7 +151,7 @@ export class TestDataService {
       },
     ];
 
-    this.calendarData[this.tomorrow.toString()] = [
+    this.calendarData[this.tomorrow.toDateString()] = [
       {
         time: { hours: 7, minutes: 30 },
         appointments: [

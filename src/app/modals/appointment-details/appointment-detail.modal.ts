@@ -50,7 +50,6 @@ export class NewAppointmentComponent implements OnInit {
 
   // Main call to actions callbacks
   onSubmitClick() {
-    console.log(this.appoitmentForm.value);
     this.isRemoveAppointment
       ? this.removeAppointment.emit()
       : this.isNewAppointment
