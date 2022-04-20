@@ -1,9 +1,13 @@
 import { Time } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { min } from 'rxjs';
 import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
+
+export interface TimeOption {
+  display: string;
+  value: Time;
+}
 
 @Component({
   selector: 'app-new-appointment-modal',
@@ -30,7 +34,7 @@ export class NewAppointmentComponent implements OnInit {
     client: new FormControl(''),
   });
 
-  times: Time[] = [];
+  timeOptions: TimeOption[] = [];
   clients: Client[] = [];
   displayTime = '';
 
@@ -38,14 +42,15 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
+    this.setTimeOptions();
     this.setScreen();
     this.setForm();
     this.setClients();
-    this.setCalendarBlocks();
   }
 
   // Main call to actions callbacks
   onSubmitClick() {
+    console.log(this.appoitmentForm.value);
     this.isRemoveAppointment
       ? this.removeAppointment.emit()
       : this.isNewAppointment
@@ -66,6 +71,10 @@ export class NewAppointmentComponent implements OnInit {
     // Delete all the times before startTime
   }
 
+  compareObjects(o1: Time, o2: Time) {
+    return o1.hours == o2.hours && o1.minutes == o2.minutes;
+  }
+
   // Private functions related to initialisation of the component
   private setScreen() {
     this.modalHeader = this.isNewAppointment
@@ -82,7 +91,10 @@ export class NewAppointmentComponent implements OnInit {
     this.appoitmentForm = new FormGroup({
       title: new FormControl('New appointment'),
       date: new FormControl(this.date),
-      startTime: new FormControl(this.startTime),
+      startTime: new FormControl({
+        hours: this.startTime.hours,
+        minutes: this.startTime.minutes,
+      } as Time),
       endTime: new FormControl(endTime),
       client: new FormControl(''),
     });
@@ -92,9 +104,9 @@ export class NewAppointmentComponent implements OnInit {
     this.appoitmentForm = new FormGroup({
       title: new FormControl(this.currentAppointment.title || ''),
       date: new FormControl(this.date || ''),
-      startTime: new FormControl(this.currentAppointment.startTime || ''),
+      startTime: new FormControl(this.currentAppointment.startTime),
       endTime: new FormControl(this.currentAppointment.endTime || ''),
-      client: new FormControl(this.currentAppointment.client || ''),
+      client: new FormControl(this.currentAppointment.client.displayName || ''),
     });
   }
 
@@ -114,10 +126,16 @@ export class NewAppointmentComponent implements OnInit {
     this.clients = JSON.parse(clientList || '[]');
   }
 
-  private setCalendarBlocks() {
+  private setTimeOptions() {
     for (let hour = 6; hour < 18; hour++) {
-      this.times.push({ hours: hour, minutes: 0 });
-      this.times.push({ hours: hour, minutes: 30 });
+      this.timeOptions.push({
+        value: { hours: hour, minutes: 0 } as Time,
+        display: hour + ':00',
+      });
+      this.timeOptions.push({
+        value: { hours: hour, minutes: 30 } as Time,
+        display: hour + ':30',
+      });
     }
   }
 }

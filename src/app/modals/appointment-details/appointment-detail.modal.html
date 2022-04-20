@@ -24,16 +24,24 @@
 
     <div class="form-line">
       <div class="form-line-title">Start time:</div>
-      <mat-select class="time-selector" formControlName="startTime">
-        <mat-option [value]="option" *ngFor="let option of times"
-          >{{ option }}</mat-option
+      <mat-select
+        [compareWith]="compareObjects"
+        class="time-selector"
+        formControlName="startTime"
+      >
+        <mat-option *ngFor="let option of timeOptions" [value]="option.value"
+          >{{ option.display}}</mat-option
         >
       </mat-select>
       <div class="mid-selector-container">until</div>
 
-      <mat-select class="time-selector" formControlName="endTime">
-        <mat-option [value]="option" *ngFor="let option of times"
-          >{{ option }}</mat-option
+      <mat-select
+        [compareWith]="compareObjects"
+        class="time-selector"
+        formControlName="endTime"
+      >
+        <mat-option *ngFor="let option of timeOptions" [value]="option.value"
+          >{{ option.display}}</mat-option
         >
       </mat-select>
     </div>
