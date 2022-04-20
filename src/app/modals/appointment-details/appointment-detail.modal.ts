@@ -70,8 +70,12 @@ export class NewAppointmentComponent implements OnInit {
     // Delete all the times before startTime
   }
 
-  compareObjects(o1: Time, o2: Time) {
+  compareTimes(o1: Time, o2: Time) {
     return o1.hours == o2.hours && o1.minutes == o2.minutes;
+  }
+
+  compareClients(client: Client, displayName: string) {
+    return client.displayName == displayName;
   }
 
   // Private functions related to initialisation of the component

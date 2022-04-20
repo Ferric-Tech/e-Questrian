@@ -1,3 +1,4 @@
+import { Time } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
@@ -47,12 +48,12 @@ export class TestDataService {
       ) {
         let appointmentsInBlock =
           this.calendarData[stringDate][block].appointments;
-        for (let index2 = 0; index2 < appointmentsInBlock.length; index2++) {
+        for (let index = 0; index < appointmentsInBlock.length; index++) {
           if (
-            JSON.stringify(appointmentsInBlock[index2]) ===
+            JSON.stringify(appointmentsInBlock[index]) ===
             JSON.stringify(appointment)
           ) {
-            this.calendarData[stringDate][block].appointments.splice(index2, 1);
+            this.calendarData[stringDate][block].appointments.splice(index, 1);
             return;
           }
         }
@@ -65,6 +66,7 @@ export class TestDataService {
     let calanderString = localStorage.getItem('calendar');
     this.calendarData = JSON.parse(calanderString || '{}');
 
+    newAppointment.invoice = 0;
     this.addAppointment(newAppointment);
     localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
@@ -78,7 +80,8 @@ export class TestDataService {
         index++
       ) {
         if (
-          this.calendarData[dateString][index].time == appointment.startTime
+          JSON.stringify(this.calendarData[dateString][index].time) ==
+          JSON.stringify(appointment.startTime)
         ) {
           this.calendarData[dateString][index].appointments.push(appointment);
           return;
@@ -264,26 +267,33 @@ export class TestDataService {
     let newInvoices: Invoice[] = [];
 
     // Get a list of all clients to be invoiced
-    let clientsToBeInvoiced: { [key: string]: number } = {};
+    let clientsToBeInvoiced: { [key: string]: Appointment[] } = {};
     Object.keys(this.calendarData).forEach((date) => {
       this.calendarData[date].forEach((calendarBlock) => {
         calendarBlock.appointments.forEach((appointment) => {
-          if (
-            Object.keys(clientsToBeInvoiced).indexOf(
-              appointment.client.displayName
-            ) < 0
-          ) {
-            clientsToBeInvoiced[appointment.client.displayName] = 1;
-          } else {
-            clientsToBeInvoiced[appointment.client.displayName] =
-              clientsToBeInvoiced[appointment.client.displayName] + 1;
+          if (appointment.invoice == 0) {
+            if (
+              Object.keys(clientsToBeInvoiced).indexOf(
+                appointment.client.displayName
+              ) < 0
+            ) {
+              clientsToBeInvoiced[appointment.client.displayName] = [
+                appointment,
+              ];
+            } else {
+              clientsToBeInvoiced[appointment.client.displayName].push(
+                appointment
+              );
+            }
           }
         });
       });
     });
 
     // Add an invoice for each client to be invoiced
-    let lastInvoiceNumber = 3;
+    let invoiceList = localStorage.getItem('invoices');
+    this.invoices = JSON.parse(invoiceList || '[]');
+    let lastInvoiceNumber = this.invoices.length;
     Object.keys(clientsToBeInvoiced).forEach((client) => {
       newInvoices.push({
         number: lastInvoiceNumber + 1,
@@ -295,13 +305,22 @@ export class TestDataService {
           telephoneNumber: '',
         },
         date: this.today,
-        amount: clientsToBeInvoiced[client] * 250,
+        amount: clientsToBeInvoiced[client].length * 250,
+      });
+      clientsToBeInvoiced[client].forEach((appointment) => {
+        let newAppointment = Object.assign({}, appointment);
+        newAppointment.invoice = lastInvoiceNumber;
+        this.editCurrentAppointment(
+          appointment.date,
+          appointment,
+          newAppointment
+        );
       });
       lastInvoiceNumber++;
     });
 
     // Add new invoices to stored data
-    let invoiceList = localStorage.getItem('invoices');
+    invoiceList = localStorage.getItem('invoices');
     this.invoices = JSON.parse(invoiceList || '[]');
     newInvoices.forEach((invoice) => {
       this.invoices.push(invoice);
