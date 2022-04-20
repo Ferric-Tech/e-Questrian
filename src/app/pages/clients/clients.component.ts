@@ -54,6 +54,7 @@ export class ClientsComponent implements OnInit {
 
   addNewClient(client: Client) {
     this.testDataService.addClient(client);
+    this.setClients();
     this.currentViewState = ViewState.VIEW;
   }
 
