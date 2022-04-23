@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { AppointmentsService } from 'src/app/services/appointments.service';
 import { TestDataService } from 'src/app/services/test-data.service';
 import {
   Appointment,
@@ -23,7 +24,10 @@ export class CalendarComponent implements OnInit {
   currentAppointment = {} as Appointment;
   appointmentEditActive = false;
 
-  constructor(private testDataService: TestDataService) {}
+  constructor(
+    private appointmentService: AppointmentsService,
+    private testDataService: TestDataService
+  ) {}
 
   ngOnInit(): void {
     this.setCalendarBlocks();
@@ -51,15 +55,14 @@ export class CalendarComponent implements OnInit {
   }
 
   appointmentCreated(newAppointment: Appointment) {
-    this.testDataService.addNewAppointment(newAppointment);
+    this.appointmentService.newAppointment(newAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }
 
   appointmentEdited(appointment: Appointment) {
     this.appointmentEditActive = false;
-    this.testDataService.editCurrentAppointment(
-      this.date,
+    this.appointmentService.editAppointment(
       this.currentAppointment,
       appointment
     );
@@ -69,7 +72,7 @@ export class CalendarComponent implements OnInit {
 
   appointmentRemoved() {
     this.appointmentEditActive = false;
-    this.testDataService.cancelAppointment(this.date, this.currentAppointment);
+    this.appointmentService.cancelAppointment(this.currentAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }

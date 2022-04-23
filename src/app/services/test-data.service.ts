@@ -1,8 +1,8 @@
-import { Time } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
+import { AppointmentsService } from './appointments.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,88 +18,7 @@ export class TestDataService {
   clientDisplayNames: string[] = [];
   invoices: Invoice[] = [];
 
-  constructor() {}
-
-  editCurrentAppointment(
-    date: Date,
-    priorDetails: Appointment,
-    newDetails: Appointment
-  ) {
-    this.removeAppointment(date, priorDetails);
-    this.addAppointment(newDetails);
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
-  }
-
-  cancelAppointment(date: Date, appointment: Appointment) {
-    this.removeAppointment(date, appointment);
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
-  }
-
-  private removeAppointment(date: Date, appointment: Appointment) {
-    // Get current object on local
-    let calanderString = localStorage.getItem('calendar');
-    this.calendarData = JSON.parse(calanderString || '{}');
-
-    const stringDate = date.toDateString();
-    for (let block = 0; block < this.calendarData[stringDate].length; block++) {
-      if (
-        JSON.stringify(this.calendarData[stringDate][block].time) ===
-        JSON.stringify(appointment.startTime)
-      ) {
-        let appointmentsInBlock =
-          this.calendarData[stringDate][block].appointments;
-        for (let index = 0; index < appointmentsInBlock.length; index++) {
-          if (
-            JSON.stringify(appointmentsInBlock[index]) ===
-            JSON.stringify(appointment)
-          ) {
-            this.calendarData[stringDate][block].appointments.splice(index, 1);
-            return;
-          }
-        }
-      }
-    }
-  }
-
-  addNewAppointment(newAppointment: Appointment) {
-    // Get current object on local
-    let calanderString = localStorage.getItem('calendar');
-    this.calendarData = JSON.parse(calanderString || '{}');
-
-    newAppointment.invoice = 0;
-    this.addAppointment(newAppointment);
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
-  }
-
-  private addAppointment(appointment: Appointment) {
-    const dateString = appointment.date.toDateString();
-    if (Object.keys(this.calendarData).indexOf(dateString) > -1) {
-      for (
-        let index = 0;
-        index < this.calendarData[dateString].length;
-        index++
-      ) {
-        if (
-          JSON.stringify(this.calendarData[dateString][index].time) ==
-          JSON.stringify(appointment.startTime)
-        ) {
-          this.calendarData[dateString][index].appointments.push(appointment);
-          return;
-        }
-      }
-      this.calendarData[dateString].push({
-        time: appointment.startTime,
-        appointments: [appointment],
-      });
-      return;
-    }
-    this.calendarData[dateString] = [
-      {
-        time: appointment.startTime,
-        appointments: [appointment],
-      },
-    ];
-  }
+  constructor(private appointmentService: AppointmentsService) {}
 
   loadTestDataToLocal() {
     this.setDates();
@@ -307,14 +226,10 @@ export class TestDataService {
         date: this.today,
         amount: clientsToBeInvoiced[client].length * 250,
       });
-      clientsToBeInvoiced[client].forEach((appointment) => {
-        let newAppointment = Object.assign({}, appointment);
+      clientsToBeInvoiced[client].forEach((oldAppointment) => {
+        let newAppointment = Object.assign({}, oldAppointment);
         newAppointment.invoice = lastInvoiceNumber;
-        this.editCurrentAppointment(
-          appointment.date,
-          appointment,
-          newAppointment
-        );
+        this.appointmentService.editAppointment(oldAppointment, newAppointment);
       });
       lastInvoiceNumber++;
     });
