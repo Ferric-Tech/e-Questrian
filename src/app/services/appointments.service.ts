@@ -52,7 +52,7 @@ export class AppointmentsService {
   }
 
   private removeAppointment(appointment: Appointment) {
-    const dateString = appointment.date.toDateString();
+    const dateString = new Date(appointment.date).toDateString();
     const calendarForDay = this.calendarData[dateString];
 
     for (let block = 0; block < calendarForDay.length; block++) {
