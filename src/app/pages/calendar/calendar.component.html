@@ -2,9 +2,10 @@
 
 <div class="date-container">
   <mat-icon (click)="changeDate(-1)">keyboard_arrow_left</mat-icon>
-  {{ date | date: "dd/MM/yyyy" }}
+  <div>{{ date | date: "dd/MM/yyyy" }}</div>
   <mat-icon (click)="changeDate(1)">keyboard_arrow_right</mat-icon>
 </div>
+
 <div class="calendar-container">
   <div
     *ngFor="let block of calenderBlocks"

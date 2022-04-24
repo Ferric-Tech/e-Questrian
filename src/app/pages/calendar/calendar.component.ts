@@ -24,10 +24,7 @@ export class CalendarComponent implements OnInit {
   currentAppointment = {} as Appointment;
   appointmentEditActive = false;
 
-  constructor(
-    private appointmentService: AppointmentsService,
-    private testDataService: TestDataService
-  ) {}
+  constructor(private appointmentService: AppointmentsService) {}
 
   ngOnInit(): void {
     this.setCalendarBlocks();
@@ -36,6 +33,7 @@ export class CalendarComponent implements OnInit {
   }
 
   changeDate(movement: number) {
+    this.date = new Date(this.date);
     this.date.setDate(this.date.getDate() + movement);
     this.date.setHours(0, 0, 0, 0);
     this.addAppointmentsToCalendar();
