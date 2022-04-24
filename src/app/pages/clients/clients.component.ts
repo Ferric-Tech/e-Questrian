@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientsService } from 'src/app/services/clients.service';
 import { TestDataService } from 'src/app/services/test-data.service';
 import { Client } from 'src/interfaces/clients.interface';
 
@@ -29,7 +30,7 @@ export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   currentClient: Client = {} as Client;
 
-  constructor(private testDataService: TestDataService) {}
+  constructor(private clientService: ClientsService) {}
 
   ngOnInit(): void {
     this.setClients();
@@ -54,13 +55,13 @@ export class ClientsComponent implements OnInit {
   }
 
   addNewClient(client: Client) {
-    this.testDataService.addClient(client);
+    this.clientService.addClient(client);
     this.setClients();
     this.currentViewState = ViewState.VIEW;
   }
 
   editClient(newClient: Client) {
-    this.testDataService.editClient(this.currentClient, newClient);
+    this.clientService.editClient(this.currentClient, newClient);
     this.setClients();
     this.currentViewState = ViewState.VIEW;
   }
