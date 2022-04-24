@@ -2,15 +2,19 @@ import { Time } from '@angular/common';
 import { Client } from './clients.interface';
 
 export interface CalendarData {
-  [key: string]: CalendarBlock[];
+  [date: string]: CalendarBlock[];
 }
 
 export interface CalendarBlock {
   time: Time;
-  appointments: Appointment[];
+  appointments: AppointmentDetail[];
 }
 
 export interface Appointment {
+  [appointmentID: string]: AppointmentDetail[];
+}
+
+export interface AppointmentDetail {
   title: string;
   date: Date;
   startTime: Time;

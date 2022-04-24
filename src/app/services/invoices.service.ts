@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
+import {
+  AppointmentDetail,
+  CalendarData,
+} from 'src/interfaces/calander.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
 import { AppointmentsService } from './appointments.service';
 
@@ -19,7 +22,7 @@ export class InvoicesService {
     let newInvoices: Invoice[] = [];
 
     // Get a list of all clients to be invoiced
-    let clientsToBeInvoiced: { [key: string]: Appointment[] } = {};
+    let clientsToBeInvoiced: { [key: string]: AppointmentDetail[] } = {};
     Object.keys(this.calendarData).forEach((date) => {
       this.calendarData[date].forEach((calendarBlock) => {
         calendarBlock.appointments.forEach((appointment) => {

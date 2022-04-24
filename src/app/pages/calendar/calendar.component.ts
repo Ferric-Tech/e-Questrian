@@ -4,7 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { AppointmentsService } from 'src/app/services/appointments.service';
 import { TestDataService } from 'src/app/services/test-data.service';
 import {
-  Appointment,
+  AppointmentDetail,
   CalendarBlock,
   CalendarData,
 } from 'src/interfaces/calander.interface';
@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
   displayNewAppointmentForm = false;
   proposedStartTime: Time = {} as Time;
   calendarData: CalendarData = {};
-  currentAppointment = {} as Appointment;
+  currentAppointment = {} as AppointmentDetail;
   appointmentEditActive = false;
 
   constructor(private appointmentService: AppointmentsService) {}
@@ -41,24 +41,24 @@ export class CalendarComponent implements OnInit {
 
   onCalendarBlockClick(block: Time) {
     if (this.appointmentEditActive) return;
-    this.currentAppointment = {} as Appointment;
+    this.currentAppointment = {} as AppointmentDetail;
     this.proposedStartTime = block;
     this.displayNewAppointmentForm = true;
   }
 
-  onAppointmentClick(appointment: Appointment) {
+  onAppointmentClick(appointment: AppointmentDetail) {
     this.appointmentEditActive = true;
     this.currentAppointment = appointment;
     this.displayNewAppointmentForm = true;
   }
 
-  appointmentCreated(newAppointment: Appointment) {
+  appointmentCreated(newAppointment: AppointmentDetail) {
     this.appointmentService.newAppointment(newAppointment);
     this.addAppointmentsToCalendar();
     this.displayNewAppointmentForm = false;
   }
 
-  appointmentEdited(appointment: Appointment) {
+  appointmentEdited(appointment: AppointmentDetail) {
     this.appointmentEditActive = false;
     this.appointmentService.editAppointment(
       this.currentAppointment,

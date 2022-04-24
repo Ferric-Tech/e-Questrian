@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Appointment, CalendarData } from 'src/interfaces/calander.interface';
+import {
+  AppointmentDetail,
+  CalendarData,
+} from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
 import { AppointmentsService } from './appointments.service';
@@ -17,6 +20,7 @@ export class TestDataService {
   clients: Client[] = [];
   clientDisplayNames: string[] = [];
   invoices: Invoice[] = [];
+  appointments: AppointmentDetail[] = [];
 
   loadTestDataToLocal() {
     this.setClientsList();
@@ -71,7 +75,9 @@ export class TestDataService {
     ];
   }
 
-  private setAppointments() {}
+  private setAppointments() {
+    this.appointments = [];
+  }
 
   private setCalendarObjects() {
     this.setDates();

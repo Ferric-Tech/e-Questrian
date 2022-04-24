@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { CalendarData, Appointment } from 'src/interfaces/calander.interface';
+import {
+  CalendarData,
+  AppointmentDetail,
+} from 'src/interfaces/calander.interface';
 import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({
@@ -10,27 +13,30 @@ export class AppointmentsService {
 
   constructor(private commonUtilities: CommonUtilitiesService) {}
 
-  newAppointment(newAppointment: Appointment) {
+  newAppointment(newAppointment: AppointmentDetail) {
     this.getCalendarData();
     newAppointment.invoice = 0;
     this.addAppointment(newAppointment);
     this.setCalendarData();
   }
 
-  cancelAppointment(appointment: Appointment) {
+  cancelAppointment(appointment: AppointmentDetail) {
     this.getCalendarData();
     this.removeAppointment(appointment);
     this.setCalendarData();
   }
 
-  editAppointment(priorDetails: Appointment, newDetails: Appointment) {
+  editAppointment(
+    priorDetails: AppointmentDetail,
+    newDetails: AppointmentDetail
+  ) {
     this.getCalendarData();
     this.removeAppointment(priorDetails);
     this.addAppointment(newDetails);
     this.setCalendarData();
   }
 
-  private addAppointment(appointment: Appointment) {
+  private addAppointment(appointment: AppointmentDetail) {
     const dateString = appointment.date.toDateString();
     const newTimeBlock = {
       time: appointment.startTime,
@@ -51,7 +57,7 @@ export class AppointmentsService {
     this.calendarData[dateString] = [newTimeBlock];
   }
 
-  private removeAppointment(appointment: Appointment) {
+  private removeAppointment(appointment: AppointmentDetail) {
     const dateString = new Date(appointment.date).toDateString();
     const calendarForDay = this.calendarData[dateString];
 

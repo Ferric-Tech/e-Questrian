@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Appointment } from 'src/interfaces/calander.interface';
+import { AppointmentDetail } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 
 @Component({

@@ -1,7 +1,10 @@
 import { Time } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Appointment, CalendarBlock } from 'src/interfaces/calander.interface';
+import {
+  AppointmentDetail,
+  CalendarBlock,
+} from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 
 export interface TimeOption {
@@ -17,10 +20,10 @@ export interface TimeOption {
 export class NewAppointmentComponent implements OnInit {
   @Input() date: Date | undefined;
   @Input() startTime: Time = {} as Time;
-  @Input() currentAppointment = {} as Appointment;
+  @Input() currentAppointment = {} as AppointmentDetail;
   @Output() canceled = new EventEmitter<void>();
-  @Output() newAppointment = new EventEmitter<Appointment>();
-  @Output() editedAppointment = new EventEmitter<Appointment>();
+  @Output() newAppointment = new EventEmitter<AppointmentDetail>();
+  @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
   @Output() removeAppointment = new EventEmitter<void>();
 
   isNewAppointment: boolean | undefined;
@@ -53,8 +56,10 @@ export class NewAppointmentComponent implements OnInit {
     this.isRemoveAppointment
       ? this.removeAppointment.emit()
       : this.isNewAppointment
-      ? this.newAppointment.emit(this.appoitmentForm.value as Appointment)
-      : this.editedAppointment.emit(this.appoitmentForm.value as Appointment);
+      ? this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail)
+      : this.editedAppointment.emit(
+          this.appoitmentForm.value as AppointmentDetail
+        );
   }
 
   onRemoveAppointmentClick() {

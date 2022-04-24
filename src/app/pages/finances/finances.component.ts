@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoicesService } from 'src/app/services/invoices.service';
 import { TestDataService } from 'src/app/services/test-data.service';
 import { Invoice } from 'src/interfaces/invoices.interface';
 
@@ -36,7 +37,7 @@ export class FinancesComponent implements OnInit {
   currentInvoice: InvoiceForDisplay = {} as InvoiceForDisplay;
   isInvoiceGenerationComplete = true;
 
-  constructor(private testDataService: TestDataService) {}
+  constructor(private invoiceService: InvoicesService) {}
 
   ngOnInit(): void {
     this.setInvoices();
@@ -74,7 +75,7 @@ export class FinancesComponent implements OnInit {
 
   private generateInvoices() {
     this.isInvoiceGenerationComplete = false;
-    this.testDataService.generateInvoices();
+    this.invoiceService.generateInvoices();
     this.isInvoiceGenerationComplete = true;
   }
 }
