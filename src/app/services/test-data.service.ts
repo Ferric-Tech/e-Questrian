@@ -21,27 +21,63 @@ export class TestDataService {
   constructor(private appointmentService: AppointmentsService) {}
 
   loadTestDataToLocal() {
-    this.setDates();
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
-    this.setCalendarObjects();
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
     this.setInvoices();
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
+    this.setCalendarObjects();
+    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
-  private setDates() {
-    this.today = new Date();
-    this.today.setHours(0, 0, 0, 0);
-    this.tomorrow = new Date();
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
-    this.tomorrow.setHours(0, 0, 0, 0);
-    this.yesterday = new Date();
-    this.yesterday.setDate(this.yesterday.getDate() - 1);
-    this.yesterday.setHours(0, 0, 0, 0);
+  private setClientsList() {
+    this.clients = [
+      {
+        displayName: 'Little Ash',
+        firstName: 'Ashley',
+        lastName: 'Novello',
+        email: 'cedric@telkomsa.co.za',
+        telephoneNumber: '072 462 4685',
+      },
+      {
+        displayName: 'Jill Henry',
+        firstName: 'Jill',
+        lastName: 'Henry',
+        email: 'jill@gmail.com',
+        telephoneNumber: '072 879 5421',
+      },
+      {
+        displayName: 'Kenny Timson',
+        firstName: 'Kenny',
+        lastName: 'Timson',
+        email: 'kenny@yahoo.com',
+        telephoneNumber: '083 357 2205',
+      },
+      {
+        displayName: 'Nurse Ash',
+        firstName: 'Ashley',
+        lastName: 'van der Merwe',
+        email: 'nurseash@life.co.za',
+        telephoneNumber: '066 565 0000',
+      },
+    ];
+    this.clients.sort((a, b) =>
+      a.displayName > b.displayName ? 1 : b.displayName > a.displayName ? -1 : 0
+    );
   }
+
+  private setInvoices() {
+    this.invoices = [
+      { number: 1, client: this.clients[0], date: this.yesterday, amount: 250 },
+      { number: 2, client: this.clients[1], date: this.yesterday, amount: 175 },
+      { number: 3, client: this.clients[2], date: this.yesterday, amount: 300 },
+    ];
+  }
+
+  private setAppointments() {}
 
   private setCalendarObjects() {
+    this.setDates();
+
     this.calendarData[this.today.toDateString()] = [
       {
         time: { hours: 8, minutes: 0 },
@@ -117,48 +153,15 @@ export class TestDataService {
     ];
   }
 
-  private setClientsList() {
-    this.clients = [
-      {
-        displayName: 'Little Ash',
-        firstName: 'Ashley',
-        lastName: 'Novello',
-        email: 'cedric@telkomsa.co.za',
-        telephoneNumber: '072 462 4685',
-      },
-      {
-        displayName: 'Jill Henry',
-        firstName: 'Jill',
-        lastName: 'Henry',
-        email: 'jill@gmail.com',
-        telephoneNumber: '072 879 5421',
-      },
-      {
-        displayName: 'Kenny Timson',
-        firstName: 'Kenny',
-        lastName: 'Timson',
-        email: 'kenny@yahoo.com',
-        telephoneNumber: '083 357 2205',
-      },
-      {
-        displayName: 'Nurse Ash',
-        firstName: 'Ashley',
-        lastName: 'van der Merwe',
-        email: 'nurseash@life.co.za',
-        telephoneNumber: '066 565 0000',
-      },
-    ];
-    this.clients.sort((a, b) =>
-      a.displayName > b.displayName ? 1 : b.displayName > a.displayName ? -1 : 0
-    );
-  }
-
-  private setInvoices() {
-    this.invoices = [
-      { number: 1, client: this.clients[0], date: this.yesterday, amount: 250 },
-      { number: 2, client: this.clients[1], date: this.yesterday, amount: 175 },
-      { number: 3, client: this.clients[2], date: this.yesterday, amount: 300 },
-    ];
+  private setDates() {
+    this.today = new Date();
+    this.today.setHours(0, 0, 0, 0);
+    this.tomorrow = new Date();
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.tomorrow.setHours(0, 0, 0, 0);
+    this.yesterday = new Date();
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
+    this.yesterday.setHours(0, 0, 0, 0);
   }
 
   generateInvoices() {
