@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppointmentDetail } from 'src/interfaces/appointments.interface';
-import { Client } from 'src/interfaces/clients.interface';
+import { ClientDetail, Clients } from 'src/interfaces/clients.interface';
 
 export interface TimeOption {
   display: string;
@@ -35,7 +35,7 @@ export class NewAppointmentComponent implements OnInit {
   });
 
   timeOptions: TimeOption[] = [];
-  clients: Client[] = [];
+  clients = {} as Clients;
   displayTime = '';
 
   constructor() {}
@@ -76,7 +76,7 @@ export class NewAppointmentComponent implements OnInit {
     return o1.hours == o2.hours && o1.minutes == o2.minutes;
   }
 
-  compareClients(client: Client, displayName: string) {
+  compareClients(client: ClientDetail, displayName: string) {
     return client.displayName == displayName;
   }
 

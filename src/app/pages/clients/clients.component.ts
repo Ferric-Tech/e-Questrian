@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/clients.service';
 import { TestDataService } from 'src/app/services/test-data.service';
-import { Client } from 'src/interfaces/clients.interface';
+import { ClientDetail, Clients } from 'src/interfaces/clients.interface';
 
 export enum ViewState {
   MAIN,
@@ -27,8 +27,8 @@ export class ClientsComponent implements OnInit {
 
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
-  clients: Client[] = [];
-  currentClient: Client = {} as Client;
+  clients = {} as Clients;
+  currentClient: ClientDetail = {} as ClientDetail;
 
   constructor(private clientService: ClientsService) {}
 
@@ -48,19 +48,19 @@ export class ClientsComponent implements OnInit {
     this.currentViewState = ViewState.VIEW;
   }
 
-  viewClient(client: Client) {
+  viewClient(client: ClientDetail) {
     this.setClients();
     this.currentClient = client;
     this.currentViewState = ViewState.ADD_EDIT;
   }
 
-  addNewClient(client: Client) {
+  addNewClient(client: ClientDetail) {
     this.clientService.addClient(client);
     this.setClients();
     this.currentViewState = ViewState.VIEW;
   }
 
-  editClient(newClient: Client) {
+  editClient(newClient: ClientDetail) {
     this.clientService.editClient(this.currentClient, newClient);
     this.setClients();
     this.currentViewState = ViewState.VIEW;

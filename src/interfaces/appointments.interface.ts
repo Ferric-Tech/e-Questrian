@@ -1,5 +1,5 @@
 import { Time } from '@angular/common';
-import { Client } from './clients.interface';
+import { ClientDetail } from './clients.interface';
 
 export interface Appointments {
   [appointmentID: string]: AppointmentDetail;
@@ -10,6 +10,6 @@ export interface AppointmentDetail {
   date: Date;
   startTime: Time;
   endTime: Time;
-  client: Client;
+  client: ClientDetail;
   invoice: number;
 }

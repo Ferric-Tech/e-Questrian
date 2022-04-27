@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Client } from 'src/interfaces/clients.interface';
+import { ClientDetail } from 'src/interfaces/clients.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsService {
-  clients: Client[] = [];
+  clients: ClientDetail[] = [];
 
   constructor() {}
 
-  editClient(oldClient: Client, newClient: Client) {
-    let clientsList = localStorage.getItem('clients');
-    this.clients = JSON.parse(clientsList || '[]');
+  editClient(oldClient: ClientDetail, newClient: ClientDetail) {
+    this.getClientData();
     this.removeClient(oldClient);
     this.addClient(newClient);
   }
 
-  removeClient(client: Client) {
+  removeClient(client: ClientDetail) {
     for (let index = 0; index < this.clients.length; index++) {
       if (JSON.stringify(this.clients[index]) === JSON.stringify(client)) {
         this.clients.splice(index, 1);
@@ -25,8 +24,19 @@ export class ClientsService {
     }
   }
 
-  addClient(client: Client) {
-    this.clients.push(client);
+  addClient(clientDetail: ClientDetail) {
+    this.getClientData();
+    let clientID = this.clients.length + 1;
+    this.clients[clientID] = clientDetail;
+    this.setClientData();
+  }
+
+  private getClientData() {
+    let clientsList = localStorage.getItem('clients');
+    this.clients = JSON.parse(clientsList || '[]');
+  }
+
+  private setClientData() {
     localStorage.setItem('clients', JSON.stringify(this.clients));
   }
 }

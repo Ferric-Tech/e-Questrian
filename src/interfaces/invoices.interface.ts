@@ -1,8 +1,8 @@
-import { Client } from './clients.interface';
+import { ClientDetail } from './clients.interface';
 
 export interface Invoice {
   number: number;
-  client: Client;
+  client: ClientDetail;
   date: Date;
   amount: number;
 }

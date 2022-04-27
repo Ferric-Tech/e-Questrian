@@ -52,8 +52,10 @@
         class="client-selector"
         formControlName="client"
       >
-        <mat-option [value]="option" *ngFor="let option of clients"
-          >{{ option.displayName }}</mat-option
+        <mat-option
+          [value]="option.value"
+          *ngFor="let option of clients | keyvalue"
+          >{{ option.value.displayName }}</mat-option
         >
       </mat-select>
     </div>

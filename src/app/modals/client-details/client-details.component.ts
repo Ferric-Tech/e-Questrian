@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Client } from 'src/interfaces/clients.interface';
+import { ClientDetail } from 'src/interfaces/clients.interface';
 
 @Component({
   selector: 'app-client-details',
@@ -8,10 +8,10 @@ import { Client } from 'src/interfaces/clients.interface';
   styleUrls: ['./client-details.component.scss'],
 })
 export class ClientDetailsComponent implements OnInit {
-  @Input() currentClient = {} as Client;
+  @Input() currentClient = {} as ClientDetail;
   @Output() canceled = new EventEmitter<void>();
-  @Output() newClient = new EventEmitter<Client>();
-  @Output() editedClient = new EventEmitter<Client>();
+  @Output() newClient = new EventEmitter<ClientDetail>();
+  @Output() editedClient = new EventEmitter<ClientDetail>();
   @Output() removeClient = new EventEmitter<void>();
 
   isNewClient: boolean | undefined;
@@ -42,8 +42,8 @@ export class ClientDetailsComponent implements OnInit {
     this.isRemoveClient
       ? this.removeClient.emit()
       : this.isNewClient
-      ? this.newClient.emit(this.clientForm.value as Client)
-      : this.editedClient.emit(this.clientForm.value as Client);
+      ? this.newClient.emit(this.clientForm.value as ClientDetail)
+      : this.editedClient.emit(this.clientForm.value as ClientDetail);
   }
 
   onRemoveAppointmentClick() {

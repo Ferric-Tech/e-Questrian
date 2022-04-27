@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Appointments } from 'src/interfaces/appointments.interface';
 import { CalendarData } from 'src/interfaces/calander.interface';
-import { Client } from 'src/interfaces/clients.interface';
+import { Clients } from 'src/interfaces/clients.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
-import { AppointmentsService } from './appointments.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ export class TestDataService {
   tomorrow: Date = new Date();
   yesterday: Date = new Date();
   calendarData: CalendarData = {};
-  clients: Client[] = [];
+  clients = {} as Clients;
   clientDisplayNames: string[] = [];
   invoices: Invoice[] = [];
   appointments: Appointments = {};
@@ -30,39 +29,89 @@ export class TestDataService {
   }
 
   private setClientsList() {
-    this.clients = [
-      {
+    this.clients = {
+      '1': {
         displayName: 'Little Ash',
         firstName: 'Ashley',
         lastName: 'Novello',
         email: 'cedric@telkomsa.co.za',
         telephoneNumber: '072 462 4685',
       },
-      {
+      '2': {
         displayName: 'Jill Henry',
         firstName: 'Jill',
         lastName: 'Henry',
         email: 'jill@gmail.com',
         telephoneNumber: '072 879 5421',
       },
-      {
+      '3': {
         displayName: 'Kenny Timson',
         firstName: 'Kenny',
         lastName: 'Timson',
         email: 'kenny@yahoo.com',
         telephoneNumber: '083 357 2205',
       },
-      {
+      '4': {
         displayName: 'Nurse Ash',
         firstName: 'Ashley',
         lastName: 'van der Merwe',
         email: 'nurseash@life.co.za',
         telephoneNumber: '066 565 0000',
       },
-    ];
-    this.clients.sort((a, b) =>
-      a.displayName > b.displayName ? 1 : b.displayName > a.displayName ? -1 : 0
-    );
+    };
+  }
+
+  private setAppointments() {
+    this.appointments = {
+      '1': {
+        title: 'Lesson with ' + this.clients['1'].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients['1'],
+        invoice: 0,
+      },
+      '2': {
+        title: 'Lesson with ' + this.clients['2'].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients['2'],
+        invoice: 0,
+      },
+      '3': {
+        title: 'Lesson with ' + this.clients['3'].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 30 },
+        endTime: { hours: 9, minutes: 0 },
+        client: this.clients['3'],
+        invoice: 0,
+      },
+      '4': {
+        title: 'Lesson with ' + this.clients['4'].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 7, minutes: 30 },
+        endTime: { hours: 8, minutes: 0 },
+        client: this.clients['4'],
+        invoice: 0,
+      },
+      '5': {
+        title: 'Lesson with ' + this.clients['1'].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients['1'],
+        invoice: 0,
+      },
+      '6': {
+        title: 'Lesson with ' + this.clients['2'].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients['2'],
+        invoice: 0,
+      },
+    };
   }
 
   private setInvoices() {
@@ -71,58 +120,5 @@ export class TestDataService {
       { number: 2, client: this.clients[1], date: this.yesterday, amount: 175 },
       { number: 3, client: this.clients[2], date: this.yesterday, amount: 300 },
     ];
-  }
-
-  private setAppointments() {
-    this.appointments = {
-      '1': {
-        title: 'Lesson with ' + this.clients[0].firstName,
-        date: this.today,
-        startTime: { hours: 8, minutes: 0 },
-        endTime: { hours: 8, minutes: 30 },
-        client: this.clients[0],
-        invoice: 0,
-      },
-      '2': {
-        title: 'Lesson with ' + this.clients[1].firstName,
-        date: this.today,
-        startTime: { hours: 8, minutes: 0 },
-        endTime: { hours: 8, minutes: 30 },
-        client: this.clients[1],
-        invoice: 0,
-      },
-      '3': {
-        title: 'Lesson with ' + this.clients[2].firstName,
-        date: this.today,
-        startTime: { hours: 8, minutes: 30 },
-        endTime: { hours: 9, minutes: 0 },
-        client: this.clients[2],
-        invoice: 0,
-      },
-      '4': {
-        title: 'Lesson with ' + this.clients[3].firstName,
-        date: this.tomorrow,
-        startTime: { hours: 7, minutes: 30 },
-        endTime: { hours: 8, minutes: 0 },
-        client: this.clients[3],
-        invoice: 0,
-      },
-      '5': {
-        title: 'Lesson with ' + this.clients[0].firstName,
-        date: this.tomorrow,
-        startTime: { hours: 8, minutes: 0 },
-        endTime: { hours: 8, minutes: 30 },
-        client: this.clients[0],
-        invoice: 0,
-      },
-      '6': {
-        title: 'Lesson with ' + this.clients[1].firstName,
-        date: this.tomorrow,
-        startTime: { hours: 8, minutes: 0 },
-        endTime: { hours: 8, minutes: 30 },
-        client: this.clients[1],
-        invoice: 0,
-      },
-    };
   }
 }
