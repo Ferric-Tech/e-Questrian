@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Appointments } from 'src/interfaces/appointments.interface';
 import { CalendarData } from 'src/interfaces/calander.interface';
 import { Invoices } from 'src/interfaces/invoices.interface';
-import { AppointmentsService } from './appointments.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +11,6 @@ export class InvoicesService {
   calendarData: CalendarData = {};
   appointments: Appointments = {};
   invoices = {} as Invoices;
-
-  constructor(private appointmentService: AppointmentsService) {}
 
   generateInvoices() {
     // Get all appointments to be invoiced by client

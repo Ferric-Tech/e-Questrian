@@ -3,14 +3,12 @@ import {
   AppointmentDetail,
   Appointments,
 } from 'src/interfaces/appointments.interface';
-import { CalendarData } from 'src/interfaces/calander.interface';
 import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentsService {
-  private calendarData: CalendarData = {};
   private appointments: Appointments = {};
 
   constructor(private commonUtilities: CommonUtilitiesService) {}
@@ -52,9 +50,5 @@ export class AppointmentsService {
 
   private setAppointmentData() {
     localStorage.setItem('appointments', JSON.stringify(this.appointments));
-  }
-
-  private isEqual(object1: any, object2: any) {
-    return this.commonUtilities.isEqualObjects(object1, object2);
   }
 }

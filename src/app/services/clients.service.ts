@@ -7,8 +7,6 @@ import { ClientDetail } from 'src/interfaces/clients.interface';
 export class ClientsService {
   clients: ClientDetail[] = [];
 
-  constructor() {}
-
   editClient(oldClient: ClientDetail, newClient: ClientDetail) {
     this.getClientData();
     this.removeClient(oldClient);
