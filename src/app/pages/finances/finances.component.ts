@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoicesService } from 'src/app/services/invoices.service';
 import { TestDataService } from 'src/app/services/test-data.service';
-import { Invoice } from 'src/interfaces/invoices.interface';
+import { Appointments } from 'src/interfaces/appointments.interface';
+import { Invoices } from 'src/interfaces/invoices.interface';
 
-export interface InvoiceForDisplay extends Invoice {
-  displayName: string;
-}
+// export interface InvoiceForDisplay extends Invoices {
+//   displayName: string;
+// }
 
 export enum ViewState {
   MAIN,
@@ -31,28 +32,33 @@ export class FinancesComponent implements OnInit {
     { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
   ];
 
-  invoices: InvoiceForDisplay[] = [];
+  appointments: Appointments = {};
+
+  invoices = {} as Invoices;
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
-  currentInvoice: InvoiceForDisplay = {} as InvoiceForDisplay;
+  currentInvoiceID = '';
   isInvoiceGenerationComplete = true;
 
   constructor(private invoiceService: InvoicesService) {}
 
-  ngOnInit(): void {
-    this.setInvoices();
-  }
+  ngOnInit(): void {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
     this.currentViewState = viewStateSelected;
-    if (this.currentViewState == ViewState.GENERATE_INVOICES) {
-      this.generateInvoices();
+    switch (this.currentViewState) {
+      case ViewState.VIEW_INVOICES:
+        this.getDataForDisplay();
+        break;
+      case ViewState.GENERATE_INVOICES:
+        this.generateInvoices();
+        break;
     }
   }
 
-  viewInvoice(invoice: InvoiceForDisplay) {
+  viewInvoice(invoiceID: string) {
     this.currentViewState = ViewState.INVOICE_DETAIL;
-    this.currentInvoice = invoice;
+    this.currentInvoiceID = invoiceID;
   }
 
   backToFinancetMain() {
@@ -60,16 +66,22 @@ export class FinancesComponent implements OnInit {
   }
 
   backToInvoiceList() {
-    this.setInvoices();
     this.currentViewState = ViewState.VIEW_INVOICES;
   }
 
-  private setInvoices() {
+  private getDataForDisplay() {
+    this.getInvoiceData();
+    this.getAppointmentData();
+  }
+
+  private getInvoiceData() {
     let invoiceList = localStorage.getItem('invoices');
     this.invoices = JSON.parse(invoiceList || '[]');
-    this.invoices.forEach((invoice) => {
-      invoice.displayName = invoice.client.displayName;
-    });
+  }
+
+  private getAppointmentData() {
+    let appointmentString = localStorage.getItem('appointments');
+    this.appointments = JSON.parse(appointmentString || '{}');
   }
 
   private generateInvoices() {

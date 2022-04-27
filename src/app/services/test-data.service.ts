@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Appointments } from 'src/interfaces/appointments.interface';
 import { CalendarData } from 'src/interfaces/calander.interface';
 import { Clients } from 'src/interfaces/clients.interface';
-import { Invoice } from 'src/interfaces/invoices.interface';
+import { Invoices } from 'src/interfaces/invoices.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class TestDataService {
   calendarData: CalendarData = {};
   clients = {} as Clients;
   clientDisplayNames: string[] = [];
-  invoices: Invoice[] = [];
+  invoices = {} as Invoices;
   appointments: Appointments = {};
 
   loadTestDataToLocal() {
@@ -64,6 +64,30 @@ export class TestDataService {
   private setAppointments() {
     this.appointments = {
       '1': {
+        title: 'Lesson with ' + this.clients['3'].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients['3'],
+        invoice: 0,
+      },
+      '2': {
+        title: 'Lesson with ' + this.clients['4'].firstName,
+        date: this.today,
+        startTime: { hours: 10, minutes: 0 },
+        endTime: { hours: 10, minutes: 30 },
+        client: this.clients['4'],
+        invoice: 0,
+      },
+      '3': {
+        title: 'Lesson with ' + this.clients['4'].firstName,
+        date: this.today,
+        startTime: { hours: 14, minutes: 0 },
+        endTime: { hours: 14, minutes: 30 },
+        client: this.clients['4'],
+        invoice: 0,
+      },
+      '4': {
         title: 'Lesson with ' + this.clients['1'].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
@@ -71,7 +95,7 @@ export class TestDataService {
         client: this.clients['1'],
         invoice: 0,
       },
-      '2': {
+      '5': {
         title: 'Lesson with ' + this.clients['2'].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
@@ -79,7 +103,7 @@ export class TestDataService {
         client: this.clients['2'],
         invoice: 0,
       },
-      '3': {
+      '6': {
         title: 'Lesson with ' + this.clients['3'].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 30 },
@@ -87,7 +111,7 @@ export class TestDataService {
         client: this.clients['3'],
         invoice: 0,
       },
-      '4': {
+      '7': {
         title: 'Lesson with ' + this.clients['4'].firstName,
         date: this.tomorrow,
         startTime: { hours: 7, minutes: 30 },
@@ -95,7 +119,7 @@ export class TestDataService {
         client: this.clients['4'],
         invoice: 0,
       },
-      '5': {
+      '8': {
         title: 'Lesson with ' + this.clients['1'].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
@@ -103,7 +127,7 @@ export class TestDataService {
         client: this.clients['1'],
         invoice: 0,
       },
-      '6': {
+      '9': {
         title: 'Lesson with ' + this.clients['2'].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
@@ -115,25 +139,6 @@ export class TestDataService {
   }
 
   private setInvoices() {
-    this.invoices = [
-      {
-        number: 1,
-        client: this.clients['1'],
-        date: this.yesterday,
-        amount: 250,
-      },
-      {
-        number: 2,
-        client: this.clients['2'],
-        date: this.yesterday,
-        amount: 175,
-      },
-      {
-        number: 3,
-        client: this.clients['3'],
-        date: this.yesterday,
-        amount: 300,
-      },
-    ];
+    this.invoices = { '1': ['1'], '2': ['2', '3'] };
   }
 }
