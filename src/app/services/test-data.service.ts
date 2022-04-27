@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  AppointmentDetail,
-  CalendarData,
-} from 'src/interfaces/calander.interface';
+import { Appointments } from 'src/interfaces/appointments.interface';
+import { CalendarData } from 'src/interfaces/calander.interface';
 import { Client } from 'src/interfaces/clients.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
 import { AppointmentsService } from './appointments.service';
@@ -13,22 +11,22 @@ import { AppointmentsService } from './appointments.service';
 export class TestDataService {
   today: Date = new Date();
   tomorrow: Date = new Date();
-  todayFormatted = '';
-  tomorrowFormatted = '';
   yesterday: Date = new Date();
   calendarData: CalendarData = {};
   clients: Client[] = [];
   clientDisplayNames: string[] = [];
   invoices: Invoice[] = [];
-  appointments: AppointmentDetail[] = [];
+  appointments: Appointments = {};
 
   loadTestDataToLocal() {
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.yesterday.setDate(this.tomorrow.getDate() - 1);
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
+    this.setAppointments();
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
     this.setInvoices();
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
-    this.setCalendarObjects();
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
   }
 
   private setClientsList() {
@@ -76,95 +74,55 @@ export class TestDataService {
   }
 
   private setAppointments() {
-    this.appointments = [];
-  }
-
-  private setCalendarObjects() {
-    this.setDates();
-
-    this.calendarData[this.today.toDateString()] = [
-      {
-        time: { hours: 8, minutes: 0 },
-        appointments: [
-          {
-            title: 'Lesson with ' + this.clients[0].firstName,
-            date: this.today,
-            startTime: { hours: 8, minutes: 0 },
-            endTime: { hours: 8, minutes: 30 },
-            client: this.clients[0],
-            invoice: 0,
-          },
-          {
-            title: 'Lesson with ' + this.clients[1].firstName,
-            date: this.today,
-            startTime: { hours: 8, minutes: 0 },
-            endTime: { hours: 8, minutes: 30 },
-            client: this.clients[1],
-            invoice: 0,
-          },
-        ],
+    this.appointments = {
+      '1': {
+        title: 'Lesson with ' + this.clients[0].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients[0],
+        invoice: 0,
       },
-      {
-        time: { hours: 8, minutes: 30 },
-        appointments: [
-          {
-            title: 'Lesson with ' + this.clients[2].firstName,
-            date: this.today,
-            startTime: { hours: 8, minutes: 30 },
-            endTime: { hours: 9, minutes: 0 },
-            client: this.clients[2],
-            invoice: 0,
-          },
-        ],
+      '2': {
+        title: 'Lesson with ' + this.clients[1].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients[1],
+        invoice: 0,
       },
-    ];
-
-    this.calendarData[this.tomorrow.toDateString()] = [
-      {
-        time: { hours: 7, minutes: 30 },
-        appointments: [
-          {
-            title: 'Lesson with ' + this.clients[3].firstName,
-            date: this.tomorrow,
-            startTime: { hours: 7, minutes: 30 },
-            endTime: { hours: 8, minutes: 0 },
-            client: this.clients[3],
-            invoice: 0,
-          },
-        ],
+      '3': {
+        title: 'Lesson with ' + this.clients[2].firstName,
+        date: this.today,
+        startTime: { hours: 8, minutes: 30 },
+        endTime: { hours: 9, minutes: 0 },
+        client: this.clients[2],
+        invoice: 0,
       },
-      {
-        time: { hours: 8, minutes: 0 },
-        appointments: [
-          {
-            title: 'Lesson with ' + this.clients[0].firstName,
-            date: this.tomorrow,
-            startTime: { hours: 8, minutes: 0 },
-            endTime: { hours: 8, minutes: 30 },
-            client: this.clients[0],
-            invoice: 0,
-          },
-          {
-            title: 'Lesson with ' + this.clients[1].firstName,
-            date: this.tomorrow,
-            startTime: { hours: 8, minutes: 0 },
-            endTime: { hours: 8, minutes: 30 },
-            client: this.clients[1],
-            invoice: 0,
-          },
-        ],
+      '4': {
+        title: 'Lesson with ' + this.clients[3].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 7, minutes: 30 },
+        endTime: { hours: 8, minutes: 0 },
+        client: this.clients[3],
+        invoice: 0,
       },
-    ];
-  }
-
-  private setDates() {
-    this.today = new Date();
-    this.today.setHours(0, 0, 0, 0);
-    this.tomorrow = new Date();
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
-    this.tomorrow.setHours(0, 0, 0, 0);
-    this.yesterday = new Date();
-    this.yesterday.setDate(this.yesterday.getDate() - 1);
-    this.yesterday.setHours(0, 0, 0, 0);
+      '5': {
+        title: 'Lesson with ' + this.clients[0].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients[0],
+        invoice: 0,
+      },
+      '6': {
+        title: 'Lesson with ' + this.clients[1].firstName,
+        date: this.tomorrow,
+        startTime: { hours: 8, minutes: 0 },
+        endTime: { hours: 8, minutes: 30 },
+        client: this.clients[1],
+        invoice: 0,
+      },
+    };
   }
 }

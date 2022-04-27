@@ -1,13 +1,12 @@
 import { Time } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from 'src/app/services/appointments.service';
-import { TestDataService } from 'src/app/services/test-data.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 import {
   AppointmentDetail,
-  CalendarBlock,
-  CalendarData,
-} from 'src/interfaces/calander.interface';
+  Appointments,
+} from 'src/interfaces/appointments.interface';
+import { CalendarBlock, CalendarData } from 'src/interfaces/calander.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -20,59 +19,39 @@ export class CalendarComponent implements OnInit {
   calenderBlocks: CalendarBlock[] = [];
   displayNewAppointmentForm = false;
   proposedStartTime: Time = {} as Time;
-  calendarData: CalendarData = {};
-  currentAppointment = {} as AppointmentDetail;
+  appointments: Appointments = {};
+  currentAppointmentID = '';
   appointmentEditActive = false;
+  calendarData = {} as CalendarData;
 
-  constructor(private appointmentService: AppointmentsService) {}
+  constructor(
+    private appointmentService: AppointmentsService,
+    private calendarService: CalendarService
+  ) {}
 
   ngOnInit(): void {
-    this.setCalendarBlocks();
     this.setTodaysDate();
-    this.addAppointmentsToCalendar();
+    this.setCalendar();
   }
 
   changeDate(movement: number) {
     this.date = new Date(this.date);
     this.date.setDate(this.date.getDate() + movement);
     this.date.setHours(0, 0, 0, 0);
-    this.addAppointmentsToCalendar();
+    this.setCalendar();
   }
 
-  onCalendarBlockClick(block: Time) {
+  calendarBlockClicked(blockTime: Time) {
     if (this.appointmentEditActive) return;
-    this.currentAppointment = {} as AppointmentDetail;
-    this.proposedStartTime = block;
+    this.currentAppointmentID = '0';
+    this.proposedStartTime = blockTime;
     this.displayNewAppointmentForm = true;
   }
 
-  onAppointmentClick(appointment: AppointmentDetail) {
+  appointmentClicked(appointmentID: string) {
     this.appointmentEditActive = true;
-    this.currentAppointment = appointment;
+    this.currentAppointmentID = appointmentID;
     this.displayNewAppointmentForm = true;
-  }
-
-  appointmentCreated(newAppointment: AppointmentDetail) {
-    this.appointmentService.newAppointment(newAppointment);
-    this.addAppointmentsToCalendar();
-    this.displayNewAppointmentForm = false;
-  }
-
-  appointmentEdited(appointment: AppointmentDetail) {
-    this.appointmentEditActive = false;
-    this.appointmentService.editAppointment(
-      this.currentAppointment,
-      appointment
-    );
-    this.addAppointmentsToCalendar();
-    this.displayNewAppointmentForm = false;
-  }
-
-  appointmentRemoved() {
-    this.appointmentEditActive = false;
-    this.appointmentService.cancelAppointment(this.currentAppointment);
-    this.addAppointmentsToCalendar();
-    this.displayNewAppointmentForm = false;
   }
 
   appointmentDetailModalCanceled() {
@@ -80,18 +59,28 @@ export class CalendarComponent implements OnInit {
     this.displayNewAppointmentForm = false;
   }
 
-  private setCalendarBlocks() {
-    this.calenderBlocks = [];
-    for (let hour = 6; hour < 18; hour++) {
-      this.calenderBlocks.push({
-        time: { hours: hour, minutes: 0 },
-        appointments: [],
-      });
-      this.calenderBlocks.push({
-        time: { hours: hour, minutes: 30 },
-        appointments: [],
-      });
-    }
+  appointmentCreated(newAppointment: AppointmentDetail) {
+    this.appointmentService.newAppointment(newAppointment);
+    this.setCalendar();
+    console.log(this.calendarData);
+    this.displayNewAppointmentForm = false;
+  }
+
+  appointmentEdited(appointment: AppointmentDetail) {
+    this.appointmentEditActive = false;
+    this.appointmentService.editAppointment(
+      this.currentAppointmentID,
+      appointment
+    );
+    this.setCalendar();
+    this.displayNewAppointmentForm = false;
+  }
+
+  appointmentRemoved() {
+    this.appointmentEditActive = false;
+    this.appointmentService.cancelAppointment(this.currentAppointmentID);
+    this.setCalendar();
+    this.displayNewAppointmentForm = false;
   }
 
   private setTodaysDate() {
@@ -99,9 +88,10 @@ export class CalendarComponent implements OnInit {
     this.dateFormatted = this.date.toString();
   }
 
-  private addAppointmentsToCalendar() {
+  private setCalendar() {
+    this.getAppointments();
+    this.setCalenderData();
     this.setCalendarBlocks();
-    this.loadCalendarData();
     const stringDate = this.date.toDateString();
     if (!this.calendarData[stringDate]) {
       return;
@@ -120,8 +110,26 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  private loadCalendarData() {
-    let calandarString = localStorage.getItem('calendar');
-    this.calendarData = JSON.parse(calandarString || '{}');
+  private getAppointments() {
+    let appointmentString = localStorage.getItem('appointments');
+    this.appointments = JSON.parse(appointmentString || '{}');
+  }
+
+  private setCalenderData() {
+    this.calendarData = this.calendarService.setCalendarFromAppointments();
+  }
+
+  private setCalendarBlocks() {
+    this.calenderBlocks = [];
+    for (let hour = 6; hour < 18; hour++) {
+      this.calenderBlocks.push({
+        time: { hours: hour, minutes: 0 },
+        appointments: [],
+      });
+      this.calenderBlocks.push({
+        time: { hours: hour, minutes: 30 },
+        appointments: [],
+      });
+    }
   }
 }

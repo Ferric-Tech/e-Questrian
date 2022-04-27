@@ -9,7 +9,7 @@
 <div class="calendar-container">
   <div
     *ngFor="let block of calenderBlocks"
-    (click)="onCalendarBlockClick(block.time)"
+    (click)="calendarBlockClicked(block.time)"
   >
     <hr />
     <div class="block-container">
@@ -18,10 +18,10 @@
       </div>
       <div
         class="block-appointment-container"
-        *ngFor="let appointment of block.appointments"
+        *ngFor="let appointmentID of block.appointments"
       >
-        <button (click)="onAppointmentClick(appointment)">
-          {{ appointment.title }}
+        <button (click)="appointmentClicked(appointmentID)">
+          {{ appointments[appointmentID].title }}
         </button>
       </div>
     </div>
@@ -31,7 +31,7 @@
   *ngIf="displayNewAppointmentForm"
   [date]="date"
   [startTime]="proposedStartTime"
-  [currentAppointment]="currentAppointment"
+  [currentAppointment]="appointments[currentAppointmentID] || {}"
   (newAppointment)="appointmentCreated($event)"
   (editedAppointment)="appointmentEdited($event)"
   (removeAppointment)="appointmentRemoved()"

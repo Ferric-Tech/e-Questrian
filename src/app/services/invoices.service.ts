@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  AppointmentDetail,
-  CalendarData,
-} from 'src/interfaces/calander.interface';
+import { Appointments } from 'src/interfaces/appointments.interface';
+import { CalendarData } from 'src/interfaces/calander.interface';
 import { Invoice } from 'src/interfaces/invoices.interface';
 import { AppointmentsService } from './appointments.service';
 
@@ -12,6 +10,7 @@ import { AppointmentsService } from './appointments.service';
 export class InvoicesService {
   today: Date = new Date();
   calendarData: CalendarData = {};
+  appointments: Appointments = {};
   invoices: Invoice[] = [];
 
   constructor(private appointmentService: AppointmentsService) {}
@@ -22,10 +21,11 @@ export class InvoicesService {
     let newInvoices: Invoice[] = [];
 
     // Get a list of all clients to be invoiced
-    let clientsToBeInvoiced: { [key: string]: AppointmentDetail[] } = {};
+    let clientsToBeInvoiced: { [client: string]: string[] } = {};
     Object.keys(this.calendarData).forEach((date) => {
       this.calendarData[date].forEach((calendarBlock) => {
-        calendarBlock.appointments.forEach((appointment) => {
+        calendarBlock.appointments.forEach((appointmentID) => {
+          let appointment = this.appointments[appointmentID];
           if (appointment.invoice == 0) {
             if (
               Object.keys(clientsToBeInvoiced).indexOf(
@@ -33,11 +33,11 @@ export class InvoicesService {
               ) < 0
             ) {
               clientsToBeInvoiced[appointment.client.displayName] = [
-                appointment,
+                appointmentID,
               ];
             } else {
               clientsToBeInvoiced[appointment.client.displayName].push(
-                appointment
+                appointmentID
               );
             }
           }
@@ -62,10 +62,16 @@ export class InvoicesService {
         date: this.today,
         amount: clientsToBeInvoiced[client].length * 250,
       });
-      clientsToBeInvoiced[client].forEach((oldAppointment) => {
-        let newAppointment = Object.assign({}, oldAppointment);
+      clientsToBeInvoiced[client].forEach((oldAppointmentID) => {
+        let newAppointment = Object.assign(
+          {},
+          this.appointments[oldAppointmentID]
+        );
         newAppointment.invoice = lastInvoiceNumber;
-        this.appointmentService.editAppointment(oldAppointment, newAppointment);
+        this.appointmentService.editAppointment(
+          oldAppointmentID,
+          newAppointment
+        );
       });
       lastInvoiceNumber++;
     });

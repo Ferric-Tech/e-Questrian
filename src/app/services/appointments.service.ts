@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  CalendarData,
   AppointmentDetail,
-} from 'src/interfaces/calander.interface';
+  Appointments,
+} from 'src/interfaces/appointments.interface';
+import { CalendarData } from 'src/interfaces/calander.interface';
 import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({
@@ -10,77 +11,47 @@ import { CommonUtilitiesService } from './common-utilities.service';
 })
 export class AppointmentsService {
   private calendarData: CalendarData = {};
+  private appointments: Appointments = {};
 
   constructor(private commonUtilities: CommonUtilitiesService) {}
 
   newAppointment(newAppointment: AppointmentDetail) {
-    this.getCalendarData();
+    this.getAppointmentData();
     newAppointment.invoice = 0;
     this.addAppointment(newAppointment);
-    this.setCalendarData();
+    this.setAppointmentData();
   }
 
-  cancelAppointment(appointment: AppointmentDetail) {
-    this.getCalendarData();
-    this.removeAppointment(appointment);
-    this.setCalendarData();
+  cancelAppointment(appointmentID: string) {
+    this.getAppointmentData();
+    this.removeAppointment(appointmentID);
+    this.setAppointmentData();
   }
 
-  editAppointment(
-    priorDetails: AppointmentDetail,
-    newDetails: AppointmentDetail
-  ) {
-    this.getCalendarData();
-    this.removeAppointment(priorDetails);
-    this.addAppointment(newDetails);
-    this.setCalendarData();
+  editAppointment(appointmentID: string, newDetails: AppointmentDetail) {
+    this.getAppointmentData();
+    this.appointments[appointmentID] = newDetails;
+    this.setAppointmentData();
   }
 
   private addAppointment(appointment: AppointmentDetail) {
-    const dateString = appointment.date.toDateString();
-    const newTimeBlock = {
-      time: appointment.startTime,
-      appointments: [appointment],
-    };
-
-    if (Object.keys(this.calendarData).indexOf(dateString) > -1) {
-      let calendarForDay = this.calendarData[dateString];
-      for (let index = 0; index < calendarForDay.length; index++) {
-        if (this.isEqual(calendarForDay[index].time, appointment.startTime)) {
-          this.calendarData[dateString][index].appointments.push(appointment);
-          return;
-        }
-      }
-      calendarForDay.push(newTimeBlock);
-      return;
-    }
-    this.calendarData[dateString] = [newTimeBlock];
+    const appointmentID = (
+      Object.keys(this.appointments).length + 1
+    ).toString();
+    this.appointments[appointmentID] = appointment;
   }
 
-  private removeAppointment(appointment: AppointmentDetail) {
-    const dateString = new Date(appointment.date).toDateString();
-    const calendarForDay = this.calendarData[dateString];
-
-    for (let block = 0; block < calendarForDay.length; block++) {
-      if (this.isEqual(calendarForDay[block].time, appointment.startTime)) {
-        let appointmentsInBlock = calendarForDay[block].appointments;
-        for (let index = 0; index < appointmentsInBlock.length; index++) {
-          if (this.isEqual(appointmentsInBlock[index], appointment)) {
-            calendarForDay[block].appointments.splice(index, 1);
-            return;
-          }
-        }
-      }
-    }
+  private removeAppointment(appointmentID: string) {
+    delete this.appointments[appointmentID];
   }
 
-  private getCalendarData() {
-    let calanderString = localStorage.getItem('calendar');
-    this.calendarData = JSON.parse(calanderString || '{}');
+  private getAppointmentData() {
+    let appointmentString = localStorage.getItem('appointments');
+    this.appointments = JSON.parse(appointmentString || '{}');
   }
 
-  private setCalendarData() {
-    localStorage.setItem('calendar', JSON.stringify(this.calendarData));
+  private setAppointmentData() {
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
 
   private isEqual(object1: any, object2: any) {
