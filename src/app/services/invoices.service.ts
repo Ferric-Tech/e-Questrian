@@ -11,84 +11,46 @@ export class InvoicesService {
   today: Date = new Date();
   calendarData: CalendarData = {};
   appointments: Appointments = {};
-  invoices: Invoices[] = [];
+  invoices = {} as Invoices;
 
   constructor(private appointmentService: AppointmentsService) {}
 
   generateInvoices() {
-    // this.setDates();
-    // this.getCalendarData();
-    // let newInvoices: Invoices[] = [];
-    // Get a list of all clients to be invoiced
-    // let clientsToBeInvoiced: { [client: string]: string[] } = {};
-    // Object.keys(this.calendarData).forEach((date) => {
-    //   this.calendarData[date].forEach((calendarBlock) => {
-    //     calendarBlock.appointments.forEach((appointmentID) => {
-    //       let appointment = this.appointments[appointmentID];
-    //       if (appointment.invoice == 0) {
-    //         if (
-    //           Object.keys(clientsToBeInvoiced).indexOf(
-    //             appointment.client.displayName
-    //           ) < 0
-    //         ) {
-    //           clientsToBeInvoiced[appointment.client.displayName] = [
-    //             appointmentID,
-    //           ];
-    //         } else {
-    //           clientsToBeInvoiced[appointment.client.displayName].push(
-    //             appointmentID
-    //           );
-    //         }
-    //       }
-    //     });
-    //   });
-    // });
-    // Add an invoice for each client to be invoiced
-    // let invoiceList = localStorage.getItem('invoices');
-    // this.invoices = JSON.parse(invoiceList || '[]');
-    // let lastInvoiceNumber = this.invoices.length;
-    // Object.keys(clientsToBeInvoiced).forEach((client) => {
-    //   newInvoices.push({
-    //     number: lastInvoiceNumber + 1,
-    //     client: {
-    //       displayName: client,
-    //       firstName: client,
-    //       lastName: '',
-    //       email: '',
-    //       telephoneNumber: '',
-    //     },
-    //     date: this.today,
-    //     amount: clientsToBeInvoiced[client].length * 250,
-    //   });
-    //   clientsToBeInvoiced[client].forEach((oldAppointmentID) => {
-    //     let newAppointment = Object.assign(
-    //       {},
-    //       this.appointments[oldAppointmentID]
-    //     );
-    //     newAppointment.invoice = lastInvoiceNumber;
-    //     this.appointmentService.editAppointment(
-    //       oldAppointmentID,
-    //       newAppointment
-    //     );
-    //   });
-    //   lastInvoiceNumber++;
-    // });
-    // Add new invoices to stored data
-    // invoiceList = localStorage.getItem('invoices');
-    // this.invoices = JSON.parse(invoiceList || '[]');
-    // newInvoices.forEach((invoice) => {
-    //   this.invoices.push(invoice);
-    // });
-    // localStorage.setItem('invoices', JSON.stringify(this.invoices));
+    // Get all appointments to be invoiced by client
+    this.getAppointmentData();
+    let appointmentsToInvoice = {} as { [client: string]: string[] };
+    Object.keys(this.appointments).forEach((appointmentID) => {
+      if (this.appointments[appointmentID].invoice == 0) {
+        let displayName = this.appointments[appointmentID].client.displayName;
+        displayName in appointmentsToInvoice
+          ? appointmentsToInvoice[displayName].push(appointmentID)
+          : (appointmentsToInvoice[displayName] = [appointmentID]);
+      }
+    });
+
+    // Add an invoice for each assigning the appointments to that invoice
+    this.getInvoiceData();
+    let nextInvoiceNumber = Object.keys(this.invoices).length + 1;
+    Object.keys(appointmentsToInvoice).forEach((client) => {
+      this.invoices[nextInvoiceNumber] = appointmentsToInvoice[client];
+      appointmentsToInvoice[client].forEach((appointmentID) => {
+        this.appointments[appointmentID].invoice = nextInvoiceNumber;
+      });
+      nextInvoiceNumber++;
+    });
+
+    // Add new invoices and appointements to stored data
+    localStorage.setItem('invoices', JSON.stringify(this.invoices));
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
 
-  private getCalendarData() {
-    let calanderString = localStorage.getItem('calendar');
-    this.calendarData = JSON.parse(calanderString || '{}');
+  private getAppointmentData() {
+    let appointmentString = localStorage.getItem('appointments');
+    this.appointments = JSON.parse(appointmentString || '{}');
   }
 
-  private setDates() {
-    this.today = new Date();
-    this.today.setHours(0, 0, 0, 0);
+  private getInvoiceData() {
+    let invoiceList = localStorage.getItem('invoices');
+    this.invoices = JSON.parse(invoiceList || '[]');
   }
 }

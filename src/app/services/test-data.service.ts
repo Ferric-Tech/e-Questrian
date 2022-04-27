@@ -69,7 +69,7 @@ export class TestDataService {
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['3'],
-        invoice: 0,
+        invoice: 1,
       },
       '2': {
         title: 'Lesson with ' + this.clients['4'].firstName,
@@ -77,7 +77,7 @@ export class TestDataService {
         startTime: { hours: 10, minutes: 0 },
         endTime: { hours: 10, minutes: 30 },
         client: this.clients['4'],
-        invoice: 0,
+        invoice: 2,
       },
       '3': {
         title: 'Lesson with ' + this.clients['4'].firstName,
@@ -85,7 +85,7 @@ export class TestDataService {
         startTime: { hours: 14, minutes: 0 },
         endTime: { hours: 14, minutes: 30 },
         client: this.clients['4'],
-        invoice: 0,
+        invoice: 2,
       },
       '4': {
         title: 'Lesson with ' + this.clients['1'].firstName,
