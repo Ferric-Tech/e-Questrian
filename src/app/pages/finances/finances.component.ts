@@ -67,9 +67,8 @@ export class FinancesComponent implements OnInit {
   private setInvoices() {
     let invoiceList = localStorage.getItem('invoices');
     this.invoices = JSON.parse(invoiceList || '[]');
-    this.invoices.forEach((invoice, index) => {
-      this.invoices[index].displayName =
-        this.invoices[index].client.displayName;
+    this.invoices.forEach((invoice) => {
+      invoice.displayName = invoice.client.displayName;
     });
   }
 

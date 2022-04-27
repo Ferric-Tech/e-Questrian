@@ -116,9 +116,24 @@ export class TestDataService {
 
   private setInvoices() {
     this.invoices = [
-      { number: 1, client: this.clients[0], date: this.yesterday, amount: 250 },
-      { number: 2, client: this.clients[1], date: this.yesterday, amount: 175 },
-      { number: 3, client: this.clients[2], date: this.yesterday, amount: 300 },
+      {
+        number: 1,
+        client: this.clients['1'],
+        date: this.yesterday,
+        amount: 250,
+      },
+      {
+        number: 2,
+        client: this.clients['2'],
+        date: this.yesterday,
+        amount: 175,
+      },
+      {
+        number: 3,
+        client: this.clients['3'],
+        date: this.yesterday,
+        amount: 300,
+      },
     ];
   }
 }
