@@ -5,8 +5,11 @@ import { CalendarService } from 'src/app/services/calendar.service';
 import {
   AppointmentDetail,
   Appointments,
-} from 'src/interfaces/appointments.interface';
-import { CalendarBlock, CalendarData } from 'src/interfaces/calander.interface';
+} from 'src/app/interfaces/appointments.interface';
+import {
+  CalendarBlock,
+  CalendarData,
+} from 'src/app/interfaces/calander.interface';
 
 @Component({
   selector: 'app-calendar',

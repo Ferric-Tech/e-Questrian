@@ -1,8 +1,8 @@
 import { Time } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AppointmentDetail } from 'src/interfaces/appointments.interface';
-import { ClientDetail, Clients } from 'src/interfaces/clients.interface';
+import { AppointmentDetail } from 'src/app/interfaces/appointments.interface';
+import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 
 export interface TimeOption {
   display: string;

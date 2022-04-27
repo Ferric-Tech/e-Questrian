@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   AppointmentDetail,
   Appointments,
-} from 'src/interfaces/appointments.interface';
+} from 'src/app/interfaces/appointments.interface';
 import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({

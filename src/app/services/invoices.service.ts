@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Appointments } from 'src/interfaces/appointments.interface';
-import { CalendarData } from 'src/interfaces/calander.interface';
-import { Invoices } from 'src/interfaces/invoices.interface';
+import { Appointments } from 'src/app/interfaces/appointments.interface';
+import { CalendarData } from 'src/app/interfaces/calander.interface';
+import { Invoices } from 'src/app/interfaces/invoices.interface';
 
 @Injectable({
   providedIn: 'root',

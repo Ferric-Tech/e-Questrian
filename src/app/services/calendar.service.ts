@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Appointments } from 'src/interfaces/appointments.interface';
-import { CalendarData } from 'src/interfaces/calander.interface';
+import { Appointments } from 'src/app/interfaces/appointments.interface';
+import { CalendarData } from 'src/app/interfaces/calander.interface';
 import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({

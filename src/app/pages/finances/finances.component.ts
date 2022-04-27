@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { InvoicesService } from 'src/app/services/invoices.service';
-import { Appointments } from 'src/interfaces/appointments.interface';
-import { Invoices } from 'src/interfaces/invoices.interface';
+import { Appointments } from 'src/app/interfaces/appointments.interface';
+import { Invoices } from 'src/app/interfaces/invoices.interface';
 
 export enum ViewState {
   MAIN,

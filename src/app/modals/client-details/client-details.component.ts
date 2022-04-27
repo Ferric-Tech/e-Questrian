@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ClientDetail } from 'src/interfaces/clients.interface';
+import { ClientDetail } from 'src/app/interfaces/clients.interface';
 
 @Component({
   selector: 'app-client-details',

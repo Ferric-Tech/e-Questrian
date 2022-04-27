@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/clients.service';
-import { ClientDetail, Clients } from 'src/interfaces/clients.interface';
+import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 
 export enum ViewState {
   MAIN,
