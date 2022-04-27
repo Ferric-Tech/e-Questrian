@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { InvoicesService } from 'src/app/services/invoices.service';
-import { TestDataService } from 'src/app/services/test-data.service';
 import { Appointments } from 'src/interfaces/appointments.interface';
 import { Invoices } from 'src/interfaces/invoices.interface';
-
-// export interface InvoiceForDisplay extends Invoices {
-//   displayName: string;
-// }
 
 export enum ViewState {
   MAIN,
@@ -25,7 +20,7 @@ export interface MenuOption {
   templateUrl: './finances.component.html',
   styleUrls: ['./finances.component.scss'],
 })
-export class FinancesComponent implements OnInit {
+export class FinancesComponent {
   readonly menuOptions: MenuOption[] = [
     { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
     { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
@@ -33,7 +28,6 @@ export class FinancesComponent implements OnInit {
   ];
 
   appointments: Appointments = {};
-
   invoices = {} as Invoices;
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
@@ -41,8 +35,6 @@ export class FinancesComponent implements OnInit {
   isInvoiceGenerationComplete = true;
 
   constructor(private invoiceService: InvoicesService) {}
-
-  ngOnInit(): void {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
     this.currentViewState = viewStateSelected;
