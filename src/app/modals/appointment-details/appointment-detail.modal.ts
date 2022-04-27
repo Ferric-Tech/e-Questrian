@@ -33,12 +33,9 @@ export class NewAppointmentComponent implements OnInit {
     endTime: new FormControl(''),
     client: new FormControl(''),
   });
-
   timeOptions: TimeOption[] = [];
   clients = {} as Clients;
   displayTime = '';
-
-  constructor() {}
 
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;

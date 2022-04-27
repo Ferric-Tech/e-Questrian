@@ -24,12 +24,9 @@ export class ClientDetailsComponent implements OnInit {
     email: new FormControl(''),
     telephoneNumber: new FormControl(''),
   });
-
   times: string[] = [];
   clients: string[] = [];
   displayTime = '';
-
-  constructor() {}
 
   ngOnInit(): void {
     this.isNewClient = Object.keys(this.currentClient).length === 0;
