@@ -1,17 +1,15 @@
-<div class="page-container">
-  <app-general-page [generalConfig]="generalConfig"></app-general-page>
-  <div class="list-container">
-    <div class="header-line">
-      <div>#</div>
-      <div>Date</div>
-      <div>Detail</div>
-      <div>Amount</div>
-    </div>
-    <div *ngFor="let item of config.list" class="general-line">
-      <div>item.number</div>
-      <div>.item.date</div>
-      <div>.item.detail</div>
-      <div>item.amount</div>
-    </div>
+<app-general-page [generalConfig]="generalConfig"></app-general-page>
+<div class="list-container">
+  <div class="header-line">
+    <div class="number-column">#</div>
+    <div class="date-column">Date</div>
+    <div class="detail-column">Detail</div>
+    <div class="amount-column">Amount</div>
+  </div>
+  <div *ngFor="let item of config.list" class="general-line">
+    <div class="number-column">{{ item.number }}</div>
+    <div class="date-column">{{ item.date | date: "dd/MM/yyyy" }}</div>
+    <div class="detail-column">{{ item.detail }}</div>
+    <div class="amount-column">{{ item.amount }}</div>
   </div>
 </div>

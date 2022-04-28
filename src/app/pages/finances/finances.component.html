@@ -6,13 +6,13 @@
   ></app-menu-page>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
-    <div *ngFor="let invoice of invoices | keyvalue">
-      <div (click)="viewInvoice(invoice.key)">
-        {{ invoice.key }} {{ appointments[invoice.value.appointments[0]].date }}
-        {{ appointments[invoice.value.appointments[0]].client.displayName }}
-      </div>
-    </div>
-    <button (click)="backToFinancetMain()">Back to client menu</button>
+    <app-financial-doc-list
+      [config]="this.invoiceListPageConfig"
+    ></app-financial-doc-list>
+    <app-menu-page
+      [config]="invoiceListMenuConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-page>
   </div>
 
   <div style="margin: 5%" *ngSwitchCase="viewStateEnum.INVOICE_DETAIL">

@@ -7,7 +7,11 @@ import {
   Payments,
 } from 'src/app/interfaces/payments.interface';
 import { PaymentsService } from 'src/app/services/payments.service';
-import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface';
+import {
+  FinancialDoc,
+  FinancialDocListPageConfig,
+  MenuPageConfig,
+} from 'src/app/interfaces/common-page-configs.interface';
 
 export enum ViewState {
   MAIN,
@@ -50,6 +54,18 @@ export class FinancesComponent {
     ],
   } as MenuPageConfig;
 
+  invoiceListPageConfig = {
+    header: '',
+    subHeader: 'Invoices',
+    list: [],
+  } as FinancialDocListPageConfig;
+
+  invoiceListMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'Back to Finance Menu', viewState: ViewState.MAIN }],
+  } as MenuPageConfig;
+
   appointments: Appointments = {};
   invoices = {} as Invoices;
   payments = {} as Payments;
@@ -87,7 +103,6 @@ export class FinancesComponent {
   }
 
   backToInvoiceList() {
-    this.getDataForDisplay();
     this.switchViewState(ViewState.VIEW_INVOICES);
   }
 
@@ -114,7 +129,7 @@ export class FinancesComponent {
   private switchViewState(viewStateSelected: ViewState) {
     switch (viewStateSelected) {
       case ViewState.VIEW_INVOICES:
-        this.getDataForDisplay();
+        this.setDataForDisplay();
         break;
       case ViewState.GENERATE_INVOICES:
         this.generateInvoices();
@@ -128,6 +143,22 @@ export class FinancesComponent {
         break;
     }
     this.currentViewState = viewStateSelected;
+  }
+
+  private setDataForDisplay() {
+    this.getDataForDisplay();
+    this.invoiceListPageConfig.list = [];
+    Object.keys(this.invoices).forEach((key) => {
+      const number = parseInt(key);
+      this.invoiceListPageConfig.list.push({
+        number: number,
+        date: this.invoices[number].date,
+        detail:
+          this.appointments[this.invoices[number].appointments[0]].client
+            .displayName,
+        amount: this.invoices[number].appointments.length * 250,
+      });
+    });
   }
 
   private getDataForDisplay() {
