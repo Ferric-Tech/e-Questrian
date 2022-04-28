@@ -34,12 +34,7 @@ export class PaymentsComponent implements OnInit {
   }
 
   onSubmitClick() {
-    this.paymentForm.controls['client'].setValue(
-      parseInt(this.paymentForm.controls['client'].value)
-    );
-    this.paymentForm.controls['amount'].setValue(
-      parseInt(this.paymentForm.controls['amount'].value)
-    );
+    this.parseKeysToInt();
     this.isDeletePayment
       ? this.voidPayment.emit()
       : this.isNewPayment
@@ -54,8 +49,17 @@ export class PaymentsComponent implements OnInit {
     this.isDeletePayment = true;
   }
 
-  compareClients(client: ClientDetail, displayName: string) {
-    return client.displayName == displayName;
+  compareClients(clientDetails: any, displayName: string) {
+    return clientDetails.value.displayName == displayName;
+  }
+
+  private parseKeysToInt() {
+    this.paymentForm.controls['client'].setValue(
+      parseInt(this.paymentForm.controls['client'].value.key)
+    );
+    this.paymentForm.controls['amount'].setValue(
+      parseInt(this.paymentForm.controls['amount'].value)
+    );
   }
 
   private setForm() {

@@ -14,7 +14,7 @@
         formControlName="client"
       >
         <mat-option
-          [value]="option.key"
+          [value]="option"
           *ngFor="let option of clients | keyvalue"
           >{{ option.value.displayName }}</mat-option
         >

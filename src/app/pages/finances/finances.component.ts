@@ -83,7 +83,7 @@ export class FinancesComponent {
   }
 
   paymentDetailModalClosed() {
-    this.currentViewState = ViewState.PAYMENTS;
+    this.switchViewState(ViewState.PAYMENTS);
   }
 
   paymentCreated(payment: PaymentDetails) {
@@ -92,13 +92,14 @@ export class FinancesComponent {
   }
 
   paymentEdited(payment: PaymentDetails) {
+    payment.voided = false;
     this.paymentsService.editPayment(this.currentPaymentID, payment);
     this.switchViewState(ViewState.PAYMENTS);
   }
 
   paymentVoided() {
     this.paymentsService.voidPayment(this.currentPaymentID);
-    this.switchViewState(ViewState.PAYMENTS);
+    this.switchViewState(ViewState.VIEW_PAYMENTS);
   }
 
   private switchViewState(viewStateSelected: ViewState) {
@@ -111,6 +112,10 @@ export class FinancesComponent {
         break;
       case ViewState.VIEW_PAYMENTS:
         this.getPaymentData();
+        this.currentPaymentID = 0;
+        break;
+      case ViewState.PAYMENTS:
+        this.currentPaymentID = 0;
         break;
     }
     this.currentViewState = viewStateSelected;
