@@ -9,6 +9,7 @@ export enum ViewState {
   INVOICE_DETAIL,
   VIEW_STATEMENTS,
   GENERATE_INVOICES,
+  RECORD_PAYMENT,
 }
 
 export interface MenuOption {
@@ -25,6 +26,7 @@ export class FinancesComponent {
     { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
     { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
     { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
+    { display: 'Record payment', viewState: ViewState.RECORD_PAYMENT },
   ];
 
   appointments: Appointments = {};
