@@ -102,8 +102,18 @@
     </button>
   </div>
 
-  <div *ngSwitchCase="viewStateEnum.RECORD_PAYMENT">
+  <div *ngSwitchCase="viewStateEnum.VIEW_PAYMENTS">
+    <div *ngFor="let payment of payments | keyvalue">
+      <div (click)="viewPayment(payment.key)">
+        {{ payment.key }} {{ payment.value.date }}{{ payment.value.amount }}
+      </div>
+    </div>
+    <button (click)="backToPaymentMenu()">Back to payment menu</button>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">
     <app-payments
+      [currentPayment]="payments[currentPaymentID]"
       (closed)="paymentDetailModalClosed()"
       (newPayment)="paymentDetailModalClosed()"
       (editedPayment)="paymentDetailModalClosed()"

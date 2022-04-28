@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InvoicesService } from 'src/app/services/invoices.service';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
+import { Payments } from 'src/app/interfaces/payments.interface';
 
 export enum ViewState {
   MAIN,
@@ -10,7 +11,7 @@ export enum ViewState {
   VIEW_STATEMENTS,
   GENERATE_INVOICES,
   PAYMENTS,
-  RECORD_PAYMENT,
+  PAYMENT_DETAIL,
   VIEW_PAYMENTS,
 }
 
@@ -32,15 +33,17 @@ export class FinancesComponent {
   ];
 
   readonly paymentMenuOptions: MenuOption[] = [
-    { display: 'RecordPayment', viewState: ViewState.RECORD_PAYMENT },
+    { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
     { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
   ];
 
   appointments: Appointments = {};
   invoices = {} as Invoices;
+  payments = {} as Payments;
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
   currentInvoiceID = 0;
+  currentPaymentID = 0;
   isInvoiceGenerationComplete = true;
 
   constructor(private invoiceService: InvoicesService) {}
@@ -54,17 +57,28 @@ export class FinancesComponent {
       case ViewState.GENERATE_INVOICES:
         this.generateInvoices();
         break;
+      case ViewState.VIEW_PAYMENTS:
+        this.getPaymentData();
+        break;
     }
   }
 
   viewInvoice(invoiceIDStr: string) {
-    const invoiceID = parseInt(invoiceIDStr);
+    this.currentInvoiceID = parseInt(invoiceIDStr);
     this.currentViewState = ViewState.INVOICE_DETAIL;
-    this.currentInvoiceID = invoiceID;
+  }
+
+  viewPayment(PaymentIDStr: string) {
+    this.currentPaymentID = parseInt(PaymentIDStr);
+    this.currentViewState = ViewState.PAYMENT_DETAIL;
   }
 
   backToFinancetMain() {
     this.currentViewState = ViewState.MAIN;
+  }
+
+  backToPaymentMenu() {
+    this.currentViewState = ViewState.PAYMENTS;
   }
 
   backToInvoiceList() {
@@ -89,6 +103,11 @@ export class FinancesComponent {
   private getAppointmentData() {
     let appointmentString = localStorage.getItem('appointments');
     this.appointments = JSON.parse(appointmentString || '{}');
+  }
+
+  private getPaymentData() {
+    let paymentString = localStorage.getItem('payments');
+    this.payments = JSON.parse(paymentString || '{}');
   }
 
   private generateInvoices() {

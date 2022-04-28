@@ -28,8 +28,9 @@ export class PaymentsComponent implements OnInit {
   clients = {} as Clients;
 
   ngOnInit(): void {
+    this.isNewPayment = Object.keys(this.currentPayment).length === 0;
+    this.getClientData();
     this.setForm();
-    this.setClients();
   }
 
   onSubmitClick() {
@@ -56,14 +57,16 @@ export class PaymentsComponent implements OnInit {
       return;
     }
     this.paymentForm = new FormGroup({
-      client: new FormControl(this.currentPayment.client),
+      client: new FormControl(
+        this.clients[this.currentPayment.client].displayName
+      ),
       amount: new FormControl(this.currentPayment.amount),
       paymentType: new FormControl(this.currentPayment.paymentType),
       date: new FormControl(this.currentPayment.date),
     });
   }
 
-  private setClients() {
+  private getClientData() {
     let clientList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientList || '[]');
   }
