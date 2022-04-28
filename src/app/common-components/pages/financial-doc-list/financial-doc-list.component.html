@@ -1,0 +1,17 @@
+<div class="page-container">
+  <app-general-page [generalConfig]="generalConfig"></app-general-page>
+  <div class="list-container">
+    <div class="header-line">
+      <div>#</div>
+      <div>Date</div>
+      <div>Detail</div>
+      <div>Amount</div>
+    </div>
+    <div *ngFor="let item of config.list" class="general-line">
+      <div>item.number</div>
+      <div>.item.date</div>
+      <div>.item.detail</div>
+      <div>item.amount</div>
+    </div>
+  </div>
+</div>
