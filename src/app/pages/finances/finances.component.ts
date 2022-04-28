@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { InvoicesService } from 'src/app/services/invoices.service';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
-import { Payments } from 'src/app/interfaces/payments.interface';
+import {
+  PaymentDetails,
+  Payments,
+} from 'src/app/interfaces/payments.interface';
+import { PaymentsService } from 'src/app/services/payments.service';
 
 export enum ViewState {
   MAIN,
@@ -46,10 +50,12 @@ export class FinancesComponent {
   currentPaymentID = 0;
   isInvoiceGenerationComplete = true;
 
-  constructor(private invoiceService: InvoicesService) {}
+  constructor(
+    private invoiceService: InvoicesService,
+    private paymentsService: PaymentsService
+  ) {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
-    this.currentViewState = viewStateSelected;
     switch (this.currentViewState) {
       case ViewState.VIEW_INVOICES:
         this.getDataForDisplay();
@@ -61,6 +67,7 @@ export class FinancesComponent {
         this.getPaymentData();
         break;
     }
+    this.currentViewState = viewStateSelected;
   }
 
   viewInvoice(invoiceIDStr: string) {
@@ -90,7 +97,8 @@ export class FinancesComponent {
     this.currentViewState = ViewState.PAYMENTS;
   }
 
-  paymentCreated() {
+  paymentCreated(payment: PaymentDetails) {
+    this.paymentsService.addPayment(payment);
     this.currentViewState = ViewState.PAYMENTS;
   }
 
@@ -98,7 +106,7 @@ export class FinancesComponent {
     this.currentViewState = ViewState.PAYMENTS;
   }
 
-  paymentDeleted() {
+  paymentVoided() {
     this.currentViewState = ViewState.PAYMENTS;
   }
 

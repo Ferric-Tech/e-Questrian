@@ -113,11 +113,11 @@
 
   <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">
     <app-payments
-      [currentPayment]="payments[currentPaymentID]"
+      [currentPayment]="payments[currentPaymentID] || {}"
       (closed)="paymentDetailModalClosed()"
-      (newPayment)="paymentCreated()"
+      (newPayment)="paymentCreated($event)"
       (editedPayment)="paymentEdited()"
-      (deletePayment)="paymentDeleted()"
+      (voidPayment)="paymentVoided()"
     ></app-payments>
   </div>
 </div>

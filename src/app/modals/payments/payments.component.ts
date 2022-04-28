@@ -14,13 +14,13 @@ export class PaymentsComponent implements OnInit {
   @Output() closed = new EventEmitter<void>();
   @Output() newPayment = new EventEmitter<PaymentDetails>();
   @Output() editedPayment = new EventEmitter<PaymentDetails>();
-  @Output() deletePayment = new EventEmitter<void>();
+  @Output() voidPayment = new EventEmitter<void>();
 
   paymentForm = new FormGroup({
-    client: new FormControl(''),
-    amount: new FormControl(''),
-    paymentType: new FormControl(''),
     date: new FormControl(new Date()),
+    client: new FormControl(''),
+    paymentType: new FormControl(''),
+    amount: new FormControl(''),
   });
 
   isNewPayment = true;
@@ -34,8 +34,15 @@ export class PaymentsComponent implements OnInit {
   }
 
   onSubmitClick() {
+    this.paymentForm.controls['client'].setValue(
+      parseInt(this.paymentForm.controls['client'].value)
+    );
+    this.paymentForm.controls['amount'].setValue(
+      parseInt(this.paymentForm.controls['amount'].value)
+    );
+    console.log(this.paymentForm.value);
     this.isDeletePayment
-      ? this.deletePayment.emit()
+      ? this.voidPayment.emit()
       : this.isNewPayment
       ? this.newPayment.emit(this.paymentForm.value as PaymentDetails)
       : this.editedPayment.emit(this.paymentForm.value as PaymentDetails);
