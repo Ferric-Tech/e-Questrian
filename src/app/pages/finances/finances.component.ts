@@ -90,6 +90,18 @@ export class FinancesComponent {
     this.currentViewState = ViewState.PAYMENTS;
   }
 
+  paymentCreated() {
+    this.currentViewState = ViewState.PAYMENTS;
+  }
+
+  paymentEdited() {
+    this.currentViewState = ViewState.PAYMENTS;
+  }
+
+  paymentDeleted() {
+    this.currentViewState = ViewState.PAYMENTS;
+  }
+
   private getDataForDisplay() {
     this.getInvoiceData();
     this.getAppointmentData();

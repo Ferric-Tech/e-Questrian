@@ -42,7 +42,7 @@ export class NewAppointmentComponent implements OnInit {
     this.setTimeOptions();
     this.setScreen();
     this.setForm();
-    this.setClients();
+    this.getClientData();
   }
 
   // Main call to actions callbacks
@@ -123,7 +123,7 @@ export class NewAppointmentComponent implements OnInit {
     return { hours: hours, minutes: minutes } as Time;
   }
 
-  private setClients() {
+  private getClientData() {
     let clientList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientList || '[]');
   }

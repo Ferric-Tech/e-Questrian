@@ -115,9 +115,9 @@
     <app-payments
       [currentPayment]="payments[currentPaymentID]"
       (closed)="paymentDetailModalClosed()"
-      (newPayment)="paymentDetailModalClosed()"
-      (editedPayment)="paymentDetailModalClosed()"
-      (deletePayment)="paymentDetailModalClosed()"
+      (newPayment)="paymentCreated()"
+      (editedPayment)="paymentEdited()"
+      (deletePayment)="paymentDeleted()"
     ></app-payments>
   </div>
 </div>
