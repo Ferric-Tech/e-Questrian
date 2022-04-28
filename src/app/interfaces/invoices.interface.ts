@@ -3,5 +3,5 @@ export interface Invoices {
 }
 
 export interface CreditNotes {
-  [creditNoteID: string]: string[];
+  [creditNoteID: string]: string;
 }

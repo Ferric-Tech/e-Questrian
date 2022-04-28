@@ -3,12 +3,15 @@ import {
   AppointmentDetail,
   Appointments,
 } from 'src/app/interfaces/appointments.interface';
+import { CreditNotesService } from './credit-notes.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentsService {
   private appointments: Appointments = {};
+
+  constructor(private creditNoteService: CreditNotesService) {}
 
   newAppointment(newAppointment: AppointmentDetail) {
     this.getAppointmentData();
@@ -20,7 +23,9 @@ export class AppointmentsService {
   cancelAppointment(appointmentID: string) {
     this.getAppointmentData();
     this.appointments[appointmentID].cancelled = true;
-    this.setAppointmentData();
+    this.appointments[appointmentID].invoice != 0
+      ? this.creditNoteService.generateCreditNote(appointmentID)
+      : this.setAppointmentData();
   }
 
   editAppointment(appointmentID: string, newDetails: AppointmentDetail) {

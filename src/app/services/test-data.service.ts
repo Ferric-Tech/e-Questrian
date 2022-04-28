@@ -156,6 +156,6 @@ export class TestDataService {
   }
 
   private setCreditNotes() {
-    this.creditNotes = { '1': ['3'] };
+    this.creditNotes = { '1': '3' };
   }
 }
