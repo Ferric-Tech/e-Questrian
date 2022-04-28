@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
 import { CalendarData } from 'src/app/interfaces/calander.interface';
 import { Clients } from 'src/app/interfaces/clients.interface';
-import { Invoices } from 'src/app/interfaces/invoices.interface';
+import { CreditNotes, Invoices } from 'src/app/interfaces/invoices.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +15,7 @@ export class TestDataService {
   clients = {} as Clients;
   clientDisplayNames: string[] = [];
   invoices = {} as Invoices;
+  creditNotes = {} as CreditNotes;
   appointments: Appointments = {};
 
   loadTestDataToLocal() {
@@ -26,6 +27,8 @@ export class TestDataService {
     localStorage.setItem('appointments', JSON.stringify(this.appointments));
     this.setInvoices();
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
+    this.setCreditNotes();
+    localStorage.setItem('credit-notes', JSON.stringify(this.creditNotes));
   }
 
   private setClientsList() {
@@ -89,6 +92,7 @@ export class TestDataService {
         client: this.clients['4'],
         invoice: 2,
         cancelled: true,
+        creditNote: 1,
       },
       '4': {
         title: 'Lesson with ' + this.clients['1'].firstName,
@@ -149,5 +153,9 @@ export class TestDataService {
 
   private setInvoices() {
     this.invoices = { '1': ['1'], '2': ['2', '3'] };
+  }
+
+  private setCreditNotes() {
+    this.creditNotes = { '1': ['3'] };
   }
 }

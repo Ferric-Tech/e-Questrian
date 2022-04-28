@@ -13,4 +13,5 @@ export interface AppointmentDetail {
   client: ClientDetail;
   invoice: number;
   cancelled: boolean;
+  creditNote?: number;
 }
