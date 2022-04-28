@@ -19,7 +19,7 @@ export class TestDataService {
 
   loadTestDataToLocal() {
     this.tomorrow.setDate(this.tomorrow.getDate() + 1);
-    this.yesterday.setDate(this.tomorrow.getDate() - 1);
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
     this.setAppointments();
@@ -65,7 +65,7 @@ export class TestDataService {
     this.appointments = {
       '1': {
         title: 'Lesson with ' + this.clients['3'].firstName,
-        date: this.today,
+        date: this.yesterday,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['3'],
@@ -73,18 +73,18 @@ export class TestDataService {
       },
       '2': {
         title: 'Lesson with ' + this.clients['4'].firstName,
-        date: this.today,
+        date: this.yesterday,
         startTime: { hours: 10, minutes: 0 },
         endTime: { hours: 10, minutes: 30 },
         client: this.clients['4'],
         invoice: 2,
       },
       '3': {
-        title: 'Lesson with ' + this.clients['4'].firstName,
-        date: this.today,
+        title: 'Lesson with ' + this.clients['2'].firstName,
+        date: this.yesterday,
         startTime: { hours: 14, minutes: 0 },
         endTime: { hours: 14, minutes: 30 },
-        client: this.clients['4'],
+        client: this.clients['2'],
         invoice: 2,
       },
       '4': {
