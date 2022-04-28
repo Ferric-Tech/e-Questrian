@@ -20,6 +20,7 @@ import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
 import { ClientDetailsComponent } from './modals/client-details/client-details.component';
+import { PaymentsComponent } from './modals/payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ClientDetailsComponent } from './modals/client-details/client-details.c
     ClientsComponent,
     NewAppointmentComponent,
     ClientDetailsComponent,
+    PaymentsComponent,
   ],
   imports: [
     BrowserModule,

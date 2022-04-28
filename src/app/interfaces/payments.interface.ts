@@ -7,6 +7,6 @@ export interface Payments {
 export interface PaymentDetails {
   date: Date;
   client: number;
-  type: PaymentType;
+  paymentType: PaymentType;
   amount: Number;
 }

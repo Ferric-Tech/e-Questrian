@@ -179,13 +179,13 @@ export class TestDataService {
       1: {
         date: this.yesterday,
         client: 1,
-        type: PaymentType.EFT,
+        paymentType: PaymentType.EFT,
         amount: 175,
       },
       2: {
         date: this.yesterday,
         client: 2,
-        type: PaymentType.CASH,
+        paymentType: PaymentType.CASH,
         amount: 100,
       },
     };
