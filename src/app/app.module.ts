@@ -24,6 +24,7 @@ import { PaymentsComponent } from './modals/payments/payments.component';
 import { MenuPageComponent } from './common-components/pages/menu-page/menu-page.component';
 import { FinancialDocListComponent } from './common-components/pages/financial-doc-list/financial-doc-list.component';
 import { GeneralPageComponent } from './common-components/pages/general-page/general-page.component';
+import { DocViewComponent } from './common-component/pages/doc-view/doc-view.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { GeneralPageComponent } from './common-components/pages/general-page/gen
     MenuPageComponent,
     FinancialDocListComponent,
     GeneralPageComponent,
+    DocViewComponent,
   ],
   imports: [
     BrowserModule,
