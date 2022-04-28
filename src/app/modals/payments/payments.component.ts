@@ -20,10 +20,10 @@ export class PaymentsComponent implements OnInit {
     client: new FormControl(''),
     amount: new FormControl(''),
     paymentType: new FormControl(''),
-    date: new FormControl(''),
+    date: new FormControl(new Date()),
   });
 
-  isNewPayment = false;
+  isNewPayment = true;
   isDeletePayment = false;
   clients = {} as Clients;
 
