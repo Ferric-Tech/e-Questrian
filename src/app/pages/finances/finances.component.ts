@@ -97,6 +97,7 @@ export class FinancesComponent {
   }
 
   paymentVoided() {
+    this.paymentsService.voidPayment(this.currentPaymentID);
     this.switchViewState(ViewState.PAYMENTS);
   }
 

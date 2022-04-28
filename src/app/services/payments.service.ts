@@ -11,6 +11,7 @@ export class PaymentsService {
   addPayment(payment: PaymentDetails) {
     this.getPaymentData();
     const NewPaymentID = Object.keys(this.payments).length + 1;
+    payment.voided = false;
     this.payments[NewPaymentID] = payment;
     localStorage.setItem('payments', JSON.stringify(this.payments));
   }
@@ -18,6 +19,12 @@ export class PaymentsService {
   editPayment(paymentID: number, payment: PaymentDetails) {
     this.getPaymentData();
     this.payments[paymentID] = payment;
+    localStorage.setItem('payments', JSON.stringify(this.payments));
+  }
+
+  voidPayment(paymentID: number) {
+    this.getPaymentData();
+    this.payments[paymentID].voided = true;
     localStorage.setItem('payments', JSON.stringify(this.payments));
   }
 

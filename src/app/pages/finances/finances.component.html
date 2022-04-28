@@ -104,7 +104,7 @@
 
   <div *ngSwitchCase="viewStateEnum.VIEW_PAYMENTS">
     <div *ngFor="let payment of payments | keyvalue">
-      <div (click)="viewPayment(payment.key)">
+      <div *ngIf="!payment.value.voided" (click)="viewPayment(payment.key)">
         {{ payment.key }} {{ payment.value.date }}{{ payment.value.amount }}
       </div>
     </div>

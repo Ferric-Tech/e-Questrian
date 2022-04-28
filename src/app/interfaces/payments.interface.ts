@@ -9,4 +9,5 @@ export interface PaymentDetails {
   client: number;
   paymentType: PaymentType;
   amount: Number;
+  voided: boolean;
 }

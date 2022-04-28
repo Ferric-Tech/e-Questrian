@@ -181,12 +181,14 @@ export class TestDataService {
         client: 1,
         paymentType: PaymentType.EFT,
         amount: 175,
+        voided: false,
       },
       2: {
         date: this.yesterday,
         client: 2,
         paymentType: PaymentType.CASH,
         amount: 100,
+        voided: false,
       },
     };
   }
