@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
-import { CalendarData } from 'src/app/interfaces/calander.interface';
 import { Clients } from 'src/app/interfaces/clients.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
+import { PaymentType } from '../enums/payments.enum';
 import { CreditNotes } from '../interfaces/credit-notes.interface';
+import { Payments } from '../interfaces/payments.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestDataService {
+  // Date variables
   today: Date = new Date();
   tomorrow: Date = new Date();
   yesterday: Date = new Date();
-  calendarData: CalendarData = {};
+
+  // Data variables
   clients = {} as Clients;
-  clientDisplayNames: string[] = [];
+  appointments: Appointments = {};
   invoices = {} as Invoices;
   creditNotes = {} as CreditNotes;
-  appointments: Appointments = {};
+  payments = {} as Payments;
+
+  // Used enums
 
   loadTestDataToLocal() {
-    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
-    this.yesterday.setDate(this.yesterday.getDate() - 1);
+    this.setDates();
     this.setClientsList();
     localStorage.setItem('clients', JSON.stringify(this.clients));
     this.setAppointments();
@@ -30,6 +34,13 @@ export class TestDataService {
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
     this.setCreditNotes();
     localStorage.setItem('credit-notes', JSON.stringify(this.creditNotes));
+    this.setPayments();
+    localStorage.setItem('payments', JSON.stringify(this.payments));
+  }
+
+  private setDates() {
+    this.tomorrow.setDate(this.tomorrow.getDate() + 1);
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
   }
 
   private setClientsList() {
@@ -161,5 +172,22 @@ export class TestDataService {
 
   private setCreditNotes() {
     this.creditNotes = { 1: { date: new Date(), appointment: 3 } };
+  }
+
+  private setPayments() {
+    this.payments = {
+      1: {
+        date: this.yesterday,
+        client: 1,
+        type: PaymentType.EFT,
+        amount: 175,
+      },
+      2: {
+        date: this.yesterday,
+        client: 2,
+        type: PaymentType.CASH,
+        amount: 100,
+      },
+    };
   }
 }
