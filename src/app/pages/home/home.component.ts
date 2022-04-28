@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-export interface MenuOption {
-  display: string;
-  path: string;
-}
+import { MenuOption } from 'src/app/interfaces/menu-options.interface';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onMenuOptionClicked(path: string) {
+  onMenuOptionClicked(path: string | undefined) {
+    if (!path) return;
     this.router.navigate([path]);
   }
 }

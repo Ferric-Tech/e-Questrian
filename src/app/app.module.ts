@@ -21,6 +21,7 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
 import { ClientDetailsComponent } from './modals/client-details/client-details.component';
 import { PaymentsComponent } from './modals/payments/payments.component';
+import { MenuPageComponent } from './common-components/pages/menu-page/menu-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { PaymentsComponent } from './modals/payments/payments.component';
     NewAppointmentComponent,
     ClientDetailsComponent,
     PaymentsComponent,
+    MenuPageComponent,
   ],
   imports: [
     BrowserModule,

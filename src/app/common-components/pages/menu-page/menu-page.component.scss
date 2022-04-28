@@ -1,0 +1,29 @@
+.home-page-header {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  font-size: 45px;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: aqua;
+}
+
+.navigation-page-button-container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.navigation-page-button-container ::after {
+  content: "";
+  flex: auto;
+}
+
+button {
+  width: 125px;
+  height: 125px;
+  margin: 30px;
+  margin-bottom: 0;
+}
