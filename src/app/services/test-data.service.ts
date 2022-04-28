@@ -34,28 +34,28 @@ export class TestDataService {
 
   private setClientsList() {
     this.clients = {
-      '1': {
+      1: {
         displayName: 'Little Ash',
         firstName: 'Ashley',
         lastName: 'Novello',
         email: 'cedric@telkomsa.co.za',
         telephoneNumber: '072 462 4685',
       },
-      '2': {
+      2: {
         displayName: 'Jill Henry',
         firstName: 'Jill',
         lastName: 'Henry',
         email: 'jill@gmail.com',
         telephoneNumber: '072 879 5421',
       },
-      '3': {
+      3: {
         displayName: 'Kenny Timson',
         firstName: 'Kenny',
         lastName: 'Timson',
         email: 'kenny@yahoo.com',
         telephoneNumber: '083 357 2205',
       },
-      '4': {
+      4: {
         displayName: 'Nurse Ash',
         firstName: 'Ashley',
         lastName: 'van der Merwe',
@@ -67,85 +67,85 @@ export class TestDataService {
 
   private setAppointments() {
     this.appointments = {
-      '1': {
-        title: 'Lesson with ' + this.clients['3'].firstName,
+      1: {
+        title: 'Lesson with ' + this.clients[3].firstName,
         date: this.yesterday,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients['3'],
+        client: this.clients[3],
         invoice: 1,
         cancelled: false,
       },
-      '2': {
-        title: 'Lesson with ' + this.clients['4'].firstName,
+      2: {
+        title: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 10, minutes: 0 },
         endTime: { hours: 10, minutes: 30 },
-        client: this.clients['4'],
+        client: this.clients[4],
         invoice: 2,
         cancelled: false,
       },
-      '3': {
-        title: 'Lesson with ' + this.clients['4'].firstName,
+      3: {
+        title: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 14, minutes: 0 },
         endTime: { hours: 14, minutes: 30 },
-        client: this.clients['4'],
+        client: this.clients[4],
         invoice: 2,
         cancelled: true,
         creditNote: 1,
       },
-      '4': {
-        title: 'Lesson with ' + this.clients['1'].firstName,
+      4: {
+        title: 'Lesson with ' + this.clients[1].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients['1'],
+        client: this.clients[1],
         invoice: 0,
         cancelled: false,
       },
-      '5': {
-        title: 'Lesson with ' + this.clients['2'].firstName,
+      5: {
+        title: 'Lesson with ' + this.clients[2].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients['2'],
+        client: this.clients[2],
         invoice: 0,
         cancelled: false,
       },
-      '6': {
-        title: 'Lesson with ' + this.clients['3'].firstName,
+      6: {
+        title: 'Lesson with ' + this.clients[3].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 30 },
         endTime: { hours: 9, minutes: 0 },
-        client: this.clients['3'],
+        client: this.clients[3],
         invoice: 0,
         cancelled: false,
       },
-      '7': {
-        title: 'Lesson with ' + this.clients['4'].firstName,
+      7: {
+        title: 'Lesson with ' + this.clients[4].firstName,
         date: this.tomorrow,
         startTime: { hours: 7, minutes: 30 },
         endTime: { hours: 8, minutes: 0 },
-        client: this.clients['4'],
+        client: this.clients[4],
         invoice: 0,
         cancelled: false,
       },
-      '8': {
-        title: 'Lesson with ' + this.clients['1'].firstName,
+      8: {
+        title: 'Lesson with ' + this.clients[1].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients['1'],
+        client: this.clients[1],
         invoice: 0,
         cancelled: false,
       },
-      '9': {
-        title: 'Lesson with ' + this.clients['2'].firstName,
+      9: {
+        title: 'Lesson with ' + this.clients[2].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients['2'],
+        client: this.clients[2],
         invoice: 0,
         cancelled: false,
       },
@@ -153,10 +153,13 @@ export class TestDataService {
   }
 
   private setInvoices() {
-    this.invoices = { '1': ['1'], '2': ['2', '3'] };
+    this.invoices = {
+      1: { date: new Date(), appointments: [1] },
+      2: { date: new Date(), appointments: [2, 3] },
+    };
   }
 
   private setCreditNotes() {
-    this.creditNotes = { '1': '3' };
+    this.creditNotes = { 1: { date: new Date(), appointment: 3 } };
   }
 }

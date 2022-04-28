@@ -31,7 +31,7 @@ export class FinancesComponent {
   invoices = {} as Invoices;
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
-  currentInvoiceID = '';
+  currentInvoiceID = 0;
   isInvoiceGenerationComplete = true;
 
   constructor(private invoiceService: InvoicesService) {}
@@ -48,7 +48,8 @@ export class FinancesComponent {
     }
   }
 
-  viewInvoice(invoiceID: string) {
+  viewInvoice(invoiceIDStr: string) {
+    const invoiceID = parseInt(invoiceIDStr);
     this.currentViewState = ViewState.INVOICE_DETAIL;
     this.currentInvoiceID = invoiceID;
   }

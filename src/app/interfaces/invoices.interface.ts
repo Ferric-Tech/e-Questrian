@@ -1,3 +1,8 @@
 export interface Invoices {
-  [invoiceID: string]: string[];
+  [invoiceID: number]: InvoiceDetails;
+}
+
+export interface InvoiceDetails {
+  date: Date;
+  appointments: number[];
 }

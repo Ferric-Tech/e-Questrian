@@ -1,5 +1,5 @@
 export interface Clients {
-  [cientID: string]: ClientDetail;
+  [cientID: number]: ClientDetail;
 }
 
 export interface ClientDetail {

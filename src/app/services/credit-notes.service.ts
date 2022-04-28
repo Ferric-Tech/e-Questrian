@@ -9,11 +9,14 @@ export class CreditNotesService {
   private creditNotes: CreditNotes = {};
   private appointments: Appointments = {};
 
-  generateCreditNote(appointmentID: string) {
+  generateCreditNote(appointmentID: number) {
     this.getCreditNoteData();
     this.getAppointmentData();
     const cnNumber = Object.keys(this.creditNotes).length + 1;
-    this.creditNotes[cnNumber] = appointmentID;
+    this.creditNotes[cnNumber] = {
+      date: new Date(),
+      appointment: appointmentID,
+    };
     this.appointments[appointmentID].creditNote = cnNumber;
     localStorage.setItem('credit-notes', JSON.stringify(this.creditNotes));
     localStorage.setItem('appointments', JSON.stringify(this.appointments));

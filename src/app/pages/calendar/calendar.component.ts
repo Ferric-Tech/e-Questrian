@@ -23,7 +23,7 @@ export class CalendarComponent implements OnInit {
   displayNewAppointmentForm = false;
   proposedStartTime: Time = {} as Time;
   appointments: Appointments = {};
-  currentAppointmentID = '';
+  currentAppointmentID = 0;
   appointmentEditActive = false;
   calendarData = {} as CalendarData;
 
@@ -46,12 +46,12 @@ export class CalendarComponent implements OnInit {
 
   calendarBlockClicked(blockTime: Time) {
     if (this.appointmentEditActive) return;
-    this.currentAppointmentID = '0';
+    this.currentAppointmentID = 0;
     this.proposedStartTime = blockTime;
     this.displayNewAppointmentForm = true;
   }
 
-  appointmentClicked(appointmentID: string) {
+  appointmentClicked(appointmentID: number) {
     this.appointmentEditActive = true;
     this.currentAppointmentID = appointmentID;
     this.displayNewAppointmentForm = true;

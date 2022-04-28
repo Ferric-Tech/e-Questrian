@@ -15,8 +15,9 @@ export class InvoicesService {
   generateInvoices() {
     // Get all appointments to be invoiced by client
     this.getAppointmentData();
-    let appointmentsToInvoice = {} as { [client: string]: string[] };
-    Object.keys(this.appointments).forEach((appointmentID) => {
+    let appointmentsToInvoice = {} as { [client: string]: number[] };
+    Object.keys(this.appointments).forEach((appointmentIDStr) => {
+      const appointmentID = parseInt(appointmentIDStr);
       if (this.appointments[appointmentID].invoice == 0) {
         let displayName = this.appointments[appointmentID].client.displayName;
         displayName in appointmentsToInvoice
@@ -29,7 +30,10 @@ export class InvoicesService {
     this.getInvoiceData();
     let nextInvoiceNumber = Object.keys(this.invoices).length + 1;
     Object.keys(appointmentsToInvoice).forEach((client) => {
-      this.invoices[nextInvoiceNumber] = appointmentsToInvoice[client];
+      this.invoices[nextInvoiceNumber] = {
+        date: new Date(),
+        appointments: appointmentsToInvoice[client],
+      };
       appointmentsToInvoice[client].forEach((appointmentID) => {
         this.appointments[appointmentID].invoice = nextInvoiceNumber;
       });

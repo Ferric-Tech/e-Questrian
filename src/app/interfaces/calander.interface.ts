@@ -6,5 +6,5 @@ export interface CalendarData {
 
 export interface CalendarBlock {
   time: Time;
-  appointments: string[];
+  appointments: number[];
 }

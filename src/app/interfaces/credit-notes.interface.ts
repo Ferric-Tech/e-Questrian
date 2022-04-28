@@ -1,3 +1,8 @@
 export interface CreditNotes {
-  [creditNoteID: string]: string;
+  [creditNoteID: number]: CreditNoteDetails;
+}
+
+export interface CreditNoteDetails {
+  date: Date;
+  appointment: number;
 }

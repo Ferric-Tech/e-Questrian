@@ -16,7 +16,8 @@ export class CalendarService {
     this.calendarData = {};
     this.getAppointmentData();
 
-    Object.keys(this.appointments).forEach((ID) => {
+    Object.keys(this.appointments).forEach((IDStr) => {
+      const ID = parseInt(IDStr);
       const appDateStr = new Date(this.appointments[ID].date).toDateString();
       const newTimeBlock = {
         time: this.appointments[ID].startTime,

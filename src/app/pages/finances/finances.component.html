@@ -16,8 +16,8 @@
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
     <div *ngFor="let invoice of invoices | keyvalue">
       <div (click)="viewInvoice(invoice.key)">
-        {{ invoice.key }} {{ appointments[invoice.value[0]].date }}
-        {{ appointments[invoice.value[0]].client.displayName }}
+        {{ invoice.key }} {{ appointments[invoice.value.appointments[0]].date }}
+        {{ appointments[invoice.value.appointments[0]].client.displayName }}
       </div>
     </div>
     <button (click)="backToFinancetMain()">Back to client menu</button>
@@ -30,16 +30,27 @@
     </div>
     <div>
       Client:
-      {{ appointments[invoices[currentInvoiceID][0]].client.firstName }}
-      {{ appointments[invoices[currentInvoiceID][0]].client.lastName }}
+      {{
+        appointments[invoices[currentInvoiceID].appointments[0]].client
+          .firstName
+      }}
+      {{
+        appointments[invoices[currentInvoiceID].appointments[0]].client.lastName
+      }}
     </div>
     <div>
       Contact:
-      {{ appointments[invoices[currentInvoiceID][0]].client.email }} /
-      {{ appointments[invoices[currentInvoiceID][0]].client.telephoneNumber }}
+      {{
+        appointments[invoices[currentInvoiceID].appointments[0]].client.email
+      }}
+      /
+      {{
+        appointments[invoices[currentInvoiceID].appointments[0]].client
+          .telephoneNumber
+      }}
     </div>
     <div>Lessons</div>
-    <div *ngFor="let appointment of invoices[currentInvoiceID]">
+    <div *ngFor="let appointment of invoices[currentInvoiceID].appointments">
       <div style="display: flex; flex-grow: 1; flex-direction: row">
         {{ appointments[appointment].date | date: "dd/MM/yyyy" }}
         {{ appointments[appointment].startTime.hours }}:{{
@@ -62,7 +73,9 @@
     >
       Total
       <div style="display: flex; flex-grow: 1; justify-content: end">
-        R{{ 250 * invoices[currentInvoiceID].length | number: "2.2" }}
+        R{{
+          250 * invoices[currentInvoiceID].appointments.length | number: "2.2"
+        }}
       </div>
     </div>
     <button (click)="backToInvoiceList()">Back to invoice list</button>

@@ -20,7 +20,7 @@ export class AppointmentsService {
     this.setAppointmentData();
   }
 
-  cancelAppointment(appointmentID: string) {
+  cancelAppointment(appointmentID: number) {
     this.getAppointmentData();
     this.appointments[appointmentID].cancelled = true;
     this.appointments[appointmentID].invoice != 0
@@ -28,16 +28,14 @@ export class AppointmentsService {
       : this.setAppointmentData();
   }
 
-  editAppointment(appointmentID: string, newDetails: AppointmentDetail) {
+  editAppointment(appointmentID: number, newDetails: AppointmentDetail) {
     this.getAppointmentData();
     this.appointments[appointmentID] = newDetails;
     this.setAppointmentData();
   }
 
   private addAppointment(appointment: AppointmentDetail) {
-    const appointmentID = (
-      Object.keys(this.appointments).length + 1
-    ).toString();
+    const appointmentID = Object.keys(this.appointments).length + 1;
     this.appointments[appointmentID] = appointment;
   }
 
