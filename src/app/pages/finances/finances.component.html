@@ -116,7 +116,7 @@
       [currentPayment]="payments[currentPaymentID] || {}"
       (closed)="paymentDetailModalClosed()"
       (newPayment)="paymentCreated($event)"
-      (editedPayment)="paymentEdited()"
+      (editedPayment)="paymentEdited($event)"
       (voidPayment)="paymentVoided()"
     ></app-payments>
   </div>

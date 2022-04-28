@@ -91,7 +91,8 @@ export class FinancesComponent {
     this.switchViewState(ViewState.VIEW_PAYMENTS);
   }
 
-  paymentEdited() {
+  paymentEdited(payment: PaymentDetails) {
+    this.paymentsService.editPayment(this.currentPaymentID, payment);
     this.switchViewState(ViewState.PAYMENTS);
   }
 

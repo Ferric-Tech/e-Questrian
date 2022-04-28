@@ -15,6 +15,12 @@ export class PaymentsService {
     localStorage.setItem('payments', JSON.stringify(this.payments));
   }
 
+  editPayment(paymentID: number, payment: PaymentDetails) {
+    this.getPaymentData();
+    this.payments[paymentID] = payment;
+    localStorage.setItem('payments', JSON.stringify(this.payments));
+  }
+
   private getPaymentData() {
     let paymentString = localStorage.getItem('payments');
     this.payments = JSON.parse(paymentString || '{}');
