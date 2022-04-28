@@ -91,6 +91,17 @@
     </div>
   </div>
 
+  <div *ngSwitchCase="viewStateEnum.PAYMENTS">
+    <button
+      *ngFor="let option of paymentMenuOptions"
+      class="navbar-button"
+      (click)="onMenuOptionClicked(option.viewState)"
+      mat-button
+    >
+      {{ option.display }}
+    </button>
+  </div>
+
   <div *ngSwitchCase="viewStateEnum.RECORD_PAYMENT">
     <app-payments
       (closed)="paymentDetailModalClosed()"

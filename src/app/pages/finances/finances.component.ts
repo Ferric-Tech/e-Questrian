@@ -9,7 +9,9 @@ export enum ViewState {
   INVOICE_DETAIL,
   VIEW_STATEMENTS,
   GENERATE_INVOICES,
+  PAYMENTS,
   RECORD_PAYMENT,
+  VIEW_PAYMENTS,
 }
 
 export interface MenuOption {
@@ -26,7 +28,12 @@ export class FinancesComponent {
     { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
     { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
     { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
-    { display: 'Record payment', viewState: ViewState.RECORD_PAYMENT },
+    { display: 'Payments', viewState: ViewState.PAYMENTS },
+  ];
+
+  readonly paymentMenuOptions: MenuOption[] = [
+    { display: 'RecordPayment', viewState: ViewState.RECORD_PAYMENT },
+    { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
   ];
 
   appointments: Appointments = {};
@@ -66,7 +73,7 @@ export class FinancesComponent {
   }
 
   paymentDetailModalClosed() {
-    this.currentViewState = ViewState.MAIN;
+    this.currentViewState = ViewState.PAYMENTS;
   }
 
   private getDataForDisplay() {
