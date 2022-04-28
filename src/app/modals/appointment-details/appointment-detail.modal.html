@@ -60,15 +60,15 @@
       </mat-select>
     </div>
     <div class="button-container">
-      <button (click)="onCancelClick()">Cancel</button>
+      <button (click)="onCloseClick()">Close</button>
       <button type="submit" [disabled]="!appoitmentForm.valid">Submit</button>
     </div>
     <button
       class="remove-button"
       *ngIf="!isNewAppointment"
-      (click)="onRemoveAppointmentClick()"
+      (click)="onCancelAppointmentClick()"
     >
-      Remove appointment
+      Cancel appointment
     </button>
   </form>
 </div>

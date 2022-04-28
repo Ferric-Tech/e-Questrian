@@ -18,10 +18,10 @@ export class NewAppointmentComponent implements OnInit {
   @Input() date: Date | undefined;
   @Input() startTime: Time = {} as Time;
   @Input() currentAppointment = {} as AppointmentDetail;
-  @Output() canceled = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<AppointmentDetail>();
   @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
-  @Output() removeAppointment = new EventEmitter<void>();
+  @Output() cancelAppointment = new EventEmitter<void>();
 
   isNewAppointment: boolean | undefined;
   isRemoveAppointment = false;
@@ -48,7 +48,7 @@ export class NewAppointmentComponent implements OnInit {
   // Main call to actions callbacks
   onSubmitClick() {
     this.isRemoveAppointment
-      ? this.removeAppointment.emit()
+      ? this.cancelAppointment.emit()
       : this.isNewAppointment
       ? this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail)
       : this.editedAppointment.emit(
@@ -56,12 +56,12 @@ export class NewAppointmentComponent implements OnInit {
         );
   }
 
-  onRemoveAppointmentClick() {
+  onCancelAppointmentClick() {
     this.isRemoveAppointment = true;
   }
 
-  onCancelClick() {
-    this.canceled.emit();
+  onCloseClick() {
+    this.closed.emit();
   }
 
   // Minor actions callbacks

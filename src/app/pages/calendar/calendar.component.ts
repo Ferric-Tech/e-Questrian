@@ -57,7 +57,7 @@ export class CalendarComponent implements OnInit {
     this.displayNewAppointmentForm = true;
   }
 
-  appointmentDetailModalCanceled() {
+  appointmentDetailModalClosed() {
     this.appointmentEditActive = false;
     this.displayNewAppointmentForm = false;
   }
@@ -79,7 +79,7 @@ export class CalendarComponent implements OnInit {
     this.displayNewAppointmentForm = false;
   }
 
-  appointmentRemoved() {
+  appointmentCanceled() {
     this.appointmentEditActive = false;
     this.appointmentService.cancelAppointment(this.currentAppointmentID);
     this.setCalendar();

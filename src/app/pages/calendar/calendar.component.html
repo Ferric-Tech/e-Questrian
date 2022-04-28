@@ -34,6 +34,6 @@
   [currentAppointment]="appointments[currentAppointmentID] || {}"
   (newAppointment)="appointmentCreated($event)"
   (editedAppointment)="appointmentEdited($event)"
-  (removeAppointment)="appointmentRemoved()"
-  (canceled)="appointmentDetailModalCanceled()"
+  (cancelAppointment)="appointmentCanceled()"
+  (closed)="appointmentDetailModalClosed()"
 ></app-new-appointment-modal>
