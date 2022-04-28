@@ -84,8 +84,8 @@ export class FinancesComponent {
     this.switchViewState(viewStateSelected);
   }
 
-  viewInvoice(invoiceIDStr: string) {
-    this.currentInvoiceID = parseInt(invoiceIDStr);
+  onInvoiceClicked(invoiceID: number) {
+    this.currentInvoiceID = invoiceID;
     this.switchViewState(ViewState.INVOICE_DETAIL);
   }
 

@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  FinancialDoc,
   FinancialDocListPageConfig,
   PageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
@@ -12,6 +13,7 @@ import {
 })
 export class FinancialDocListComponent implements OnInit {
   @Input() config = {} as FinancialDocListPageConfig;
+  @Output() itemClicked = new EventEmitter<number>();
 
   generalConfig = {} as PageConfig;
 
@@ -22,5 +24,9 @@ export class FinancialDocListComponent implements OnInit {
       header: this.config.header,
       subHeader: this.config.subHeader,
     };
+  }
+
+  onItemClicked(item: FinancialDoc) {
+    this.itemClicked.emit(item.number);
   }
 }

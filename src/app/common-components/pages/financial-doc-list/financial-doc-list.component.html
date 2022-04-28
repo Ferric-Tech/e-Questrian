@@ -6,7 +6,11 @@
     <div class="detail-column">Detail</div>
     <div class="amount-column">Amount</div>
   </div>
-  <div *ngFor="let item of config.list" class="general-line">
+  <div
+    *ngFor="let item of config.list"
+    class="general-line"
+    (click)="onItemClicked(item)"
+  >
     <div class="number-column">{{ item.number }}</div>
     <div class="date-column">{{ item.date | date: "dd/MM/yyyy" }}</div>
     <div class="detail-column">{{ item.detail }}</div>

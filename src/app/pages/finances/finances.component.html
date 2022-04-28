@@ -8,6 +8,7 @@
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
     <app-financial-doc-list
       [config]="this.invoiceListPageConfig"
+      (itemClicked)="onInvoiceClicked($event)"
     ></app-financial-doc-list>
     <app-menu-page
       [config]="invoiceListMenuConfig"
