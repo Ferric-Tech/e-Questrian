@@ -92,6 +92,11 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.RECORD_PAYMENT">
-    <app-payments></app-payments>
+    <app-payments
+      (closed)="paymentDetailModalClosed()"
+      (newPayment)="paymentDetailModalClosed()"
+      (editedPayment)="paymentDetailModalClosed()"
+      (deletePayment)="paymentDetailModalClosed()"
+    ></app-payments>
   </div>
 </div>

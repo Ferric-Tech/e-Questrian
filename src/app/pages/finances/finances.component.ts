@@ -65,6 +65,10 @@ export class FinancesComponent {
     this.currentViewState = ViewState.VIEW_INVOICES;
   }
 
+  paymentDetailModalClosed() {
+    this.currentViewState = ViewState.MAIN;
+  }
+
   private getDataForDisplay() {
     this.getInvoiceData();
     this.getAppointmentData();
