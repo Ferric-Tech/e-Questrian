@@ -12,4 +12,5 @@ export interface AppointmentDetail {
   endTime: Time;
   client: ClientDetail;
   invoice: number;
+  cancelled: boolean;
 }

@@ -70,6 +70,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['3'],
         invoice: 1,
+        cancelled: false,
       },
       '2': {
         title: 'Lesson with ' + this.clients['4'].firstName,
@@ -78,14 +79,16 @@ export class TestDataService {
         endTime: { hours: 10, minutes: 30 },
         client: this.clients['4'],
         invoice: 2,
+        cancelled: false,
       },
       '3': {
-        title: 'Lesson with ' + this.clients['2'].firstName,
+        title: 'Lesson with ' + this.clients['4'].firstName,
         date: this.yesterday,
         startTime: { hours: 14, minutes: 0 },
         endTime: { hours: 14, minutes: 30 },
-        client: this.clients['2'],
+        client: this.clients['4'],
         invoice: 2,
+        cancelled: true,
       },
       '4': {
         title: 'Lesson with ' + this.clients['1'].firstName,
@@ -94,6 +97,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['1'],
         invoice: 0,
+        cancelled: false,
       },
       '5': {
         title: 'Lesson with ' + this.clients['2'].firstName,
@@ -102,6 +106,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['2'],
         invoice: 0,
+        cancelled: false,
       },
       '6': {
         title: 'Lesson with ' + this.clients['3'].firstName,
@@ -110,6 +115,7 @@ export class TestDataService {
         endTime: { hours: 9, minutes: 0 },
         client: this.clients['3'],
         invoice: 0,
+        cancelled: false,
       },
       '7': {
         title: 'Lesson with ' + this.clients['4'].firstName,
@@ -118,6 +124,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 0 },
         client: this.clients['4'],
         invoice: 0,
+        cancelled: false,
       },
       '8': {
         title: 'Lesson with ' + this.clients['1'].firstName,
@@ -126,6 +133,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['1'],
         invoice: 0,
+        cancelled: false,
       },
       '9': {
         title: 'Lesson with ' + this.clients['2'].firstName,
@@ -134,6 +142,7 @@ export class TestDataService {
         endTime: { hours: 8, minutes: 30 },
         client: this.clients['2'],
         invoice: 0,
+        cancelled: false,
       },
     };
   }

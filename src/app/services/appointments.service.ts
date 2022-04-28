@@ -3,15 +3,12 @@ import {
   AppointmentDetail,
   Appointments,
 } from 'src/app/interfaces/appointments.interface';
-import { CommonUtilitiesService } from './common-utilities.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentsService {
   private appointments: Appointments = {};
-
-  constructor(private commonUtilities: CommonUtilitiesService) {}
 
   newAppointment(newAppointment: AppointmentDetail) {
     this.getAppointmentData();
@@ -22,7 +19,7 @@ export class AppointmentsService {
 
   cancelAppointment(appointmentID: string) {
     this.getAppointmentData();
-    this.removeAppointment(appointmentID);
+    this.appointments[appointmentID].cancelled = true;
     this.setAppointmentData();
   }
 
@@ -37,10 +34,6 @@ export class AppointmentsService {
       Object.keys(this.appointments).length + 1
     ).toString();
     this.appointments[appointmentID] = appointment;
-  }
-
-  private removeAppointment(appointmentID: string) {
-    delete this.appointments[appointmentID];
   }
 
   private getAppointmentData() {

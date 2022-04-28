@@ -99,14 +99,16 @@ export class CalendarComponent implements OnInit {
     if (!this.calendarData[stringDate]) {
       return;
     }
-    this.calendarData[stringDate].forEach((dataBlock) => {
+    this.calendarData[stringDate].forEach((timeBlock) => {
       this.calenderBlocks.forEach((block) => {
         if (
-          block.time.hours == dataBlock.time.hours &&
-          block.time.minutes == dataBlock.time.minutes
+          block.time.hours == timeBlock.time.hours &&
+          block.time.minutes == timeBlock.time.minutes
         ) {
-          dataBlock.appointments.forEach((appointment) => {
-            block.appointments.push(appointment);
+          timeBlock.appointments.forEach((appointmentID) => {
+            !this.appointments[appointmentID].cancelled
+              ? block.appointments.push(appointmentID)
+              : null;
           });
         }
       });
