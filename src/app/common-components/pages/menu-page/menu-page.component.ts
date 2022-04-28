@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuOption } from 'src/app/interfaces/menu-options.interface';
+import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
   selector: 'app-menu-page',
@@ -8,7 +8,7 @@ import { MenuOption } from 'src/app/interfaces/menu-options.interface';
   styleUrls: ['./menu-page.component.scss'],
 })
 export class MenuPageComponent {
-  @Input() menuOptions = [] as MenuOption[];
+  @Input() config = {} as MenuPageConfig;
   @Output() viewStateSelected = new EventEmitter<any>();
 
   constructor(public router: Router) {}

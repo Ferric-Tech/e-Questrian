@@ -1,4 +1,4 @@
-.home-page-header {
+.page-header {
   display: flex;
   width: 100%;
   height: 100px;
@@ -9,21 +9,19 @@
   background-color: aqua;
 }
 
-.navigation-page-button-container {
+.button-container {
   display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-  justify-content: space-around;
-}
-
-.navigation-page-button-container ::after {
-  content: "";
-  flex: auto;
+  flex-direction: column;
+  margin: 5%;
+  height: 100%;
 }
 
 button {
-  width: 125px;
-  height: 125px;
-  margin: 30px;
-  margin-bottom: 0;
+  height: 10%;
+  margin: 2%;
+  background-color: aqua;
+  border: none;
+  border-radius: 10px;
+  font-size: larger;
+  font-weight: bold;
 }

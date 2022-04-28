@@ -1,11 +1,12 @@
 <div class="page-container">
-  <div class="home-page-header">e-Questrian</div>
-  <div class="navigation-page-button-container">
+  <div class="page-header">{{ config.header }}</div>
+  <div class="page-sub-header">{{ config.subHeader }}</div>
+  <div class="button-container">
     <button
-      *ngFor="let option of menuOptions"
+      mat-button
+      *ngFor="let option of config.menu"
       class="navbar-button"
       (click)="onMenuOptionClicked(option.path, option.viewState)"
-      mat-button
     >
       {{ option.display }}
     </button>
