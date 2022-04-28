@@ -56,7 +56,7 @@ export class FinancesComponent {
   ) {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
-    switch (this.currentViewState) {
+    switch (viewStateSelected) {
       case ViewState.VIEW_INVOICES:
         this.getDataForDisplay();
         break;
