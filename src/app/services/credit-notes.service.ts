@@ -18,6 +18,7 @@ export class CreditNotesService {
       appointment: appointmentID,
     };
     this.appointments[appointmentID].creditNote = cnNumber;
+    this.appointments[appointmentID].cancelled = true;
     localStorage.setItem('credit-notes', JSON.stringify(this.creditNotes));
     localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
