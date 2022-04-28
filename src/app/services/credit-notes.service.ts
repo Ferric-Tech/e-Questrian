@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Appointments } from '../interfaces/appointments.interface';
-import { CreditNotes } from '../interfaces/invoices.interface';
+import { CreditNotes } from '../interfaces/credit-notes.interface';
 
 @Injectable({
   providedIn: 'root',
