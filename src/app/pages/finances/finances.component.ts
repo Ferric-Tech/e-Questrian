@@ -59,6 +59,7 @@ export class FinancesComponent {
   }
 
   backToInvoiceList() {
+    this.getDataForDisplay();
     this.currentViewState = ViewState.VIEW_INVOICES;
   }
 
