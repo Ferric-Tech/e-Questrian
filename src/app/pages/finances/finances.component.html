@@ -1,17 +1,9 @@
 <div class="page-container" [ngSwitch]="currentViewState">
-  <div
+  <app-menu-page
     *ngSwitchCase="viewStateEnum.MAIN"
-    class="navigation-page-button-container"
-  >
-    <button
-      *ngFor="let option of menuOptions"
-      class="navbar-button"
-      (click)="onMenuOptionClicked(option.viewState)"
-      mat-button
-    >
-      {{ option.display }}
-    </button>
-  </div>
+    [config]="financeMenuPageConfig"
+    (viewStateSelected)="onMenuOptionClicked($event)"
+  ></app-menu-page>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
     <div *ngFor="let invoice of invoices | keyvalue">
@@ -91,16 +83,11 @@
     </div>
   </div>
 
-  <div *ngSwitchCase="viewStateEnum.PAYMENTS">
-    <button
-      *ngFor="let option of paymentMenuOptions"
-      class="navbar-button"
-      (click)="onMenuOptionClicked(option.viewState)"
-      mat-button
-    >
-      {{ option.display }}
-    </button>
-  </div>
+  <app-menu-page
+    *ngSwitchCase="viewStateEnum.PAYMENTS"
+    [config]="paymentMenuPageConfig"
+    (viewStateSelected)="onMenuOptionClicked($event)"
+  ></app-menu-page>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_PAYMENTS">
     <div *ngFor="let payment of payments | keyvalue">

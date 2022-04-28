@@ -7,6 +7,7 @@ import {
   Payments,
 } from 'src/app/interfaces/payments.interface';
 import { PaymentsService } from 'src/app/services/payments.service';
+import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface';
 
 export enum ViewState {
   MAIN,
@@ -29,17 +30,25 @@ export interface MenuOption {
   styleUrls: ['./finances.component.scss'],
 })
 export class FinancesComponent {
-  readonly menuOptions: MenuOption[] = [
-    { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
-    { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
-    { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
-    { display: 'Payments', viewState: ViewState.PAYMENTS },
-  ];
+  financeMenuPageConfig = {
+    header: '',
+    subHeader: 'Finance Menu',
+    menu: [
+      { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
+      { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
+      { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
+      { display: 'Payments', viewState: ViewState.PAYMENTS },
+    ],
+  } as MenuPageConfig;
 
-  readonly paymentMenuOptions: MenuOption[] = [
-    { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
-    { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
-  ];
+  paymentMenuPageConfig = {
+    header: '',
+    subHeader: 'Payments Menu',
+    menu: [
+      { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
+      { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
+    ],
+  } as MenuPageConfig;
 
   appointments: Appointments = {};
   invoices = {} as Invoices;

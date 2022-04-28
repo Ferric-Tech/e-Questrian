@@ -1,6 +1,8 @@
 <div class="page-container">
-  <div class="page-header">{{ config.header }}</div>
-  <div class="page-sub-header">{{ config.subHeader }}</div>
+  <div *ngIf="config.header" class="page-header">{{ config.header }}</div>
+  <div *ngIf="config.subHeader" class="page-sub-header">
+    {{ config.subHeader }}
+  </div>
   <div class="button-container">
     <button
       mat-button
