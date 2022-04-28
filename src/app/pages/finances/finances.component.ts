@@ -56,6 +56,50 @@ export class FinancesComponent {
   ) {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
+    this.switchViewState(viewStateSelected);
+  }
+
+  viewInvoice(invoiceIDStr: string) {
+    this.currentInvoiceID = parseInt(invoiceIDStr);
+    this.switchViewState(ViewState.INVOICE_DETAIL);
+  }
+
+  viewPayment(PaymentIDStr: string) {
+    this.currentPaymentID = parseInt(PaymentIDStr);
+    this.switchViewState(ViewState.PAYMENT_DETAIL);
+  }
+
+  backToFinancetMain() {
+    this.switchViewState(ViewState.MAIN);
+  }
+
+  backToPaymentMenu() {
+    this.switchViewState(ViewState.PAYMENTS);
+  }
+
+  backToInvoiceList() {
+    this.getDataForDisplay();
+    this.switchViewState(ViewState.VIEW_INVOICES);
+  }
+
+  paymentDetailModalClosed() {
+    this.currentViewState = ViewState.PAYMENTS;
+  }
+
+  paymentCreated(payment: PaymentDetails) {
+    this.paymentsService.addPayment(payment);
+    this.switchViewState(ViewState.VIEW_PAYMENTS);
+  }
+
+  paymentEdited() {
+    this.switchViewState(ViewState.PAYMENTS);
+  }
+
+  paymentVoided() {
+    this.switchViewState(ViewState.PAYMENTS);
+  }
+
+  private switchViewState(viewStateSelected: ViewState) {
     switch (viewStateSelected) {
       case ViewState.VIEW_INVOICES:
         this.getDataForDisplay();
@@ -68,46 +112,6 @@ export class FinancesComponent {
         break;
     }
     this.currentViewState = viewStateSelected;
-  }
-
-  viewInvoice(invoiceIDStr: string) {
-    this.currentInvoiceID = parseInt(invoiceIDStr);
-    this.currentViewState = ViewState.INVOICE_DETAIL;
-  }
-
-  viewPayment(PaymentIDStr: string) {
-    this.currentPaymentID = parseInt(PaymentIDStr);
-    this.currentViewState = ViewState.PAYMENT_DETAIL;
-  }
-
-  backToFinancetMain() {
-    this.currentViewState = ViewState.MAIN;
-  }
-
-  backToPaymentMenu() {
-    this.currentViewState = ViewState.PAYMENTS;
-  }
-
-  backToInvoiceList() {
-    this.getDataForDisplay();
-    this.currentViewState = ViewState.VIEW_INVOICES;
-  }
-
-  paymentDetailModalClosed() {
-    this.currentViewState = ViewState.PAYMENTS;
-  }
-
-  paymentCreated(payment: PaymentDetails) {
-    this.paymentsService.addPayment(payment);
-    this.currentViewState = ViewState.PAYMENTS;
-  }
-
-  paymentEdited() {
-    this.currentViewState = ViewState.PAYMENTS;
-  }
-
-  paymentVoided() {
-    this.currentViewState = ViewState.PAYMENTS;
   }
 
   private getDataForDisplay() {

@@ -40,7 +40,6 @@ export class PaymentsComponent implements OnInit {
     this.paymentForm.controls['amount'].setValue(
       parseInt(this.paymentForm.controls['amount'].value)
     );
-    console.log(this.paymentForm.value);
     this.isDeletePayment
       ? this.voidPayment.emit()
       : this.isNewPayment
