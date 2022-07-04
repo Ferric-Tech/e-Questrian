@@ -1,3 +1,5 @@
+import { DocType } from '../enums/doc-types.enum';
+import { ClientDetail } from './clients.interface';
 import { MenuOption } from './menu-options.interface';
 
 export interface PageConfig {
@@ -14,6 +16,24 @@ export interface FinancialDocListPageConfig extends PageConfig {
 }
 
 export interface FinancialDoc {
+  number: number;
+  date: Date;
+  detail: string;
+  amount: number;
+}
+
+export interface DocView extends PageConfig {
+  docType: DocType;
+  docNumber: number;
+  docClient: ClientDetail;
+  lineItems: LineItemGroup[];
+}
+
+export interface LineItemGroup {
+  [groupName: string]: LineItem[];
+}
+
+export interface LineItem {
   number: number;
   date: Date;
   detail: string;

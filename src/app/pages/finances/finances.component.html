@@ -16,7 +16,12 @@
     ></app-menu-page>
   </div>
 
-  <div style="margin: 5%" *ngSwitchCase="viewStateEnum.INVOICE_DETAIL">
+  <app-doc-view
+    *ngSwitchCase="viewStateEnum.INVOICE_DETAIL"
+    [config]="invoiceDocViewConfig"
+  ></app-doc-view>
+
+  <!-- <div style="margin: 5%" *ngSwitchCase="viewStateEnum.INVOICE_DETAIL">
     <div>
       Invoice number:
       {{ currentInvoiceID }}
@@ -72,7 +77,7 @@
       </div>
     </div>
     <button (click)="backToInvoiceList()">Back to invoice list</button>
-  </div>
+  </div> -->
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES">
     <div *ngIf="!isInvoiceGenerationComplete">

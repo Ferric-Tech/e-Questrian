@@ -1,0 +1,43 @@
+.basic-detail-container {
+  margin: 5%;
+  margin-bottom: 0;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1%;
+}
+
+.header-line {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  margin: 2% 1%;
+  margin-top: 5%;
+  width: 100%;
+}
+
+.general-line {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5%;
+  width: 100%;
+}
+
+.number-column {
+  width: 5%;
+}
+
+.date-column {
+  width: 25%;
+}
+
+.detail-column {
+  width: 50%;
+}
+
+.amount-column {
+  width: 15%;
+  text-align: end;
+}

@@ -1,1 +1,27 @@
-<p>doc-view works!</p>
+<app-general-page [generalConfig]="generalConfig"></app-general-page>
+<div class="basic-detail-container">
+  <div class="general-line">
+    <div>Client:</div>
+    <div>{{ config.docClient.displayName }}</div>
+  </div>
+</div>
+
+<div class="list-container">
+  <div class="header-line">
+    <div class="number-column">#</div>
+    <div class="date-column">Date</div>
+    <div class="detail-column">Detail</div>
+    <div class="amount-column">Amount</div>
+  </div>
+  <div *ngFor="let LineItemGroup of config.lineItems">
+    <div *ngFor="let LineItem of LineItemGroup | keyvalue">
+      {{ LineItem.key }}
+      <div *ngFor="let Item of LineItem.value" class="general-line">
+        <div class="number-column">{{ Item.number }}</div>
+        <div class="date-column">{{ Item.date | date: "dd/MM/yyyy" }}</div>
+        <div class="detail-column">{{ Item.detail }}</div>
+        <div class="amount-column">{{ Item.amount }}</div>
+      </div>
+    </div>
+  </div>
+</div>

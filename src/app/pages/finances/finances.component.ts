@@ -8,10 +8,13 @@ import {
 } from 'src/app/interfaces/payments.interface';
 import { PaymentsService } from 'src/app/services/payments.service';
 import {
+  DocView,
   FinancialDoc,
   FinancialDocListPageConfig,
   MenuPageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
+import { DocType } from 'src/app/enums/doc-types.enum';
+import { ClientDetail } from 'src/app/interfaces/clients.interface';
 
 export enum ViewState {
   MAIN,
@@ -66,6 +69,8 @@ export class FinancesComponent {
     menu: [{ display: 'Back to Finance Menu', viewState: ViewState.MAIN }],
   } as MenuPageConfig;
 
+  invoiceDocViewConfig = {} as DocView;
+
   appointments: Appointments = {};
   invoices = {} as Invoices;
   payments = {} as Payments;
@@ -74,6 +79,7 @@ export class FinancesComponent {
   currentInvoiceID = 0;
   currentPaymentID = 0;
   isInvoiceGenerationComplete = true;
+  clients = {} as ClientDetail;
 
   constructor(
     private invoiceService: InvoicesService,
@@ -131,6 +137,9 @@ export class FinancesComponent {
       case ViewState.VIEW_INVOICES:
         this.setDataForDisplay();
         break;
+      case ViewState.INVOICE_DETAIL:
+        this.setInvoiceDocForDisplay();
+        break;
       case ViewState.GENERATE_INVOICES:
         this.generateInvoices();
         break;
@@ -161,6 +170,28 @@ export class FinancesComponent {
     });
   }
 
+  private setInvoiceDocForDisplay() {
+    this.getClients();
+    this.invoices[this.currentInvoiceID];
+    this.invoiceDocViewConfig.subHeader = 'Invoice #' + this.currentInvoiceID;
+    this.invoiceDocViewConfig.docNumber = this.currentInvoiceID;
+    let firstAppoinentNumber =
+      this.invoices[this.currentInvoiceID].appointments[0];
+    this.invoiceDocViewConfig.docClient =
+      this.appointments[firstAppoinentNumber].client;
+    this.invoiceDocViewConfig.lineItems = [{ Lessons: [] }];
+    this.invoices[this.currentInvoiceID].appointments.forEach(
+      (appointmentID) => {
+        this.invoiceDocViewConfig.lineItems[0]['Lessons'].push({
+          number: appointmentID,
+          date: this.appointments[appointmentID].date,
+          detail: this.appointments[appointmentID].title,
+          amount: 250,
+        });
+      }
+    );
+  }
+
   private getDataForDisplay() {
     this.getInvoiceData();
     this.getAppointmentData();
@@ -185,5 +216,10 @@ export class FinancesComponent {
     this.isInvoiceGenerationComplete = false;
     this.invoiceService.generateInvoices();
     this.isInvoiceGenerationComplete = true;
+  }
+
+  private getClients() {
+    let clientList = localStorage.getItem('clients');
+    this.clients = JSON.parse(clientList || '[]');
   }
 }
