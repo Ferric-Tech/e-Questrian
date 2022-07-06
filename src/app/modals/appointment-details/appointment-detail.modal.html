@@ -21,12 +21,6 @@
           >Appointment Type</mat-option
         >
         <mat-option
-          *ngIf="!isNewAppointment"
-          [value]="currentAppointment.type"
-          selected
-          >{{appointmentType[currentAppointment.type]}}</mat-option
-        >
-        <mat-option
           *ngFor="let key of appointmentTypeEnumKeysNumbers"
           [value]="key"
           >{{appointmentType[key]}}</mat-option
