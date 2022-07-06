@@ -65,7 +65,6 @@ export class CalendarComponent implements OnInit {
   appointmentCreated(newAppointment: AppointmentDetail) {
     this.appointmentService.newAppointment(newAppointment);
     this.setCalendar();
-    console.log(this.calendarData);
     this.displayNewAppointmentForm = false;
   }
 

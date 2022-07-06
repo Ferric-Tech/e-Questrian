@@ -21,7 +21,7 @@
         *ngFor="let appointmentID of block.appointments"
       >
         <button (click)="appointmentClicked(appointmentID)">
-          {{ appointments[appointmentID].title }}
+          {{ appointments[appointmentID].subject }}
         </button>
       </div>
     </div>

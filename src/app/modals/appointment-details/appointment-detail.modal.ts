@@ -1,8 +1,19 @@
 import { Time } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AppointmentDetail } from 'src/app/interfaces/appointments.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
+import {
+  WarningSubjectType,
+  WarningType,
+} from '../warnings/warnings.component';
 
 export interface TimeOption {
   display: string;
@@ -23,11 +34,16 @@ export class NewAppointmentComponent implements OnInit {
   @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
   @Output() cancelAppointment = new EventEmitter<void>();
 
-  isNewAppointment: boolean | undefined;
+  warningType = WarningType.EDIT_SAVE;
+  warningSubjectType = WarningSubjectType;
+  isEditable = false;
+  isNewAppointment: boolean = true;
   isRemoveAppointment = false;
+  isWarning = false;
+  isEdited = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
-    title: new FormControl(''),
+    subject: new FormControl(''),
     date: new FormControl(''),
     startTime: new FormControl(''),
     endTime: new FormControl(''),
@@ -37,23 +53,64 @@ export class NewAppointmentComponent implements OnInit {
   clients = {} as Clients;
   displayTime = '';
 
+  get changesMade() {
+    const listOnControlsToCheck = [
+      'subject',
+      'date',
+      'startTime',
+      'endTime',
+      'client',
+    ];
+
+    let isChanged = false;
+    listOnControlsToCheck.forEach((key) => {
+      let currentValue = this.appoitmentForm.controls[key].value;
+      let previousValue =
+        this.currentAppointment[key as keyof AppointmentDetail];
+
+      if (key === 'date') {
+        currentValue = new Date(currentValue);
+        currentValue.setHours(0, 0, 0, 0);
+        currentValue = currentValue.getTime();
+        previousValue = new Date(previousValue as Date);
+        previousValue.setHours(0, 0, 0, 0);
+        previousValue = previousValue.getTime();
+      }
+
+      if (JSON.stringify(currentValue) !== JSON.stringify(previousValue)) {
+        isChanged = true;
+      }
+    });
+    return isChanged;
+  }
+
+  constructor(private cd: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
     this.setTimeOptions();
     this.setScreen();
     this.setForm();
     this.getClientData();
+    console.log(this.appoitmentForm);
   }
 
   // Main call to actions callbacks
   onSubmitClick() {
-    this.isRemoveAppointment
-      ? this.cancelAppointment.emit()
-      : this.isNewAppointment
-      ? this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail)
-      : this.editedAppointment.emit(
-          this.appoitmentForm.value as AppointmentDetail
-        );
+    if (this.isRemoveAppointment) {
+      this.cancelAppointment.emit();
+      return;
+    }
+
+    if (this.isNewAppointment) {
+      this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
+    } else {
+      this.isWarning = true;
+    }
+  }
+
+  onEditAppointmentClick() {
+    this.isEditable = true;
   }
 
   onCancelAppointmentClick() {
@@ -62,6 +119,10 @@ export class NewAppointmentComponent implements OnInit {
 
   onCloseClick() {
     this.closed.emit();
+  }
+
+  onCancelEditsClick() {
+    this.isEditable = false;
   }
 
   // Minor actions callbacks
@@ -77,21 +138,35 @@ export class NewAppointmentComponent implements OnInit {
     return client.displayName == displayName;
   }
 
+  isChangesMade() {
+    this.isEdited = this.changesMade;
+    this.cd.detectChanges();
+  }
+
   // Private functions related to initialisation of the component
   private setScreen() {
-    this.modalHeader = this.isNewAppointment
-      ? 'New appointment'
-      : 'Edit appointment';
+    if (this.isNewAppointment) {
+      this.modalHeader = 'New appointment';
+      return;
+    }
+
+    if (this.currentAppointment.subject) {
+      this.modalHeader = this.currentAppointment.subject;
+      return;
+    }
+
+    this.modalHeader = 'Edit appointment';
   }
 
   private setForm() {
+    this.isEditable = this.isNewAppointment;
     this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
   }
 
   private setFormForNew() {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
-      title: new FormControl('New appointment'),
+      subject: new FormControl('New appointment'),
       date: new FormControl(this.date),
       startTime: new FormControl({
         hours: this.startTime.hours,
@@ -104,7 +179,7 @@ export class NewAppointmentComponent implements OnInit {
 
   private setFormForEdit() {
     this.appoitmentForm = new FormGroup({
-      title: new FormControl(this.currentAppointment.title || ''),
+      subject: new FormControl(this.currentAppointment.subject || ''),
       date: new FormControl(this.date || ''),
       startTime: new FormControl(this.currentAppointment.startTime),
       endTime: new FormControl(this.currentAppointment.endTime || ''),
@@ -139,5 +214,15 @@ export class NewAppointmentComponent implements OnInit {
         display: hour + ':30',
       });
     }
+  }
+
+  // Warning Callbacks
+  warningProceed() {
+    this.isWarning = false;
+    this.editedAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
+  }
+
+  warningCancel() {
+    this.isWarning = false;
   }
 }

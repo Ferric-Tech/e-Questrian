@@ -185,7 +185,7 @@ export class FinancesComponent {
         this.invoiceDocViewConfig.lineItems[0]['Lessons'].push({
           number: appointmentID,
           date: this.appointments[appointmentID].date,
-          detail: this.appointments[appointmentID].title,
+          detail: this.appointments[appointmentID].subject,
           amount: 250,
         });
       }

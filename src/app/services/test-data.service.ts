@@ -79,7 +79,7 @@ export class TestDataService {
   private setAppointments() {
     this.appointments = {
       1: {
-        title: 'Lesson with ' + this.clients[3].firstName,
+        subject: 'Lesson with ' + this.clients[3].firstName,
         date: this.yesterday,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
@@ -88,7 +88,7 @@ export class TestDataService {
         cancelled: false,
       },
       2: {
-        title: 'Lesson with ' + this.clients[4].firstName,
+        subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 10, minutes: 0 },
         endTime: { hours: 10, minutes: 30 },
@@ -97,7 +97,7 @@ export class TestDataService {
         cancelled: false,
       },
       3: {
-        title: 'Lesson with ' + this.clients[4].firstName,
+        subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 14, minutes: 0 },
         endTime: { hours: 14, minutes: 30 },
@@ -107,7 +107,7 @@ export class TestDataService {
         creditNote: 1,
       },
       4: {
-        title: 'Lesson with ' + this.clients[1].firstName,
+        subject: 'Lesson with ' + this.clients[1].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
@@ -116,7 +116,7 @@ export class TestDataService {
         cancelled: false,
       },
       5: {
-        title: 'Lesson with ' + this.clients[2].firstName,
+        subject: 'Lesson with ' + this.clients[2].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
@@ -125,7 +125,7 @@ export class TestDataService {
         cancelled: false,
       },
       6: {
-        title: 'Lesson with ' + this.clients[3].firstName,
+        subject: 'Lesson with ' + this.clients[3].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 30 },
         endTime: { hours: 9, minutes: 0 },
@@ -134,7 +134,7 @@ export class TestDataService {
         cancelled: false,
       },
       7: {
-        title: 'Lesson with ' + this.clients[4].firstName,
+        subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.tomorrow,
         startTime: { hours: 7, minutes: 30 },
         endTime: { hours: 8, minutes: 0 },
@@ -143,7 +143,7 @@ export class TestDataService {
         cancelled: false,
       },
       8: {
-        title: 'Lesson with ' + this.clients[1].firstName,
+        subject: 'Lesson with ' + this.clients[1].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
@@ -152,7 +152,7 @@ export class TestDataService {
         cancelled: false,
       },
       9: {
-        title: 'Lesson with ' + this.clients[2].firstName,
+        subject: 'Lesson with ' + this.clients[2].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },

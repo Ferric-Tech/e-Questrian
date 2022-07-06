@@ -6,7 +6,7 @@ export interface Appointments {
 }
 
 export interface AppointmentDetail {
-  title: string;
+  subject: string;
   date: Date;
   startTime: Time;
   endTime: Time;
