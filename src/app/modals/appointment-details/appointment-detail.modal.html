@@ -28,16 +28,21 @@
       </mat-select>
     </div>
 
-    <!-- Subject -->
+    <!-- Client -->
     <div class="form-line">
-      <div class="form-line-title">Subject:</div>
-      <input
-        [ngClass]="isEditable? 'editable-input': 'uneditable-input'"
-        [readonly]="!isEditable"
-        (change)="isChangesMade()"
-        type="text"
-        formControlName="subject"
-      />
+      <div class="form-line-title">Client:</div>
+      <mat-select
+        [compareWith]="compareClients"
+        [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
+        (selectionChange)="isChangesMade()"
+        formControlName="client"
+      >
+        <mat-option
+          [value]="option.value"
+          *ngFor="let option of clients | keyvalue"
+          >{{ option.value.displayName }}</mat-option
+        >
+      </mat-select>
     </div>
 
     <!-- Date -->
@@ -88,21 +93,16 @@
       </mat-select>
     </div>
 
-    <!-- Client -->
+    <!-- Subject -->
     <div class="form-line">
-      <div class="form-line-title">Client:</div>
-      <mat-select
-        [compareWith]="compareClients"
-        [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
-        (selectionChange)="isChangesMade()"
-        formControlName="client"
-      >
-        <mat-option
-          [value]="option.value"
-          *ngFor="let option of clients | keyvalue"
-          >{{ option.value.displayName }}</mat-option
-        >
-      </mat-select>
+      <div class="form-line-title">Subject:</div>
+      <input
+        [ngClass]="isEditable? 'editable-input': 'uneditable-input'"
+        [readonly]="!isEditable"
+        (change)="isChangesMade()"
+        type="text"
+        formControlName="subject"
+      />
     </div>
 
     <!-- Invoice number -->

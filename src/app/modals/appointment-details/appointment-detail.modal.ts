@@ -60,6 +60,7 @@ export class NewAppointmentComponent implements OnInit {
   currentSelectedCient: ClientDetail | undefined;
   appointmentTypeEnumKeys: string[];
   appointmentTypeEnumKeysNumbers: number[] = [];
+  preferredSubject = '';
 
   get changesMade() {
     const listOnControlsToCheck = [
@@ -107,7 +108,6 @@ export class NewAppointmentComponent implements OnInit {
     this.setScreen();
     this.setForm();
     this.getClientData();
-    this.currentSelectedCient = this.currentAppointment.client;
   }
 
   // Main call to actions callbacks
@@ -165,18 +165,19 @@ export class NewAppointmentComponent implements OnInit {
   isChangesMade() {
     let clientDetail = this.appoitmentForm.controls['client']
       .value as ClientDetail;
-
     if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
       this.currentSelectedCient = clientDetail;
       this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
     }
+
+    this.setPreferredSubject();
 
     this.isEdited = this.changesMade;
     this.cd.detectChanges();
   }
 
   private isClientChanged(clientDetail: ClientDetail) {
-    let previousValue = this.currentAppointment.client.displayName
+    let previousValue = this.currentAppointment.client?.displayName
       ? this.currentAppointment.client.displayName
       : this.currentAppointment.client;
 
@@ -205,6 +206,9 @@ export class NewAppointmentComponent implements OnInit {
   private setForm() {
     this.isEditable = this.isNewAppointment;
     this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
+    this.preferredSubject = this.isNewAppointment
+      ? 'New appointment'
+      : this.getPreferredSubject();
   }
 
   private setFormForNew() {
@@ -247,8 +251,33 @@ export class NewAppointmentComponent implements OnInit {
   private getClientData() {
     let clientList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientList || '[]');
+    this.currentSelectedCient = this.currentAppointment.client;
   }
 
+  private setPreferredSubject() {
+    let isAutoUpdateSubject =
+      this.appoitmentForm.controls['subject'].value === this.preferredSubject;
+
+    this.preferredSubject = this.getPreferredSubject();
+
+    if (isAutoUpdateSubject) {
+      this.appoitmentForm.controls['subject'].setValue(this.preferredSubject);
+    }
+  }
+
+  private getPreferredSubject(): string {
+    let preferredSubject = '';
+    if (this.appoitmentForm.controls['type'].value === AppointmentType.Lesson) {
+      preferredSubject = 'Lesson';
+    } else {
+      preferredSubject = 'Appointment';
+    }
+    if (this.currentSelectedCient?.firstName) {
+      preferredSubject =
+        preferredSubject + ' with ' + this.currentSelectedCient.firstName;
+    }
+    return preferredSubject;
+  }
   private setTimeOptions() {
     for (let hour = 6; hour < 18; hour++) {
       this.timeOptions.push({
