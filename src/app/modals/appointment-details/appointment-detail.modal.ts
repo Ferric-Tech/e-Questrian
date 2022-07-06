@@ -147,7 +147,7 @@ export class NewAppointmentComponent implements OnInit {
     let clientDetail = this.appoitmentForm.controls['client']
       .value as ClientDetail;
 
-    if (this.isClientChanged(clientDetail)) {
+    if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
       this.currentSelectedCient = clientDetail;
       this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
     }
