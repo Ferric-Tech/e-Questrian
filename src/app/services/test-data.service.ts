@@ -113,8 +113,8 @@ export class TestDataService {
         creditNote: 1,
       },
       4: {
-        type: AppointmentType.Lesson,
-        subject: 'Lesson with ' + this.clients[1].firstName,
+        type: AppointmentType.Other,
+        subject: 'Appointment with ' + this.clients[1].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },

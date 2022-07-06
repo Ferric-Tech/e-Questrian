@@ -20,9 +20,16 @@
         class="block-appointment-container"
         *ngFor="let appointmentID of block.appointments"
       >
-        <button (click)="appointmentClicked(appointmentID)">
+        <mat-button
+          [ngClass]="
+            appointments[appointmentID].type === appointmentType.Lesson
+              ? 'lesson-button'
+              : 'appointment-button'
+          "
+          (click)="appointmentClicked(appointmentID)"
+        >
           {{ appointments[appointmentID].subject }}
-        </button>
+        </mat-button>
       </div>
     </div>
   </div>

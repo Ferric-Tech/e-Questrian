@@ -5,6 +5,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 import {
   AppointmentDetail,
   Appointments,
+  AppointmentType,
 } from 'src/app/interfaces/appointments.interface';
 import {
   CalendarBlock,
@@ -17,6 +18,7 @@ import {
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  appointmentType = AppointmentType;
   date = new Date();
   dateFormatted = '';
   calenderBlocks: CalendarBlock[] = [];
