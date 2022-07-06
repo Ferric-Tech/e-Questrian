@@ -93,7 +93,6 @@ export class NewAppointmentComponent implements OnInit {
     this.setScreen();
     this.setForm();
     this.getClientData();
-    console.log(this.appoitmentForm.value as AppointmentDetail);
   }
 
   // Main call to actions callbacks
@@ -245,12 +244,10 @@ export class NewAppointmentComponent implements OnInit {
         this.currentSelectedCient
       );
     }
-    console.log(this.appoitmentForm.value as AppointmentDetail);
     this.editedAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
   }
 
   warningCancel() {
     this.isWarning = false;
-    console.log(this.appoitmentForm);
   }
 }

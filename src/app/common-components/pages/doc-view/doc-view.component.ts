@@ -21,7 +21,5 @@ export class DocViewComponent implements OnInit {
       header: this.config.header,
       subHeader: this.config.subHeader,
     };
-
-    console.log(this.config);
   }
 }
