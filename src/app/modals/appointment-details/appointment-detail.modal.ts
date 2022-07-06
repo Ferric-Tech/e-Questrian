@@ -122,7 +122,12 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onCancelEditsClick() {
-    this.isEditable = false;
+    if (this.isEdited) {
+      this.warningType = WarningType.EDIT_CANCEL;
+      this.isWarning = true;
+    } else {
+      this.isEditable = false;
+    }
   }
 
   // Minor actions callbacks
@@ -239,12 +244,23 @@ export class NewAppointmentComponent implements OnInit {
   // Warning Callbacks
   warningProceed() {
     this.isWarning = false;
-    if (this.isClientChanged(this.currentSelectedCient as ClientDetail)) {
-      this.appoitmentForm.controls['client'].setValue(
-        this.currentSelectedCient
-      );
+    switch (this.warningType) {
+      case WarningType.EDIT_SAVE: {
+        if (this.isClientChanged(this.currentSelectedCient as ClientDetail)) {
+          this.appoitmentForm.controls['client'].setValue(
+            this.currentSelectedCient
+          );
+        }
+        this.editedAppointment.emit(
+          this.appoitmentForm.value as AppointmentDetail
+        );
+        return;
+      }
+      case WarningType.EDIT_CANCEL: {
+        this.isEditable = false;
+        return;
+      }
     }
-    this.editedAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
   }
 
   warningCancel() {

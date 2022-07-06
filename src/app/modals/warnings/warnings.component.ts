@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export enum WarningType {
   EDIT_SAVE,
+  EDIT_CANCEL,
 }
 
 export enum WarningSubjectType {
@@ -41,8 +42,9 @@ export class WarningsComponent implements OnInit {
 
   private setHeader() {
     switch (this.warning) {
-      case WarningType.EDIT_SAVE: {
+      case WarningType.EDIT_SAVE || WarningType.EDIT_CANCEL: {
         this.header = 'Changes made';
+        return;
       }
     }
   }
@@ -55,6 +57,15 @@ export class WarningsComponent implements OnInit {
           this.subject +
           '. \
           Are you sure you want to save these changes?';
+        return;
+      }
+      case WarningType.EDIT_CANCEL: {
+        this.body =
+          'Changes have been made to the ' +
+          this.subject +
+          '. \
+          Are you sure you want to cancel these changes?';
+        return;
       }
     }
   }
@@ -64,6 +75,11 @@ export class WarningsComponent implements OnInit {
       case WarningType.EDIT_SAVE: {
         this.proceedButtonText = 'Yes - save ' + this.subject;
         this.cancelButtonText = 'No - do not save';
+        return;
+      }
+      case WarningType.EDIT_CANCEL: {
+        this.proceedButtonText = 'Yes - cancel changes ';
+        this.cancelButtonText = 'No - keep changes';
       }
     }
   }
