@@ -119,6 +119,9 @@ export class NewAppointmentComponent implements OnInit {
     }
 
     if (this.isNewAppointment) {
+      this.appoitmentForm.controls['client'].setValue(
+        this.currentSelectedCient
+      );
       this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
     } else {
       this.isWarning = true;
@@ -214,9 +217,12 @@ export class NewAppointmentComponent implements OnInit {
   private setForm() {
     this.isEditable = this.isNewAppointment;
     this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
+    this.currentSelectedCient = this.currentAppointment.client;
+
     this.preferredSubject = this.isNewAppointment
       ? 'New appointment'
       : this.getPreferredSubject();
+
     this.showClientField =
       this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
   }
@@ -264,7 +270,6 @@ export class NewAppointmentComponent implements OnInit {
   private getClientData() {
     let clientList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientList || '[]');
-    this.currentSelectedCient = this.currentAppointment.client;
   }
 
   private setPreferredSubject() {
