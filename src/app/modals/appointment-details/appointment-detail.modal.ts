@@ -93,6 +93,7 @@ export class NewAppointmentComponent implements OnInit {
     this.setScreen();
     this.setForm();
     this.getClientData();
+    console.log(this.currentAppointment.invoice);
   }
 
   // Main call to actions callbacks
@@ -251,9 +252,10 @@ export class NewAppointmentComponent implements OnInit {
             this.currentSelectedCient
           );
         }
-        this.editedAppointment.emit(
-          this.appoitmentForm.value as AppointmentDetail
-        );
+        let newAppointmentDetails = this.appoitmentForm
+          .value as AppointmentDetail;
+        newAppointmentDetails.invoice = this.currentAppointment.invoice;
+        this.editedAppointment.emit(newAppointmentDetails);
         return;
       }
       case WarningType.EDIT_CANCEL: {
