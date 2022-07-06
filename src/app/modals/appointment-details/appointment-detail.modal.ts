@@ -257,6 +257,7 @@ export class NewAppointmentComponent implements OnInit {
         return;
       }
       case WarningType.EDIT_CANCEL: {
+        this.setForm();
         this.isEditable = false;
         return;
       }
