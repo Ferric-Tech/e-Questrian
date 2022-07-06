@@ -94,21 +94,35 @@
     <!-- ----------------------------- Buttons section --------------------------- -->
     <!-- Buttons for present mode -->
     <div *ngIf="!isEditable" class="button-container">
-      <button *ngIf="!isEditable" (click)="onEditAppointmentClick()">
+      <button
+        class="primary-button"
+        *ngIf="!isEditable"
+        (click)="onCloseClick()"
+      >
+        Close
+      </button>
+      <button
+        class="secondary-button"
+        *ngIf="!isEditable"
+        (click)="onEditAppointmentClick()"
+      >
         Edit / Cancel Appointment
       </button>
-      <button *ngIf="!isEditable" (click)="onCloseClick()">Close</button>
     </div>
 
     <!-- Buttons for edit mode -->
     <div *ngIf="isEditable" class="button-container">
-      <button *ngIf="isEdited" type="submit">
+      <button class="primary-button" *ngIf="isEdited" type="submit">
         {{isNewAppointment? 'Save': 'Save changes'}}
       </button>
-      <button *ngIf="!isNewAppointment" (click)="onCancelAppointmentClick()">
+      <button
+        class="secondary-button"
+        *ngIf="!isNewAppointment"
+        (click)="onCancelAppointmentClick()"
+      >
         Cancel appointment
       </button>
-      <button (click)="onCancelEditsClick()">
+      <button class="secondary-button" (click)="onCancelEditsClick()">
         {{isNewAppointment? 'Cancel': 'Cancel changes'}}
       </button>
     </div>

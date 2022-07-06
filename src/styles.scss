@@ -53,3 +53,31 @@ body {
   width: 100%;
   height: calc(100vh - 150px);
 }
+
+.primary-button {
+  background-color: blue;
+  color: white;
+  border-color: white;
+  border-width: 1px;
+}
+
+.secondary-button {
+  background-color: white;
+  color: blue;
+  border-color: blue;
+  border-width: 1px;
+}
+
+.primary-warning-button {
+  background-color: red;
+  color: white;
+  border-color: white;
+  border-width: 1px;
+}
+
+.secondary-warning-button {
+  background-color: white;
+  color: red;
+  border-color: red;
+  border-width: 1px;
+}

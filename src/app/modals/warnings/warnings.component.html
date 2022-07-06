@@ -3,8 +3,12 @@
     <p class="warning-header">{{ header }}</p>
     <p class="warning-body">{{ body }}</p>
     <div class="button-container">
-      <button (click)="onConfirmClick()">{{ proceedButtonText }}</button>
-      <button (click)="onCancelClick()">{{ cancelButtonText }}</button>
+      <button class="primary-warning-button" (click)="onConfirmClick()">
+        {{ proceedButtonText }}
+      </button>
+      <button class="secondary-warning-button" (click)="onCancelClick()">
+        {{ cancelButtonText }}
+      </button>
     </div>
   </div>
 </div>
