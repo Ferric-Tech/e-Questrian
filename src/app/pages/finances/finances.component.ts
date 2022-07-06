@@ -162,9 +162,8 @@ export class FinancesComponent {
       this.invoiceListPageConfig.list.push({
         number: number,
         date: this.invoices[number].date,
-        detail:
-          this.appointments[this.invoices[number].appointments[0]].client
-            .displayName,
+        detail: this.appointments[this.invoices[number].appointments[0]].client
+          ?.displayName as string,
         amount: this.invoices[number].appointments.length * 250,
       });
     });
@@ -177,8 +176,9 @@ export class FinancesComponent {
     this.invoiceDocViewConfig.docNumber = this.currentInvoiceID;
     let firstAppoinentNumber =
       this.invoices[this.currentInvoiceID].appointments[0];
-    this.invoiceDocViewConfig.docClient =
-      this.appointments[firstAppoinentNumber].client;
+    this.invoiceDocViewConfig.docClient = this.appointments[
+      firstAppoinentNumber
+    ].client as ClientDetail;
     this.invoiceDocViewConfig.lineItems = [{ Lessons: [] }];
     this.invoices[this.currentInvoiceID].appointments.forEach(
       (appointmentID) => {

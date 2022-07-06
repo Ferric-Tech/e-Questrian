@@ -29,7 +29,7 @@
     </div>
 
     <!-- Client -->
-    <div class="form-line">
+    <div *ngIf="showClientField" class="form-line">
       <div class="form-line-title">Client:</div>
       <mat-select
         [compareWith]="compareClients"

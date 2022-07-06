@@ -45,6 +45,7 @@ export class NewAppointmentComponent implements OnInit {
   isRemoveAppointment = false;
   isWarning = false;
   isEdited = false;
+  showClientField = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
     type: new FormControl(''),
@@ -172,6 +173,9 @@ export class NewAppointmentComponent implements OnInit {
 
     this.setPreferredSubject();
 
+    this.showClientField =
+      this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
+
     this.isEdited = this.changesMade;
     this.cd.detectChanges();
   }
@@ -209,12 +213,14 @@ export class NewAppointmentComponent implements OnInit {
     this.preferredSubject = this.isNewAppointment
       ? 'New appointment'
       : this.getPreferredSubject();
+    this.showClientField =
+      this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
   }
 
   private setFormForNew() {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
-      type: new FormControl(''),
+      type: new FormControl(0),
       subject: new FormControl('New appointment'),
       date: new FormControl(this.date),
       startTime: new FormControl({
@@ -228,12 +234,14 @@ export class NewAppointmentComponent implements OnInit {
 
   private setFormForEdit() {
     this.appoitmentForm = new FormGroup({
-      type: new FormControl(this.currentAppointment.type || ''),
+      type: new FormControl(this.currentAppointment.type || 0),
       subject: new FormControl(this.currentAppointment.subject || ''),
       date: new FormControl(this.date || ''),
       startTime: new FormControl(this.currentAppointment.startTime),
       endTime: new FormControl(this.currentAppointment.endTime || ''),
-      client: new FormControl(this.currentAppointment.client.displayName || ''),
+      client: new FormControl(
+        this.currentAppointment.client?.displayName || ''
+      ),
     });
   }
 

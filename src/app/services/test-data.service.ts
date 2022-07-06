@@ -118,7 +118,6 @@ export class TestDataService {
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         endTime: { hours: 8, minutes: 30 },
-        client: this.clients[1],
         invoice: 0,
         cancelled: false,
       },

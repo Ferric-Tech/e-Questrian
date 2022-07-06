@@ -16,7 +16,7 @@ export interface AppointmentDetail {
   date: Date;
   startTime: Time;
   endTime: Time;
-  client: ClientDetail;
+  client?: ClientDetail;
   invoice: number;
   cancelled: boolean;
   creditNote?: number;

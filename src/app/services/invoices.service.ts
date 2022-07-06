@@ -19,10 +19,13 @@ export class InvoicesService {
     Object.keys(this.appointments).forEach((appointmentIDStr) => {
       const appointmentID = parseInt(appointmentIDStr);
       if (this.appointments[appointmentID].invoice == 0) {
-        let displayName = this.appointments[appointmentID].client.displayName;
-        displayName in appointmentsToInvoice
-          ? appointmentsToInvoice[displayName].push(appointmentID)
-          : (appointmentsToInvoice[displayName] = [appointmentID]);
+        if (this.appointments[appointmentID].client?.displayName) {
+          let displayName = this.appointments[appointmentID].client
+            ?.displayName as string;
+          displayName in appointmentsToInvoice
+            ? appointmentsToInvoice[displayName].push(appointmentID)
+            : (appointmentsToInvoice[displayName] = [appointmentID]);
+        }
       }
     });
 
