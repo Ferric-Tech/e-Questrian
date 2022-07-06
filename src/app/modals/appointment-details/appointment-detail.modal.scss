@@ -12,6 +12,7 @@
 
 .form-container {
   width: 90%;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   background-color: aqua;
@@ -37,6 +38,7 @@
 
 .form-line-title {
   width: 40%;
+  max-width: 100px;
 }
 
 .button-container {
@@ -134,4 +136,14 @@ button {
 
 ::ng-deep .mat-select-value {
   color: black !important;
+}
+
+.uneditable-input,
+.editable-input,
+.editable-client-selector,
+.uneditable-client-selector,
+.editable-date-input,
+.uneditable-date-input {
+  flex-grow: 1;
+  margin-right: 5%;
 }
