@@ -43,10 +43,13 @@ hr {
 
 .lesson-button {
   background-color: aqua;
-  padding: 2px 5px;
 }
 
 .appointment-button {
   background-color: hotpink;
+}
+.lesson-button,
+.appointment-button {
   padding: 2px 5px;
+  margin: 0 3px;
 }

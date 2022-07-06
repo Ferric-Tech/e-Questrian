@@ -12,14 +12,12 @@
     <div class="form-line">
       <div class="form-line-title">Appointment type:</div>
       <mat-select
+        placeholder="Appointment Type"
         [compareWith]="compareTypes"
         [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
         (selectionChange)="isChangesMade()"
         formControlName="type"
       >
-        <mat-option *ngIf="isNewAppointment" [value]="" disabled selected
-          >Appointment Type</mat-option
-        >
         <mat-option
           *ngFor="let key of appointmentTypeEnumKeysNumbers"
           [value]="key"

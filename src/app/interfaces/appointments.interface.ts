@@ -2,8 +2,8 @@ import { Time } from '@angular/common';
 import { ClientDetail } from './clients.interface';
 
 export enum AppointmentType {
-  Lesson,
-  Other,
+  Lesson = 1,
+  Other = 2,
 }
 
 export interface Appointments {

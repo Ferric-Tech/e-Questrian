@@ -138,6 +138,10 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onCancelEditsClick() {
+    if (this.isNewAppointment) {
+      this.closed.emit();
+      return;
+    }
     if (this.isEdited) {
       this.warningType = WarningType.EDIT_CANCEL;
       this.isWarning = true;
@@ -220,7 +224,7 @@ export class NewAppointmentComponent implements OnInit {
   private setFormForNew() {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
-      type: new FormControl(0),
+      type: new FormControl(''),
       subject: new FormControl('New appointment'),
       date: new FormControl(this.date),
       startTime: new FormControl({
@@ -230,6 +234,7 @@ export class NewAppointmentComponent implements OnInit {
       endTime: new FormControl(endTime),
       client: new FormControl(''),
     });
+    this.currentAppointment.invoice = 0;
   }
 
   private setFormForEdit() {

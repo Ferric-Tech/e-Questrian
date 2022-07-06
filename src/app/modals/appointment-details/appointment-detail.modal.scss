@@ -134,7 +134,8 @@ button {
   background-color: aqua;
 }
 
-::ng-deep .mat-select-value {
+::ng-deep .mat-select-value,
+::ng-deep .mat-select-placeholder {
   color: black !important;
 }
 
