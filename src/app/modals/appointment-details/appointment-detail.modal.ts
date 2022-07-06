@@ -52,6 +52,7 @@ export class NewAppointmentComponent implements OnInit {
   timeOptions: TimeOption[] = [];
   clients = {} as Clients;
   displayTime = '';
+  currentSelectedCient: ClientDetail | undefined;
 
   get changesMade() {
     const listOnControlsToCheck = [
@@ -92,7 +93,7 @@ export class NewAppointmentComponent implements OnInit {
     this.setScreen();
     this.setForm();
     this.getClientData();
-    console.log(this.appoitmentForm);
+    console.log(this.appoitmentForm.value as AppointmentDetail);
   }
 
   // Main call to actions callbacks
@@ -139,8 +140,28 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   isChangesMade() {
+    let clientDetail = this.appoitmentForm.controls['client']
+      .value as ClientDetail;
+
+    if (this.isClientChanged(clientDetail)) {
+      this.currentSelectedCient = clientDetail;
+      this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
+    }
+
     this.isEdited = this.changesMade;
     this.cd.detectChanges();
+  }
+
+  private isClientChanged(clientDetail: ClientDetail) {
+    let previousValue = this.currentAppointment.client.displayName
+      ? this.currentAppointment.client.displayName
+      : this.currentAppointment.client;
+
+    let currentValue = clientDetail.displayName
+      ? clientDetail.displayName
+      : clientDetail;
+
+    return currentValue != previousValue;
   }
 
   // Private functions related to initialisation of the component
@@ -219,10 +240,17 @@ export class NewAppointmentComponent implements OnInit {
   // Warning Callbacks
   warningProceed() {
     this.isWarning = false;
+    if (this.isClientChanged(this.currentSelectedCient as ClientDetail)) {
+      this.appoitmentForm.controls['client'].setValue(
+        this.currentSelectedCient
+      );
+    }
+    console.log(this.appoitmentForm.value as AppointmentDetail);
     this.editedAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
   }
 
   warningCancel() {
     this.isWarning = false;
+    console.log(this.appoitmentForm);
   }
 }
