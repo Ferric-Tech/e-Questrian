@@ -38,7 +38,7 @@
 
 .form-line-title {
   width: 40%;
-  max-width: 100px;
+  max-width: 130px;
 }
 
 .button-container {
@@ -103,8 +103,8 @@ button {
   padding: 0 10px;
 }
 
-.editable-client-selector,
-.uneditable-client-selector {
+.editable-selector,
+.uneditable-selector {
   width: 172px;
   height: 25px;
   display: flex;
@@ -114,11 +114,11 @@ button {
   padding-left: 5px;
 }
 
-.editable-client-selector {
+.editable-selector {
   background-color: white;
 }
 
-.uneditable-client-selector {
+.uneditable-selector {
   background-color: aqua;
 }
 
@@ -140,8 +140,8 @@ button {
 
 .uneditable-input,
 .editable-input,
-.editable-client-selector,
-.uneditable-client-selector,
+.editable-selector,
+.uneditable-selector,
 .editable-date-input,
 .uneditable-date-input {
   flex-grow: 1;

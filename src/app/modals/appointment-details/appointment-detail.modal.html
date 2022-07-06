@@ -8,6 +8,32 @@
     <!-- Title -->
     <div class="form-header">{{ modalHeader }}</div>
 
+    <!-- Appointment Type -->
+    <div class="form-line">
+      <div class="form-line-title">Appointment type:</div>
+      <mat-select
+        [compareWith]="compareTypes"
+        [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
+        (selectionChange)="isChangesMade()"
+        formControlName="type"
+      >
+        <mat-option *ngIf="isNewAppointment" [value]="" disabled selected
+          >Appointment Type</mat-option
+        >
+        <mat-option
+          *ngIf="!isNewAppointment"
+          [value]="currentAppointment.type"
+          selected
+          >{{appointmentType[currentAppointment.type]}}</mat-option
+        >
+        <mat-option
+          *ngFor="let key of appointmentTypeEnumKeysNumbers"
+          [value]="key"
+          >{{appointmentType[key]}}</mat-option
+        >
+      </mat-select>
+    </div>
+
     <!-- Subject -->
     <div class="form-line">
       <div class="form-line-title">Subject:</div>
@@ -73,7 +99,7 @@
       <div class="form-line-title">Client:</div>
       <mat-select
         [compareWith]="compareClients"
-        [ngClass]="isEditable? 'editable-client-selector': 'uneditable-client-selector'"
+        [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
         (selectionChange)="isChangesMade()"
         formControlName="client"
       >

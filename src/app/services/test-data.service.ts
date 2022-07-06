@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Appointments } from 'src/app/interfaces/appointments.interface';
+import {
+  Appointments,
+  AppointmentType,
+} from 'src/app/interfaces/appointments.interface';
 import { Clients } from 'src/app/interfaces/clients.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
 import { PaymentType } from '../enums/payments.enum';
@@ -79,6 +82,7 @@ export class TestDataService {
   private setAppointments() {
     this.appointments = {
       1: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[3].firstName,
         date: this.yesterday,
         startTime: { hours: 8, minutes: 0 },
@@ -88,6 +92,7 @@ export class TestDataService {
         cancelled: false,
       },
       2: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 10, minutes: 0 },
@@ -97,6 +102,7 @@ export class TestDataService {
         cancelled: false,
       },
       3: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.yesterday,
         startTime: { hours: 14, minutes: 0 },
@@ -107,6 +113,7 @@ export class TestDataService {
         creditNote: 1,
       },
       4: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[1].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
@@ -116,6 +123,7 @@ export class TestDataService {
         cancelled: false,
       },
       5: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[2].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
@@ -125,6 +133,7 @@ export class TestDataService {
         cancelled: false,
       },
       6: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[3].firstName,
         date: this.today,
         startTime: { hours: 8, minutes: 30 },
@@ -134,6 +143,7 @@ export class TestDataService {
         cancelled: false,
       },
       7: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[4].firstName,
         date: this.tomorrow,
         startTime: { hours: 7, minutes: 30 },
@@ -143,6 +153,7 @@ export class TestDataService {
         cancelled: false,
       },
       8: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[1].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },
@@ -152,6 +163,7 @@ export class TestDataService {
         cancelled: false,
       },
       9: {
+        type: AppointmentType.Lesson,
         subject: 'Lesson with ' + this.clients[2].firstName,
         date: this.tomorrow,
         startTime: { hours: 8, minutes: 0 },

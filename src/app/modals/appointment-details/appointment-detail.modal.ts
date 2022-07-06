@@ -8,7 +8,10 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AppointmentDetail } from 'src/app/interfaces/appointments.interface';
+import {
+  AppointmentDetail,
+  AppointmentType,
+} from 'src/app/interfaces/appointments.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import {
   WarningSubjectType,
@@ -34,6 +37,7 @@ export class NewAppointmentComponent implements OnInit {
   @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
   @Output() cancelAppointment = new EventEmitter<void>();
 
+  appointmentType = AppointmentType;
   warningType = WarningType.EDIT_SAVE;
   warningSubjectType = WarningSubjectType;
   isEditable = false;
@@ -43,6 +47,7 @@ export class NewAppointmentComponent implements OnInit {
   isEdited = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
+    type: new FormControl(''),
     subject: new FormControl(''),
     date: new FormControl(''),
     startTime: new FormControl(''),
@@ -53,6 +58,8 @@ export class NewAppointmentComponent implements OnInit {
   clients = {} as Clients;
   displayTime = '';
   currentSelectedCient: ClientDetail | undefined;
+  appointmentTypeEnumKeys: string[];
+  appointmentTypeEnumKeysNumbers: number[] = [];
 
   get changesMade() {
     const listOnControlsToCheck = [
@@ -85,7 +92,14 @@ export class NewAppointmentComponent implements OnInit {
     return isChanged;
   }
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) {
+    this.appointmentTypeEnumKeys = Object.keys(this.appointmentType).filter(
+      (k) => !isNaN(Number(k))
+    );
+    this.appointmentTypeEnumKeys.forEach((n) => {
+      this.appointmentTypeEnumKeysNumbers.push(parseInt(n));
+    });
+  }
 
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
@@ -93,7 +107,7 @@ export class NewAppointmentComponent implements OnInit {
     this.setScreen();
     this.setForm();
     this.getClientData();
-    console.log(this.currentAppointment.invoice);
+    this.currentSelectedCient = this.currentAppointment.client;
   }
 
   // Main call to actions callbacks
@@ -144,6 +158,10 @@ export class NewAppointmentComponent implements OnInit {
     return client.displayName == displayName;
   }
 
+  compareTypes(first: any, second: any) {
+    return first == second;
+  }
+
   isChangesMade() {
     let clientDetail = this.appoitmentForm.controls['client']
       .value as ClientDetail;
@@ -192,6 +210,7 @@ export class NewAppointmentComponent implements OnInit {
   private setFormForNew() {
     let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
+      type: new FormControl(''),
       subject: new FormControl('New appointment'),
       date: new FormControl(this.date),
       startTime: new FormControl({
@@ -205,6 +224,7 @@ export class NewAppointmentComponent implements OnInit {
 
   private setFormForEdit() {
     this.appoitmentForm = new FormGroup({
+      type: new FormControl(this.currentAppointment.type || ''),
       subject: new FormControl(this.currentAppointment.subject || ''),
       date: new FormControl(this.date || ''),
       startTime: new FormControl(this.currentAppointment.startTime),
@@ -247,11 +267,10 @@ export class NewAppointmentComponent implements OnInit {
     this.isWarning = false;
     switch (this.warningType) {
       case WarningType.EDIT_SAVE: {
-        if (this.isClientChanged(this.currentSelectedCient as ClientDetail)) {
-          this.appoitmentForm.controls['client'].setValue(
-            this.currentSelectedCient
-          );
-        }
+        this.appoitmentForm.controls['client'].setValue(
+          this.currentSelectedCient
+        );
+
         let newAppointmentDetails = this.appoitmentForm
           .value as AppointmentDetail;
         newAppointmentDetails.invoice = this.currentAppointment.invoice;
