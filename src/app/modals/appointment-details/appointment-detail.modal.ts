@@ -172,8 +172,6 @@ export class NewAppointmentComponent implements OnInit {
   onHeaderEditSubmitClick() {
     this.modalHeader = this.appoitmentForm.controls['subject'].value;
     this.isHeaderEditable = false;
-    // this.cd.detectChanges();
-    console.log(this.modalHeader);
   }
 
   onHeaderEditCancelClick() {
@@ -199,6 +197,8 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onChangesMade() {
+    this.onHeaderEditSubmitClick();
+
     let clientDetail = this.appoitmentForm.controls['client']
       .value as ClientDetail;
     if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
