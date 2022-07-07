@@ -114,7 +114,9 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
-    this.setTimeOptions(this.startTime);
+    this.setTimeOptions(
+      this.isNewAppointment ? this.startTime : this.currentAppointment.startTime
+    );
     this.setScreen();
     this.setForm();
     this.getClientData();
@@ -392,8 +394,6 @@ export class NewAppointmentComponent implements OnInit {
       ? this.determineEndTime(this.startTime)
       : (this.appoitmentForm.controls['endTime'].value as Time);
 
-    console.log(startTime);
-    console.log(this.endTime);
     this.trimTimeOptions(startTime, this.endTime);
   }
 

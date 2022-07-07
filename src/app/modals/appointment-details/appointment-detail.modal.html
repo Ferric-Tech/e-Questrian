@@ -69,7 +69,7 @@
         matSuffix
         [for]="picker"
       ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker #picker (click)="onChangesMade()"></mat-datepicker>
       <input
         [ngClass]="isEditable? 'editable-date-input': 'uneditable-date-input'"
         [readonly]="!isEditable"
