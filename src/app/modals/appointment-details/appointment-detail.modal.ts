@@ -136,6 +136,7 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onEditAppointmentClick() {
+    this.isSavable = false;
     this.isEditable = true;
   }
 
