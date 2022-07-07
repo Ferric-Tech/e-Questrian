@@ -39,7 +39,7 @@ export class NewAppointmentComponent implements OnInit {
 
   appointmentType = AppointmentType;
   warningType = WarningType.EDIT_SAVE;
-  warningSubjectType = WarningSubjectType;
+  warningSubject = WarningSubjectType.APPOINTMENT;
   isEditable = false;
   isNewAppointment: boolean = true;
   isRemoveAppointment = false;
@@ -118,14 +118,21 @@ export class NewAppointmentComponent implements OnInit {
       return;
     }
 
+    if (this.isAppointmentDurationOver2Hours()) {
+      this.warningType = WarningType.TIME_EXCESSIVE;
+      this.isWarning = true;
+      return;
+    }
+
     if (this.isNewAppointment) {
       this.appoitmentForm.controls['client'].setValue(
         this.currentSelectedCient
       );
       this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
-    } else {
-      this.isWarning = true;
     }
+
+    this.warningType = WarningType.EDIT_SAVE;
+    this.isWarning = true;
   }
 
   onEditAppointmentClick() {
@@ -197,7 +204,7 @@ export class NewAppointmentComponent implements OnInit {
   warningProceed() {
     this.isWarning = false;
     switch (this.warningType) {
-      case WarningType.EDIT_SAVE: {
+      case WarningType.EDIT_SAVE || WarningType.TIME_EXCESSIVE: {
         this.appoitmentForm.controls['client'].setValue(
           this.currentSelectedCient
         );
@@ -249,6 +256,20 @@ export class NewAppointmentComponent implements OnInit {
       : clientDetail;
 
     return currentValue != previousValue;
+  }
+
+  isAppointmentDurationOver2Hours() {
+    let startTime: Time = this.appoitmentForm.controls['startTime'].value;
+    let endTime: Time = this.appoitmentForm.controls['endTime'].value;
+    if (endTime.hours - startTime.hours > 2) {
+      return true;
+    }
+    if (endTime.hours - startTime.hours === 2) {
+      if (endTime.minutes - startTime.minutes > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   // Private functions related to initialisation of the component

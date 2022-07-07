@@ -150,7 +150,7 @@
 <app-warnings
   *ngIf="isWarning"
   [warning]="warningType"
-  [subject]="warningSubjectType.APPOINTMENT"
+  [subject]="warningSubject"
   (proceed)="warningProceed()"
   (cancel)="warningCancel()"
 ></app-warnings>
