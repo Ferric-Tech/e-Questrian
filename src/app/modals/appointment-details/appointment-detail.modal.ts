@@ -6,6 +6,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
@@ -14,6 +15,7 @@ import {
 } from 'src/app/interfaces/appointments.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import {
+  WarningsComponent,
   WarningSubjectType,
   WarningType,
 } from '../warnings/warnings.component';
@@ -36,6 +38,10 @@ export class NewAppointmentComponent implements OnInit {
   @Output() newAppointment = new EventEmitter<AppointmentDetail>();
   @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
   @Output() cancelAppointment = new EventEmitter<void>();
+
+  @ViewChild(WarningsComponent, { static: false }) warningsComponent:
+    | WarningsComponent
+    | undefined;
 
   appointmentType = AppointmentType;
   warningType = WarningType.EDIT_SAVE;
@@ -118,17 +124,11 @@ export class NewAppointmentComponent implements OnInit {
       return;
     }
 
-    if (this.isAppointmentDurationOver2Hours()) {
-      this.warningType = WarningType.TIME_EXCESSIVE;
-      this.isWarning = true;
-      return;
-    }
-
     if (this.isNewAppointment) {
-      this.appoitmentForm.controls['client'].setValue(
-        this.currentSelectedCient
-      );
-      this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
+      this.isAppointmentDurationOver2Hours()
+        ? this.presentExcessiveMeetingDuraionWarning()
+        : this.prepAndSaveNewAppointment();
+      return;
     }
 
     this.warningType = WarningType.EDIT_SAVE;
@@ -200,24 +200,32 @@ export class NewAppointmentComponent implements OnInit {
     }
   }
 
-  // Warning Callbacks
+  // Functions related to Warnings
   warningProceed() {
-    this.isWarning = false;
     switch (this.warningType) {
-      case WarningType.EDIT_SAVE || WarningType.TIME_EXCESSIVE: {
-        this.appoitmentForm.controls['client'].setValue(
-          this.currentSelectedCient
-        );
-
-        let newAppointmentDetails = this.appoitmentForm
-          .value as AppointmentDetail;
-        newAppointmentDetails.invoice = this.currentAppointment.invoice;
-        this.editedAppointment.emit(newAppointmentDetails);
+      case WarningType.EDIT_SAVE: {
+        if (this.isAppointmentDurationOver2Hours()) {
+          this.warningType = WarningType.TIME_EXCESSIVE;
+          this.warningsComponent?.presentFollowUp(this.warningType);
+        } else {
+          this.isWarning = false;
+          this.isEditable = false;
+          this.prepAndSaveEditedAppointment();
+        }
         return;
       }
       case WarningType.EDIT_CANCEL: {
-        this.setForm();
+        this.isWarning = false;
         this.isEditable = false;
+        this.setForm();
+        return;
+      }
+      case WarningType.TIME_EXCESSIVE: {
+        this.isWarning = false;
+        this.isEditable = false;
+        this.isNewAppointment
+          ? this.prepAndSaveNewAppointment()
+          : this.prepAndSaveEditedAppointment();
         return;
       }
     }
@@ -225,6 +233,23 @@ export class NewAppointmentComponent implements OnInit {
 
   warningCancel() {
     this.isWarning = false;
+  }
+
+  private prepAndSaveNewAppointment() {
+    this.appoitmentForm.controls['client'].setValue(this.currentSelectedCient);
+    this.newAppointment.emit(this.appoitmentForm.value as AppointmentDetail);
+  }
+
+  private prepAndSaveEditedAppointment() {
+    this.appoitmentForm.controls['client'].setValue(this.currentSelectedCient);
+    let newAppointmentDetails = this.appoitmentForm.value as AppointmentDetail;
+    newAppointmentDetails.invoice = this.currentAppointment.invoice;
+    this.editedAppointment.emit(newAppointmentDetails);
+  }
+
+  private presentExcessiveMeetingDuraionWarning() {
+    this.warningType = WarningType.TIME_EXCESSIVE;
+    this.isWarning = true;
   }
 
   // Private functions for checking status of the form

@@ -32,6 +32,11 @@ export class WarningsComponent implements OnInit {
     this.setButtons();
   }
 
+  presentFollowUp(warning: WarningType) {
+    this.warning = warning;
+    this.ngOnInit();
+  }
+
   // Callbacks for call to actions
   onConfirmClick() {
     this.proceed.emit();
@@ -43,7 +48,8 @@ export class WarningsComponent implements OnInit {
 
   private setHeader() {
     switch (this.warning) {
-      case WarningType.EDIT_SAVE || WarningType.EDIT_CANCEL: {
+      case WarningType.EDIT_SAVE:
+      case WarningType.EDIT_CANCEL: {
         this.header = 'Changes made';
         return;
       }
