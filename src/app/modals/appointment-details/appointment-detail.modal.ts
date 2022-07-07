@@ -119,6 +119,7 @@ export class NewAppointmentComponent implements OnInit {
     );
     this.setScreen();
     this.setForm();
+
     this.getClientData();
   }
 
@@ -391,7 +392,11 @@ export class NewAppointmentComponent implements OnInit {
     }
 
     this.endTime = !this.endTime
-      ? this.determineEndTime(this.startTime)
+      ? this.determineEndTime(
+          this.isNewAppointment
+            ? this.startTime
+            : this.currentAppointment.endTime
+        )
       : (this.appoitmentForm.controls['endTime'].value as Time);
 
     this.trimTimeOptions(startTime, this.endTime);
