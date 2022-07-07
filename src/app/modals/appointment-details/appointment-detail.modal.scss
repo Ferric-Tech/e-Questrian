@@ -50,11 +50,24 @@
   padding: 5px;
   align-items: center;
   height: 25px;
+  margin-left: -5px;
 }
 
 .form-line-title {
   width: 40%;
   max-width: 130px;
+  padding-left: 5%;
+}
+
+.form-line-time {
+  margin-left: -5px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  padding: 5px;
+  align-items: center;
+  height: 25px;
+  justify-content: space-between;
 }
 
 .button-container {
@@ -77,10 +90,12 @@
 }
 .editable-time-selector {
   background-color: white;
+  margin-right: 5%;
 }
 
 .uneditable-time-selector {
   background-color: aqua;
+  margin-right: 5%;
 }
 
 input {

@@ -366,7 +366,7 @@ export class NewAppointmentComponent implements OnInit {
       subject: new FormControl(this.currentAppointment.subject || ''),
       date: new FormControl(this.date || ''),
       startTime: new FormControl(this.currentAppointment.startTime),
-      endTime: new FormControl(this.currentAppointment.endTime || ''),
+      endTime: new FormControl(this.currentAppointment.duration || ''),
       client: new FormControl(
         this.currentAppointment.client?.displayName || ''
       ),
@@ -395,7 +395,7 @@ export class NewAppointmentComponent implements OnInit {
       ? this.determineEndTime(
           this.isNewAppointment
             ? this.startTime
-            : this.currentAppointment.endTime
+            : this.currentAppointment.duration
         )
       : (this.appoitmentForm.controls['endTime'].value as Time);
 

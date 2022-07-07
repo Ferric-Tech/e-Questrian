@@ -79,10 +79,9 @@
       />
     </div>
 
-    <!-- Time  -->
+    <!-- Start Time  -->
 
-    <div class="form-line">
-      <!-- From  -->
+    <div class="form-line-time">
       <div class="form-line-title">Start time:</div>
       <mat-select
         [compareWith]="compareTimes"
@@ -96,9 +95,11 @@
           >{{ option.display}}</mat-option
         >
       </mat-select>
+    </div>
 
-      <!-- To  -->
-      <div class="mid-selector-container">until</div>
+    <!-- Duration  -->
+    <div class="form-line-time">
+      <div class="form-line-title">Duration:</div>
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
