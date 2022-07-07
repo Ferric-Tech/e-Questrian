@@ -69,10 +69,12 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="onChangesMade()"
+        (selectionChange)="onTimeSelected()"
         formControlName="startTime"
       >
-        <mat-option *ngFor="let option of timeOptions" [value]="option.value"
+        <mat-option
+          *ngFor="let option of startTimeOptions"
+          [value]="option.value"
           >{{ option.display}}</mat-option
         >
       </mat-select>
@@ -82,10 +84,10 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="onChangesMade()"
+        (selectionChange)="onTimeSelected()"
         formControlName="endTime"
       >
-        <mat-option *ngFor="let option of timeOptions" [value]="option.value"
+        <mat-option *ngFor="let option of endTimeOptions" [value]="option.value"
           >{{ option.display}}</mat-option
         >
       </mat-select>

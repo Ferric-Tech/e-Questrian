@@ -61,7 +61,9 @@ export class NewAppointmentComponent implements OnInit {
     endTime: new FormControl(''),
     client: new FormControl(''),
   });
-  timeOptions: TimeOption[] = [];
+  private endTime: Time | undefined;
+  startTimeOptions: TimeOption[] = [];
+  endTimeOptions: TimeOption[] = [];
   clients = {} as Clients;
   displayTime = '';
   currentSelectedCient: ClientDetail | undefined;
@@ -111,7 +113,7 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
-    this.setTimeOptions();
+    this.setTimeOptions(this.startTime);
     this.setScreen();
     this.setForm();
     this.getClientData();
@@ -162,12 +164,10 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   // Minor actions callbacks
-  onStartTimeSelected(time: string) {
-    // TODO:  Delete all the times before startTime
-  }
-
-  onEndTimeSelected(time: string) {
-    // TODO: Delete all the times after endTime
+  onTimeSelected() {
+    let startTime = this.appoitmentForm.controls['startTime'].value;
+    this.setTimeOptions(startTime);
+    this.onChangesMade();
   }
 
   compareTimes(o1: Time, o2: Time) {
@@ -327,7 +327,6 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   private setFormForNew() {
-    let endTime = this.determineEndTime(this.startTime);
     this.appoitmentForm = new FormGroup({
       type: new FormControl(''),
       subject: new FormControl('New appointment'),
@@ -336,7 +335,7 @@ export class NewAppointmentComponent implements OnInit {
         hours: this.startTime.hours,
         minutes: this.startTime.minutes,
       } as Time),
-      endTime: new FormControl(endTime),
+      endTime: new FormControl(this.endTime),
       client: new FormControl(''),
     });
     this.currentAppointment.invoice = 0;
@@ -366,22 +365,74 @@ export class NewAppointmentComponent implements OnInit {
     return { hours: hours, minutes: minutes } as Time;
   }
 
+  private setTimeOptions(startTime: Time) {
+    this.startTimeOptions = [];
+    this.endTimeOptions = [];
+    for (let hour = 6; hour < 18; hour++) {
+      this.pushTimeToOptions(hour);
+    }
+
+    this.endTime = !this.endTime
+      ? this.determineEndTime(this.startTime)
+      : (this.appoitmentForm.controls['endTime'].value as Time);
+
+    console.log(startTime);
+    console.log(this.endTime);
+    this.trimTimeOptions(startTime, this.endTime);
+  }
+
+  private pushTimeToOptions(hour: number) {
+    let onHour = {
+      value: { hours: hour, minutes: 0 } as Time,
+      display: hour + ':00',
+    };
+    let onHalfHour = {
+      value: { hours: hour, minutes: 30 } as Time,
+      display: hour + ':30',
+    };
+
+    this.startTimeOptions.push(onHour, onHalfHour);
+    this.endTimeOptions.push(onHour, onHalfHour);
+  }
+
+  private trimTimeOptions(startTime: Time, endTime: Time) {
+    this.trimStartTime(endTime);
+    this.trimEndTime(startTime);
+  }
+
+  private trimStartTime(currentSelectedTime: Time) {
+    let indexToDelete = 0;
+    this.startTimeOptions.forEach((option, index) => {
+      if (indexToDelete === 0) {
+        if (
+          option.value.hours === currentSelectedTime.hours &&
+          option.value.minutes === currentSelectedTime.minutes
+        ) {
+          indexToDelete = index;
+          return;
+        }
+      }
+    });
+    do {
+      this.startTimeOptions.splice(indexToDelete, 1);
+    } while (this.startTimeOptions.length > indexToDelete);
+  }
+
+  private trimEndTime(currentSelectedTime: Time) {
+    do {
+      this.endTimeOptions.splice(0, 1);
+    } while (
+      !(
+        this.endTimeOptions[0].value.hours === currentSelectedTime.hours &&
+        this.endTimeOptions[0].value.minutes === currentSelectedTime.minutes
+      )
+    );
+    this.endTimeOptions.splice(0, 1);
+  }
+
   private getClientData() {
     let clientList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientList || '[]');
-  }
-
-  private setTimeOptions() {
-    for (let hour = 6; hour < 18; hour++) {
-      this.timeOptions.push({
-        value: { hours: hour, minutes: 0 } as Time,
-        display: hour + ':00',
-      });
-      this.timeOptions.push({
-        value: { hours: hour, minutes: 30 } as Time,
-        display: hour + ':30',
-      });
-    }
   }
 
   // Functions related to the auto completion of the appointment subject
