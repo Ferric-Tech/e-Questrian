@@ -6,7 +6,25 @@
   >
     <!-- ----------------------------- Form fields section --------------------------- -->
     <!-- Title -->
-    <div class="form-header">{{ modalHeader }}</div>
+    <div *ngIf="!isHeaderEditable" class="form-header">
+      <div class="header-text">{{ modalHeader }}</div>
+      <mat-icon
+        *ngIf="isEditable"
+        class="edit-icon"
+        (click)="onHeaderEditClick()"
+        >edit</mat-icon
+      >
+    </div>
+    <div *ngIf="isHeaderEditable" class="form-header">
+      <input
+        class="header-input"
+        (change)="onChangesMade()"
+        type="text"
+        formControlName="subject"
+      />
+      <mat-icon (click)="onHeaderEditSubmitClick()">check</mat-icon>
+      <mat-icon (click)="onHeaderEditCancelClick()">cancel</mat-icon>
+    </div>
 
     <!-- Appointment Type -->
     <div class="form-line">
@@ -91,18 +109,6 @@
           >{{ option.display}}</mat-option
         >
       </mat-select>
-    </div>
-
-    <!-- Subject -->
-    <div class="form-line">
-      <div class="form-line-title">Subject:</div>
-      <input
-        [ngClass]="isEditable? 'editable-input': 'uneditable-input'"
-        [readonly]="!isEditable"
-        (change)="onChangesMade()"
-        type="text"
-        formControlName="subject"
-      />
     </div>
 
     <!-- Invoice number -->

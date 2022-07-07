@@ -21,10 +21,26 @@
 }
 
 .form-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   width: calc(100% - 20px);
+  margin: 10px;
+}
+
+.header-text {
   text-align: center;
   font-weight: bold;
-  margin: 10px;
+  font-size: larger;
+}
+
+.header-input {
+  width: 70%;
+}
+
+.edit-icon {
+  margin: 5px;
 }
 
 .form-line {

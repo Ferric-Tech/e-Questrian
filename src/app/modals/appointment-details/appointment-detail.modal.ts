@@ -51,6 +51,7 @@ export class NewAppointmentComponent implements OnInit {
   isRemoveAppointment = false;
   isWarning = false;
   isSavable = false;
+  isHeaderEditable = false;
   showClientField = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
@@ -164,6 +165,21 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   // Minor actions callbacks
+  onHeaderEditClick() {
+    this.isHeaderEditable = true;
+  }
+
+  onHeaderEditSubmitClick() {
+    this.modalHeader = this.appoitmentForm.controls['subject'].value;
+    this.isHeaderEditable = false;
+    // this.cd.detectChanges();
+    console.log(this.modalHeader);
+  }
+
+  onHeaderEditCancelClick() {
+    this.isHeaderEditable = false;
+  }
+
   onTimeSelected() {
     let startTime = this.appoitmentForm.controls['startTime'].value;
     this.setTimeOptions(startTime);
@@ -444,6 +460,7 @@ export class NewAppointmentComponent implements OnInit {
 
     if (isAutoUpdateSubject) {
       this.appoitmentForm.controls['subject'].setValue(this.preferredSubject);
+      this.modalHeader = this.preferredSubject;
     }
   }
 
