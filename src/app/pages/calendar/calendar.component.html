@@ -37,7 +37,7 @@
 <app-new-appointment-modal
   *ngIf="displayNewAppointmentForm"
   [date]="date"
-  [startTime]="proposedStartTime"
+  [proposedStartTime]="proposedStartTime"
   [currentAppointment]="appointments[currentAppointmentID] || {}"
   (newAppointment)="appointmentCreated($event)"
   (editedAppointment)="appointmentEdited($event)"

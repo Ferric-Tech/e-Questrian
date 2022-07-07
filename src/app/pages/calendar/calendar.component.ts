@@ -77,7 +77,6 @@ export class CalendarComponent implements OnInit {
       appointment
     );
     this.setCalendar();
-    this.displayNewAppointmentForm = false;
   }
 
   appointmentCanceled() {

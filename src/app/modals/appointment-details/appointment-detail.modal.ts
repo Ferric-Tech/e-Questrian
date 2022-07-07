@@ -32,7 +32,7 @@ export interface TimeOption {
 })
 export class NewAppointmentComponent implements OnInit {
   @Input() date: Date | undefined;
-  @Input() startTime: Time = {} as Time;
+  @Input() proposedStartTime: Time = {} as Time;
   @Input() currentAppointment = {} as AppointmentDetail;
   @Output() closed = new EventEmitter<void>();
   @Output() newAppointment = new EventEmitter<AppointmentDetail>();
@@ -59,51 +59,32 @@ export class NewAppointmentComponent implements OnInit {
     subject: new FormControl(''),
     date: new FormControl(''),
     startTime: new FormControl(''),
-    endTime: new FormControl(''),
+    duration: new FormControl(''),
     client: new FormControl(''),
   });
-  private endTime: Time | undefined;
   startTimeOptions: TimeOption[] = [];
-  endTimeOptions: TimeOption[] = [];
+  durationTimeOptions: TimeOption[] = [];
   clients = {} as Clients;
   displayTime = '';
   currentSelectedCient: ClientDetail | undefined;
-  appointmentTypeEnumKeys: string[];
+  appointmentTypeEnumKeys: string[] | undefined;
   appointmentTypeEnumKeysNumbers: number[] = [];
   preferredSubject = '';
 
-  get changesMade() {
-    const listOnControlsToCheck = [
-      'subject',
-      'date',
-      'startTime',
-      'endTime',
-      'client',
-    ];
-
-    let isChanged = false;
-    listOnControlsToCheck.forEach((key) => {
-      let currentValue = this.appoitmentForm.controls[key].value;
-      let previousValue =
-        this.currentAppointment[key as keyof AppointmentDetail];
-
-      if (key === 'date') {
-        currentValue = new Date(currentValue);
-        currentValue.setHours(0, 0, 0, 0);
-        currentValue = currentValue.getTime();
-        previousValue = new Date(previousValue as Date);
-        previousValue.setHours(0, 0, 0, 0);
-        previousValue = previousValue.getTime();
-      }
-
-      if (JSON.stringify(currentValue) !== JSON.stringify(previousValue)) {
-        isChanged = true;
-      }
-    });
-    return isChanged;
+  constructor(private cd: ChangeDetectorRef) {
+    this.setEnumOptions();
   }
 
-  constructor(private cd: ChangeDetectorRef) {
+  ngOnInit(): void {
+    this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
+    this.setTimeOptions();
+    this.setHeader();
+    this.setForm();
+    this.getClientData();
+  }
+
+  // Private functions related to initialisation of the component
+  private setEnumOptions() {
     this.appointmentTypeEnumKeys = Object.keys(this.appointmentType).filter(
       (k) => !isNaN(Number(k))
     );
@@ -112,15 +93,101 @@ export class NewAppointmentComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.isNewAppointment = Object.keys(this.currentAppointment).length === 0;
-    this.setTimeOptions(
-      this.isNewAppointment ? this.startTime : this.currentAppointment.startTime
-    );
-    this.setScreen();
-    this.setForm();
+  private setHeader() {
+    if (this.isNewAppointment) {
+      this.modalHeader = 'New appointment';
+      return;
+    }
 
-    this.getClientData();
+    if (this.currentAppointment.subject) {
+      this.modalHeader = this.currentAppointment.subject;
+      return;
+    }
+
+    this.modalHeader = 'Edit appointment';
+  }
+
+  private setForm() {
+    this.isEditable = this.isNewAppointment;
+    this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
+    this.currentSelectedCient = this.currentAppointment.client;
+
+    this.preferredSubject = this.isNewAppointment
+      ? 'New appointment'
+      : this.getPreferredSubject();
+
+    this.showClientField =
+      this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
+  }
+
+  private setFormForNew() {
+    this.appoitmentForm = new FormGroup({
+      type: new FormControl(''),
+      subject: new FormControl('New appointment'),
+      date: new FormControl(this.date),
+      startTime: new FormControl({
+        hours: this.proposedStartTime.hours,
+        minutes: this.proposedStartTime.minutes,
+      } as Time),
+      duration: new FormControl({ hours: 0, minutes: 30 }),
+      client: new FormControl(''),
+    });
+    this.currentAppointment.invoice = 0;
+  }
+
+  private setFormForEdit() {
+    this.appoitmentForm = new FormGroup({
+      type: new FormControl(this.currentAppointment.type || 0),
+      subject: new FormControl(this.currentAppointment.subject || ''),
+      date: new FormControl(this.date || ''),
+      startTime: new FormControl(this.currentAppointment.startTime),
+      duration: new FormControl(this.currentAppointment.duration || ''),
+      client: new FormControl(
+        this.currentAppointment.client?.displayName || ''
+      ),
+    });
+  }
+
+  private setTimeOptions() {
+    this.setStartTimeOptions();
+    this.setDurationTimeOptions();
+  }
+
+  private setStartTimeOptions() {
+    for (let hour = 6; hour < 18; hour++) {
+      let onHour = {
+        value: { hours: hour, minutes: 0 } as Time,
+        display: hour + ':00',
+      };
+      let onHalfHour = {
+        value: { hours: hour, minutes: 30 } as Time,
+        display: hour + ':30',
+      };
+
+      this.startTimeOptions.push(onHour, onHalfHour);
+    }
+  }
+
+  private setDurationTimeOptions() {
+    this.durationTimeOptions = [
+      { display: '0:05', value: { hours: 0, minutes: 5 } },
+      { display: '0:10', value: { hours: 0, minutes: 10 } },
+      { display: '0:15', value: { hours: 0, minutes: 15 } },
+      { display: '0:30', value: { hours: 0, minutes: 30 } },
+      { display: '0:45', value: { hours: 0, minutes: 45 } },
+      { display: '1:00', value: { hours: 1, minutes: 0 } },
+      { display: '1:30', value: { hours: 1, minutes: 30 } },
+      { display: '2:00', value: { hours: 2, minutes: 0 } },
+      { display: '3:00', value: { hours: 3, minutes: 0 } },
+      { display: '4:00', value: { hours: 4, minutes: 0 } },
+      { display: '6:00', value: { hours: 6, minutes: 0 } },
+      { display: '8:00', value: { hours: 8, minutes: 0 } },
+    ];
+  }
+
+  private getClientData() {
+    let clientList = localStorage.getItem('clients');
+    this.clients = JSON.parse(clientList || '[]');
   }
 
   // Main call to actions callbacks
@@ -131,9 +198,7 @@ export class NewAppointmentComponent implements OnInit {
     }
 
     if (this.isNewAppointment) {
-      this.isAppointmentDurationOver2Hours()
-        ? this.presentExcessiveMeetingDuraionWarning()
-        : this.prepAndSaveNewAppointment();
+      this.prepAndSaveNewAppointment();
       return;
     }
 
@@ -181,12 +246,6 @@ export class NewAppointmentComponent implements OnInit {
     this.isHeaderEditable = false;
   }
 
-  onTimeSelected() {
-    let startTime = this.appoitmentForm.controls['startTime'].value;
-    this.setTimeOptions(startTime);
-    this.onChangesMade();
-  }
-
   compareTimes(o1: Time, o2: Time) {
     return o1.hours == o2.hours && o1.minutes == o2.minutes;
   }
@@ -200,59 +259,84 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onChangesMade() {
-    this.onHeaderEditSubmitClick();
-
-    let clientDetail = this.appoitmentForm.controls['client']
-      .value as ClientDetail;
-    if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
-      this.currentSelectedCient = clientDetail;
-      this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
+    // Address client
+    switch (this.appoitmentForm.controls['type'].value) {
+      case AppointmentType.Lesson: {
+        let clientDetail = this.appoitmentForm.controls['client']
+          .value as ClientDetail;
+        if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
+          this.currentSelectedCient = clientDetail;
+          this.appoitmentForm.controls['client'].setValue(
+            clientDetail.displayName
+          );
+        }
+        break;
+      }
+      case AppointmentType.Other: {
+        this.appoitmentForm.controls['client'].setValue('');
+        this.currentSelectedCient = {} as ClientDetail;
+      }
     }
 
+    this.onHeaderEditSubmitClick();
     this.setPreferredSubject();
 
     this.showClientField =
       this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
 
-    if (this.changesMade) {
+    if (this.isChangesMade()) {
       this.isSavable = this.isFormValid();
       this.cd.detectChanges();
     }
   }
 
+  private isChangesMade(): boolean {
+    const listOnControlsToCheck = [
+      'subject',
+      'date',
+      'startTime',
+      'duration',
+      'client',
+    ];
+
+    let isChanged = false;
+    listOnControlsToCheck.forEach((key) => {
+      let currentValue = this.appoitmentForm.controls[key].value;
+      let previousValue =
+        this.currentAppointment[key as keyof AppointmentDetail];
+
+      if (key === 'date') {
+        currentValue = new Date(currentValue);
+        currentValue.setHours(0, 0, 0, 0);
+        currentValue = currentValue.getTime();
+        previousValue = new Date(previousValue as Date);
+        previousValue.setHours(0, 0, 0, 0);
+        previousValue = previousValue.getTime();
+      }
+
+      if (JSON.stringify(currentValue) !== JSON.stringify(previousValue)) {
+        isChanged = true;
+      }
+    });
+    return isChanged;
+  }
+
   // Functions related to Warnings
-  warningProceed() {
+  warningProceed(proceed: boolean) {
+    this.isWarning = false;
+    this.isEditable = false;
+
+    if (!proceed) return;
     switch (this.warningType) {
       case WarningType.EDIT_SAVE: {
-        if (this.isAppointmentDurationOver2Hours()) {
-          this.warningType = WarningType.TIME_EXCESSIVE;
-          this.warningsComponent?.presentFollowUp(this.warningType);
-        } else {
-          this.isWarning = false;
-          this.isEditable = false;
-          this.prepAndSaveEditedAppointment();
-        }
+        this.prepAndSaveEditedAppointment();
         return;
       }
       case WarningType.EDIT_CANCEL: {
-        this.isWarning = false;
-        this.isEditable = false;
         this.setForm();
         return;
       }
-      case WarningType.TIME_EXCESSIVE: {
-        this.isWarning = false;
-        this.isEditable = false;
-        this.isNewAppointment
-          ? this.prepAndSaveNewAppointment()
-          : this.prepAndSaveEditedAppointment();
-        return;
-      }
     }
-  }
-
-  warningCancel() {
-    this.isWarning = false;
   }
 
   private prepAndSaveNewAppointment() {
@@ -265,11 +349,9 @@ export class NewAppointmentComponent implements OnInit {
     let newAppointmentDetails = this.appoitmentForm.value as AppointmentDetail;
     newAppointmentDetails.invoice = this.currentAppointment.invoice;
     this.editedAppointment.emit(newAppointmentDetails);
-  }
-
-  private presentExcessiveMeetingDuraionWarning() {
-    this.warningType = WarningType.TIME_EXCESSIVE;
-    this.isWarning = true;
+    this.appoitmentForm.controls['client'].setValue(
+      this.currentSelectedCient?.displayName
+    );
   }
 
   // Private functions for checking status of the form
@@ -303,159 +385,6 @@ export class NewAppointmentComponent implements OnInit {
     return currentValue != previousValue;
   }
 
-  isAppointmentDurationOver2Hours() {
-    let startTime: Time = this.appoitmentForm.controls['startTime'].value;
-    let endTime: Time = this.appoitmentForm.controls['endTime'].value;
-    if (endTime.hours - startTime.hours > 2) {
-      return true;
-    }
-    if (endTime.hours - startTime.hours === 2) {
-      if (endTime.minutes - startTime.minutes > 0) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  // Private functions related to initialisation of the component
-  private setScreen() {
-    if (this.isNewAppointment) {
-      this.modalHeader = 'New appointment';
-      return;
-    }
-
-    if (this.currentAppointment.subject) {
-      this.modalHeader = this.currentAppointment.subject;
-      return;
-    }
-
-    this.modalHeader = 'Edit appointment';
-  }
-
-  private setForm() {
-    this.isEditable = this.isNewAppointment;
-    this.isNewAppointment ? this.setFormForNew() : this.setFormForEdit();
-    this.currentSelectedCient = this.currentAppointment.client;
-
-    this.preferredSubject = this.isNewAppointment
-      ? 'New appointment'
-      : this.getPreferredSubject();
-
-    this.showClientField =
-      this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
-  }
-
-  private setFormForNew() {
-    this.appoitmentForm = new FormGroup({
-      type: new FormControl(''),
-      subject: new FormControl('New appointment'),
-      date: new FormControl(this.date),
-      startTime: new FormControl({
-        hours: this.startTime.hours,
-        minutes: this.startTime.minutes,
-      } as Time),
-      endTime: new FormControl(this.endTime),
-      client: new FormControl(''),
-    });
-    this.currentAppointment.invoice = 0;
-  }
-
-  private setFormForEdit() {
-    this.appoitmentForm = new FormGroup({
-      type: new FormControl(this.currentAppointment.type || 0),
-      subject: new FormControl(this.currentAppointment.subject || ''),
-      date: new FormControl(this.date || ''),
-      startTime: new FormControl(this.currentAppointment.startTime),
-      endTime: new FormControl(this.currentAppointment.duration || ''),
-      client: new FormControl(
-        this.currentAppointment.client?.displayName || ''
-      ),
-    });
-  }
-
-  private determineEndTime(startTime: Time) {
-    let minutes = startTime.minutes + 30;
-    let hours = startTime.hours;
-    if (minutes >= 60) {
-      minutes = minutes - 60;
-      hours = hours + 1;
-    }
-
-    return { hours: hours, minutes: minutes } as Time;
-  }
-
-  private setTimeOptions(startTime: Time) {
-    this.startTimeOptions = [];
-    this.endTimeOptions = [];
-    for (let hour = 6; hour < 18; hour++) {
-      this.pushTimeToOptions(hour);
-    }
-
-    this.endTime = !this.endTime
-      ? this.determineEndTime(
-          this.isNewAppointment
-            ? this.startTime
-            : this.currentAppointment.duration
-        )
-      : (this.appoitmentForm.controls['endTime'].value as Time);
-
-    this.trimTimeOptions(startTime, this.endTime);
-  }
-
-  private pushTimeToOptions(hour: number) {
-    let onHour = {
-      value: { hours: hour, minutes: 0 } as Time,
-      display: hour + ':00',
-    };
-    let onHalfHour = {
-      value: { hours: hour, minutes: 30 } as Time,
-      display: hour + ':30',
-    };
-
-    this.startTimeOptions.push(onHour, onHalfHour);
-    this.endTimeOptions.push(onHour, onHalfHour);
-  }
-
-  private trimTimeOptions(startTime: Time, endTime: Time) {
-    this.trimStartTime(endTime);
-    this.trimEndTime(startTime);
-  }
-
-  private trimStartTime(currentSelectedTime: Time) {
-    let indexToDelete = 0;
-    this.startTimeOptions.forEach((option, index) => {
-      if (indexToDelete === 0) {
-        if (
-          option.value.hours === currentSelectedTime.hours &&
-          option.value.minutes === currentSelectedTime.minutes
-        ) {
-          indexToDelete = index;
-          return;
-        }
-      }
-    });
-    do {
-      this.startTimeOptions.splice(indexToDelete, 1);
-    } while (this.startTimeOptions.length > indexToDelete);
-  }
-
-  private trimEndTime(currentSelectedTime: Time) {
-    do {
-      this.endTimeOptions.splice(0, 1);
-    } while (
-      !(
-        this.endTimeOptions[0].value.hours === currentSelectedTime.hours &&
-        this.endTimeOptions[0].value.minutes === currentSelectedTime.minutes
-      )
-    );
-    this.endTimeOptions.splice(0, 1);
-  }
-
-  private getClientData() {
-    let clientList = localStorage.getItem('clients');
-    this.clients = JSON.parse(clientList || '[]');
-  }
-
   // Functions related to the auto completion of the appointment subject
   private setPreferredSubject() {
     let isAutoUpdateSubject =
@@ -471,14 +400,19 @@ export class NewAppointmentComponent implements OnInit {
 
   private getPreferredSubject(): string {
     let preferredSubject = '';
-    if (this.appoitmentForm.controls['type'].value === AppointmentType.Lesson) {
-      preferredSubject = 'Lesson';
-    } else {
-      preferredSubject = 'Appointment';
-    }
-    if (this.currentSelectedCient?.firstName) {
-      preferredSubject =
-        preferredSubject + ' with ' + this.currentSelectedCient.firstName;
+    switch (this.appoitmentForm.controls['type'].value) {
+      case AppointmentType.Lesson: {
+        preferredSubject = 'Lesson';
+        if (this.currentSelectedCient?.firstName) {
+          preferredSubject =
+            preferredSubject + ' with ' + this.currentSelectedCient.firstName;
+        }
+        break;
+      }
+      case AppointmentType.Other: {
+        preferredSubject = 'Appointment';
+        break;
+      }
     }
     return preferredSubject;
   }

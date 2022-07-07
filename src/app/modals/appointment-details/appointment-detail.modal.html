@@ -86,7 +86,7 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="onTimeSelected()"
+        (selectionChange)="onChangesMade()"
         formControlName="startTime"
       >
         <mat-option
@@ -103,10 +103,12 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="onTimeSelected()"
-        formControlName="endTime"
+        (selectionChange)="onChangesMade()"
+        formControlName="duration"
       >
-        <mat-option *ngFor="let option of endTimeOptions" [value]="option.value"
+        <mat-option
+          *ngFor="let option of durationTimeOptions"
+          [value]="option.value"
           >{{ option.display}}</mat-option
         >
       </mat-select>
@@ -161,6 +163,6 @@
   *ngIf="isWarning"
   [warning]="warningType"
   [subject]="warningSubject"
-  (proceed)="warningProceed()"
-  (cancel)="warningCancel()"
+  (proceed)="warningProceed(true)"
+  (cancel)="warningProceed(false)"
 ></app-warnings>

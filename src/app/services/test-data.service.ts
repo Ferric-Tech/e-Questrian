@@ -114,7 +114,7 @@ export class TestDataService {
       },
       4: {
         type: AppointmentType.Other,
-        subject: 'Appointment with ' + this.clients[1].firstName,
+        subject: 'Appointment',
         date: this.today,
         startTime: { hours: 8, minutes: 0 },
         duration: { hours: 0, minutes: 30 },
