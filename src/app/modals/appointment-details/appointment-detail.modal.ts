@@ -259,6 +259,7 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onChangesMade() {
+    console.log('Here');
     // Address client
     switch (this.appoitmentForm.controls['type'].value) {
       case AppointmentType.Lesson: {
@@ -277,13 +278,14 @@ export class NewAppointmentComponent implements OnInit {
         this.currentSelectedCient = {} as ClientDetail;
       }
     }
-
-    this.onHeaderEditSubmitClick();
-    this.setPreferredSubject();
-
     this.showClientField =
       this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
 
+    // Address header
+    this.onHeaderEditSubmitClick();
+    this.setPreferredSubject();
+
+    // Address form state
     if (this.isChangesMade()) {
       this.isSavable = this.isFormValid();
       this.cd.detectChanges();
