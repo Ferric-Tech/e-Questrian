@@ -44,7 +44,7 @@ export class NewAppointmentComponent implements OnInit {
   isNewAppointment: boolean = true;
   isRemoveAppointment = false;
   isWarning = false;
-  isEdited = false;
+  isSavable = false;
   showClientField = false;
   modalHeader = '';
   appoitmentForm = new FormGroup({
@@ -145,7 +145,7 @@ export class NewAppointmentComponent implements OnInit {
       this.closed.emit();
       return;
     }
-    if (this.isEdited) {
+    if (this.isSavable) {
       this.warningType = WarningType.EDIT_CANCEL;
       this.isWarning = true;
     } else {
@@ -178,13 +178,35 @@ export class NewAppointmentComponent implements OnInit {
       this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
     }
 
+    console.log(this.isFormValid());
+
     this.setPreferredSubject();
 
     this.showClientField =
       this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
+    if (this.changesMade) {
+      this.isSavable = this.isFormValid();
+      this.cd.detectChanges();
+    }
+  }
 
-    this.isEdited = this.changesMade;
-    this.cd.detectChanges();
+  private isFormValid(): boolean {
+    // Check fields that must contain a value
+    if (!this.appoitmentForm.controls['type'].value) {
+      return false;
+    }
+    if (this.appoitmentForm.controls['type'].value === 1) {
+      if (!this.appoitmentForm.controls['client'].value) {
+        return false;
+      }
+    }
+    if (!this.appoitmentForm.controls['date'].value) {
+      return false;
+    }
+    if (!this.appoitmentForm.controls['subject'].value) {
+      return false;
+    }
+    return true;
   }
 
   private isClientChanged(clientDetail: ClientDetail) {
@@ -296,6 +318,7 @@ export class NewAppointmentComponent implements OnInit {
     }
     return preferredSubject;
   }
+
   private setTimeOptions() {
     for (let hour = 6; hour < 18; hour++) {
       this.timeOptions.push({

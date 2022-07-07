@@ -130,7 +130,7 @@
 
     <!-- Buttons for edit mode -->
     <div *ngIf="isEditable" class="button-container">
-      <button class="primary-button" *ngIf="isEdited" type="submit">
+      <button class="primary-button" *ngIf="isSavable" type="submit">
         {{isNewAppointment? 'Save': 'Save changes'}}
       </button>
       <button
