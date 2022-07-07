@@ -15,7 +15,7 @@
         placeholder="Appointment Type"
         [compareWith]="compareTypes"
         [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
-        (selectionChange)="isChangesMade()"
+        (selectionChange)="onChangesMade()"
         formControlName="type"
       >
         <mat-option
@@ -32,7 +32,7 @@
       <mat-select
         [compareWith]="compareClients"
         [ngClass]="isEditable? 'editable-selector': 'uneditable-selector'"
-        (selectionChange)="isChangesMade()"
+        (selectionChange)="onChangesMade()"
         formControlName="client"
       >
         <mat-option
@@ -55,7 +55,7 @@
       <input
         [ngClass]="isEditable? 'editable-date-input': 'uneditable-date-input'"
         [readonly]="!isEditable"
-        (change)="isChangesMade()"
+        (change)="onChangesMade()"
         [matDatepicker]="picker"
         formControlName="date"
       />
@@ -69,7 +69,7 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="isChangesMade()"
+        (selectionChange)="onChangesMade()"
         formControlName="startTime"
       >
         <mat-option *ngFor="let option of timeOptions" [value]="option.value"
@@ -82,7 +82,7 @@
       <mat-select
         [compareWith]="compareTimes"
         [ngClass]="isEditable? 'editable-time-selector': 'uneditable-time-selector'"
-        (selectionChange)="isChangesMade()"
+        (selectionChange)="onChangesMade()"
         formControlName="endTime"
       >
         <mat-option *ngFor="let option of timeOptions" [value]="option.value"
@@ -97,7 +97,7 @@
       <input
         [ngClass]="isEditable? 'editable-input': 'uneditable-input'"
         [readonly]="!isEditable"
-        (change)="isChangesMade()"
+        (change)="onChangesMade()"
         type="text"
         formControlName="subject"
       />

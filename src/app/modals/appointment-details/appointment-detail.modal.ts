@@ -155,7 +155,11 @@ export class NewAppointmentComponent implements OnInit {
 
   // Minor actions callbacks
   onStartTimeSelected(time: string) {
-    // Delete all the times before startTime
+    // TODO:  Delete all the times before startTime
+  }
+
+  onEndTimeSelected(time: string) {
+    // TODO: Delete all the times after endTime
   }
 
   compareTimes(o1: Time, o2: Time) {
@@ -170,7 +174,7 @@ export class NewAppointmentComponent implements OnInit {
     return first == second;
   }
 
-  isChangesMade() {
+  onChangesMade() {
     let clientDetail = this.appoitmentForm.controls['client']
       .value as ClientDetail;
     if (this.isClientChanged(clientDetail) && clientDetail.displayName) {
@@ -178,20 +182,46 @@ export class NewAppointmentComponent implements OnInit {
       this.appoitmentForm.controls['client'].setValue(clientDetail.displayName);
     }
 
-    console.log(this.isFormValid());
-
     this.setPreferredSubject();
 
     this.showClientField =
       this.appoitmentForm.controls['type'].value === AppointmentType.Lesson;
+
     if (this.changesMade) {
       this.isSavable = this.isFormValid();
       this.cd.detectChanges();
     }
   }
 
+  // Warning Callbacks
+  warningProceed() {
+    this.isWarning = false;
+    switch (this.warningType) {
+      case WarningType.EDIT_SAVE: {
+        this.appoitmentForm.controls['client'].setValue(
+          this.currentSelectedCient
+        );
+
+        let newAppointmentDetails = this.appoitmentForm
+          .value as AppointmentDetail;
+        newAppointmentDetails.invoice = this.currentAppointment.invoice;
+        this.editedAppointment.emit(newAppointmentDetails);
+        return;
+      }
+      case WarningType.EDIT_CANCEL: {
+        this.setForm();
+        this.isEditable = false;
+        return;
+      }
+    }
+  }
+
+  warningCancel() {
+    this.isWarning = false;
+  }
+
+  // Private functions for checking status of the form
   private isFormValid(): boolean {
-    // Check fields that must contain a value
     if (!this.appoitmentForm.controls['type'].value) {
       return false;
     }
@@ -294,6 +324,20 @@ export class NewAppointmentComponent implements OnInit {
     this.clients = JSON.parse(clientList || '[]');
   }
 
+  private setTimeOptions() {
+    for (let hour = 6; hour < 18; hour++) {
+      this.timeOptions.push({
+        value: { hours: hour, minutes: 0 } as Time,
+        display: hour + ':00',
+      });
+      this.timeOptions.push({
+        value: { hours: hour, minutes: 30 } as Time,
+        display: hour + ':30',
+      });
+    }
+  }
+
+  // Functions related to the auto completion of the appointment subject
   private setPreferredSubject() {
     let isAutoUpdateSubject =
       this.appoitmentForm.controls['subject'].value === this.preferredSubject;
@@ -317,45 +361,5 @@ export class NewAppointmentComponent implements OnInit {
         preferredSubject + ' with ' + this.currentSelectedCient.firstName;
     }
     return preferredSubject;
-  }
-
-  private setTimeOptions() {
-    for (let hour = 6; hour < 18; hour++) {
-      this.timeOptions.push({
-        value: { hours: hour, minutes: 0 } as Time,
-        display: hour + ':00',
-      });
-      this.timeOptions.push({
-        value: { hours: hour, minutes: 30 } as Time,
-        display: hour + ':30',
-      });
-    }
-  }
-
-  // Warning Callbacks
-  warningProceed() {
-    this.isWarning = false;
-    switch (this.warningType) {
-      case WarningType.EDIT_SAVE: {
-        this.appoitmentForm.controls['client'].setValue(
-          this.currentSelectedCient
-        );
-
-        let newAppointmentDetails = this.appoitmentForm
-          .value as AppointmentDetail;
-        newAppointmentDetails.invoice = this.currentAppointment.invoice;
-        this.editedAppointment.emit(newAppointmentDetails);
-        return;
-      }
-      case WarningType.EDIT_CANCEL: {
-        this.setForm();
-        this.isEditable = false;
-        return;
-      }
-    }
-  }
-
-  warningCancel() {
-    this.isWarning = false;
   }
 }
