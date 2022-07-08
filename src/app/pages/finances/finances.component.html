@@ -38,12 +38,14 @@
   ></app-menu-page>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_PAYMENTS">
-    <div *ngFor="let payment of payments | keyvalue">
-      <div *ngIf="!payment.value.voided" (click)="viewPayment(payment.key)">
-        {{ payment.key }} {{ payment.value.date }}{{ payment.value.amount }}
-      </div>
-    </div>
-    <button (click)="backToPaymentMenu()">Back to payment menu</button>
+    <app-financial-doc-list
+      [config]="paymentListPageConfig"
+      (itemClicked)="onPaymentClicked($event)"
+    ></app-financial-doc-list>
+    <app-menu-page
+      [config]="paymentListMenuConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-page>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">

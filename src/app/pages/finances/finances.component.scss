@@ -27,3 +27,23 @@ button {
   margin: 30px;
   margin-bottom: 0;
 }
+
+.navbar-button-container {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+  height: 100%;
+}
+
+.navbar-button {
+  min-height: 30px;
+  height: 100%;
+  margin: 10px 0;
+  padding: 0;
+  width: 100%;
+  background-color: aqua;
+  border: none;
+  border-radius: 10px;
+  font-size: larger;
+  font-weight: bold;
+}

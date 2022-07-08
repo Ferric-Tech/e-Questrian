@@ -1,6 +1,7 @@
 import { DocType } from '../enums/doc-types.enum';
 import { ClientDetail } from './clients.interface';
 import { MenuOption } from './menu-options.interface';
+import { Payments } from './payments.interface';
 
 export interface PageConfig {
   header: string;

@@ -13,8 +13,7 @@ import {
   FinancialDocListPageConfig,
   MenuPageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
-import { DocType } from 'src/app/enums/doc-types.enum';
-import { ClientDetail } from 'src/app/interfaces/clients.interface';
+import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 
 export enum ViewState {
   MAIN,
@@ -54,6 +53,7 @@ export class FinancesComponent {
     menu: [
       { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
       { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
+      { display: 'Back to Finance Menu', viewState: ViewState.MAIN },
     ],
   } as MenuPageConfig;
 
@@ -69,6 +69,18 @@ export class FinancesComponent {
     menu: [{ display: 'Back to Finance Menu', viewState: ViewState.MAIN }],
   } as MenuPageConfig;
 
+  paymentListPageConfig = {
+    header: '',
+    subHeader: 'Payments',
+    list: [],
+  } as FinancialDocListPageConfig;
+
+  paymentListMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'Back to Payments Menu', viewState: ViewState.PAYMENTS }],
+  } as MenuPageConfig;
+
   invoiceDocViewConfig = {} as DocView;
 
   appointments: Appointments = {};
@@ -79,7 +91,7 @@ export class FinancesComponent {
   currentInvoiceID = 0;
   currentPaymentID = 0;
   isInvoiceGenerationComplete = true;
-  clients = {} as ClientDetail;
+  clients = {} as Clients;
 
   constructor(
     private invoiceService: InvoicesService,
@@ -95,8 +107,8 @@ export class FinancesComponent {
     this.switchViewState(ViewState.INVOICE_DETAIL);
   }
 
-  viewPayment(PaymentIDStr: string) {
-    this.currentPaymentID = parseInt(PaymentIDStr);
+  onPaymentClicked(paymentID: number) {
+    this.currentPaymentID = paymentID;
     this.switchViewState(ViewState.PAYMENT_DETAIL);
   }
 
@@ -136,14 +148,13 @@ export class FinancesComponent {
         this.setDataForDisplay();
         break;
       case ViewState.INVOICE_DETAIL:
-        this.setInvoiceDocForDisplay();
+        this.setInvoiceDocsForDisplay();
         break;
       case ViewState.GENERATE_INVOICES:
         this.generateInvoices();
         break;
       case ViewState.VIEW_PAYMENTS:
-        this.getPaymentData();
-        this.currentPaymentID = 0;
+        this.setPaymentDocsForDisplay();
         break;
       case ViewState.PAYMENTS:
         this.currentPaymentID = 0;
@@ -167,7 +178,7 @@ export class FinancesComponent {
     });
   }
 
-  private setInvoiceDocForDisplay() {
+  private setInvoiceDocsForDisplay() {
     this.getClients();
     this.invoices[this.currentInvoiceID];
     this.invoiceDocViewConfig.subHeader = 'Invoice #' + this.currentInvoiceID;
@@ -188,6 +199,21 @@ export class FinancesComponent {
         });
       }
     );
+  }
+
+  private setPaymentDocsForDisplay() {
+    this.getPaymentData();
+    this.getClients();
+    this.currentPaymentID = 0;
+    Object.keys(this.payments).forEach((key) => {
+      let finDoc = {} as FinancialDoc;
+      finDoc.number = parseInt(key);
+      finDoc.amount = this.payments[parseInt(key)].amount as number;
+      finDoc.date = this.payments[parseInt(key)].date as Date;
+      let clientNum = this.payments[parseInt(key)].client;
+      finDoc.detail = this.clients[clientNum].displayName;
+      this.paymentListPageConfig.list.push(finDoc);
+    });
   }
 
   private getDataForDisplay() {
