@@ -205,6 +205,7 @@ export class FinancesComponent {
     this.getPaymentData();
     this.getClients();
     this.currentPaymentID = 0;
+    this.paymentListPageConfig.list = [];
     Object.keys(this.payments).forEach((key) => {
       let finDoc = {} as FinancialDoc;
       finDoc.number = parseInt(key);
