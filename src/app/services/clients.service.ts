@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ClientDetail } from 'src/app/interfaces/clients.interface';
 
 @Injectable({
@@ -24,14 +25,14 @@ export class ClientsService {
 
   addClient(clientDetail: ClientDetail) {
     this.getClientData();
-    let clientID = this.clients.length + 1;
+    let clientID = Object.keys(this.clients).length + 1;
     this.clients[clientID] = clientDetail;
     this.setClientData();
   }
 
   private getClientData() {
     let clientsList = localStorage.getItem('clients');
-    this.clients = JSON.parse(clientsList || '[]');
+    this.clients = JSON.parse(clientsList || '{}');
   }
 
   private setClientData() {

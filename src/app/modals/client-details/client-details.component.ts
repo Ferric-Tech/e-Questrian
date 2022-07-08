@@ -9,7 +9,7 @@ import { ClientDetail } from 'src/app/interfaces/clients.interface';
 })
 export class ClientDetailsComponent implements OnInit {
   @Input() currentClient = {} as ClientDetail;
-  @Output() canceled = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   @Output() newClient = new EventEmitter<ClientDetail>();
   @Output() editedClient = new EventEmitter<ClientDetail>();
   @Output() removeClient = new EventEmitter<void>();
@@ -17,6 +17,7 @@ export class ClientDetailsComponent implements OnInit {
   isNewClient: boolean | undefined;
   isRemoveClient = false;
   isDisplayNameEditable = false;
+  isSaveAndNew = false;
   clientForm = new FormGroup({
     displayName: new FormControl('New Client'),
     firstName: new FormControl(''),
@@ -36,11 +37,16 @@ export class ClientDetailsComponent implements OnInit {
 
   // Main call to actions callbacks
   onSubmitClick() {
-    this.isRemoveClient
-      ? this.removeClient.emit()
-      : this.isNewClient
+    if (this.isRemoveClient) {
+      this.removeClient.emit();
+      return;
+    }
+
+    this.isNewClient
       ? this.newClient.emit(this.clientForm.value as ClientDetail)
       : this.editedClient.emit(this.clientForm.value as ClientDetail);
+
+    this.isSaveAndNew ? this.ngOnInit() : this.closed.emit();
   }
 
   onRemoveAppointmentClick() {
@@ -48,8 +54,12 @@ export class ClientDetailsComponent implements OnInit {
     this.onSubmitClick();
   }
 
-  onCancelClick() {
-    this.canceled.emit();
+  onCloseClick() {
+    this.closed.emit();
+  }
+
+  onSaveClick(saveAndNew: boolean) {
+    this.isSaveAndNew = saveAndNew;
   }
 
   updateDisplayName() {
@@ -71,6 +81,13 @@ export class ClientDetailsComponent implements OnInit {
 
   private setForm() {
     if (this.isNewClient) {
+      this.clientForm = new FormGroup({
+        displayName: new FormControl('New Client'),
+        firstName: new FormControl(''),
+        lastName: new FormControl(''),
+        email: new FormControl(''),
+        telephoneNumber: new FormControl(''),
+      });
       return;
     }
     this.clientForm = new FormGroup({

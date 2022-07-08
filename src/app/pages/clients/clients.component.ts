@@ -43,7 +43,7 @@ export class ClientsComponent implements OnInit {
     this.currentViewState = ViewState.MAIN;
   }
 
-  cancelAddEditClient() {
+  closeClientModal() {
     this.currentViewState = ViewState.VIEW;
   }
 
@@ -56,13 +56,11 @@ export class ClientsComponent implements OnInit {
   addNewClient(client: ClientDetail) {
     this.clientService.addClient(client);
     this.setClients();
-    this.currentViewState = ViewState.VIEW;
   }
 
   editClient(newClient: ClientDetail) {
     this.clientService.editClient(this.currentClient, newClient);
     this.setClients();
-    this.currentViewState = ViewState.VIEW;
   }
 
   private setClients() {

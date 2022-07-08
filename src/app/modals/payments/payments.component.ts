@@ -40,6 +40,7 @@ export class PaymentsComponent implements OnInit {
 
     if (this.isDeletePayment) {
       this.voidPayment.emit();
+      return;
     }
 
     this.isNewPayment

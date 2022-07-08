@@ -37,17 +37,33 @@
       <input type="text" formControlName="telephoneNumber" />
     </div>
 
+    <!-- Buttons  -->
     <div class="button-container">
-      <button (click)="onCancelClick()">Cancel</button>
-      <button type="submit" [disabled]="!clientForm.valid">Submit</button>
+      <button
+        class="primary-button"
+        type="submit"
+        [disabled]="!clientForm.valid"
+        (click)="onSaveClick(true)"
+      >
+        Save and New
+      </button>
+      <button
+        class="primary-button"
+        type="submit"
+        [disabled]="!clientForm.valid"
+        (click)="onSaveClick(false)"
+      >
+        Save and Close
+      </button>
+      <button
+        *ngIf="!isNewClient"
+        class="secondary-button"
+        (click)="onRemoveAppointmentClick()"
+      >
+        Remove appointment
+      </button>
+      <button class="secondary-button" (click)="onCloseClick()">Close</button>
     </div>
-    <button
-      class="remove-button"
-      *ngIf="!isNewClient"
-      (click)="onRemoveAppointmentClick()"
-    >
-      Remove appointment
-    </button>
   </form>
 </div>
 

@@ -25,7 +25,7 @@
   <app-client-details
     *ngSwitchCase="viewStateEnum.ADD_EDIT"
     [currentClient]="currentClient"
-    (canceled)="cancelAddEditClient()"
+    (closed)="closeClientModal()"
     (newClient)="addNewClient($event)"
     (editedClient)="editClient($event)"
   ></app-client-details>
