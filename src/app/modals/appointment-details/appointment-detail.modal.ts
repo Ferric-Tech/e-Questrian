@@ -259,7 +259,6 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onChangesMade() {
-    console.log('Here');
     // Address client
     switch (this.appoitmentForm.controls['type'].value) {
       case AppointmentType.Lesson: {

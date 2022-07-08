@@ -21,64 +21,6 @@
     [config]="invoiceDocViewConfig"
   ></app-doc-view>
 
-  <!-- <div style="margin: 5%" *ngSwitchCase="viewStateEnum.INVOICE_DETAIL">
-    <div>
-      Invoice number:
-      {{ currentInvoiceID }}
-    </div>
-    <div>
-      Client:
-      {{
-        appointments[invoices[currentInvoiceID].appointments[0]].client
-          .firstName
-      }}
-      {{
-        appointments[invoices[currentInvoiceID].appointments[0]].client.lastName
-      }}
-    </div>
-    <div>
-      Contact:
-      {{
-        appointments[invoices[currentInvoiceID].appointments[0]].client.email
-      }}
-      /
-      {{
-        appointments[invoices[currentInvoiceID].appointments[0]].client
-          .telephoneNumber
-      }}
-    </div>
-    <div>Lessons</div>
-    <div *ngFor="let appointment of invoices[currentInvoiceID].appointments">
-      <div style="display: flex; flex-grow: 1; flex-direction: row">
-        {{ appointments[appointment].date | date: "dd/MM/yyyy" }}
-        {{ appointments[appointment].startTime.hours }}:{{
-          appointments[appointment].startTime.minutes | number: "2.0"
-        }}
-        {{ appointments[appointment].title }}
-        <div style="display: flex; flex-grow: 1; justify-content: end">
-          R250.00
-        </div>
-      </div>
-    </div>
-    <hr />
-    <div
-      style="
-        display: flex;
-        flex-grow: 1;
-        flex-direction: row;
-        font-weight: bold;
-      "
-    >
-      Total
-      <div style="display: flex; flex-grow: 1; justify-content: end">
-        R{{
-          250 * invoices[currentInvoiceID].appointments.length | number: "2.2"
-        }}
-      </div>
-    </div>
-    <button (click)="backToInvoiceList()">Back to invoice list</button>
-  </div> -->
-
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES">
     <div *ngIf="!isInvoiceGenerationComplete">
       Generating invoices - one moment

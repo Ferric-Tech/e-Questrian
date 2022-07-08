@@ -36,16 +36,34 @@
       <div class="form-line-title">Amount:</div>
       <input type="text" formControlName="amount" />
     </div>
+
+    <!-- Buttons -->
     <div class="button-container">
-      <button (click)="onCloseClick()">Close</button>
-      <button type="submit" [disabled]="!paymentForm.valid">Submit</button>
+      <button
+        class="primary-button"
+        type="submit"
+        (click)="onSaveClick(true)"
+        [disabled]="!paymentForm.valid"
+      >
+        Save and New
+      </button>
+      <button
+        class="primary-button"
+        type="submit"
+        (click)="onSaveClick(false)"
+        [disabled]="!paymentForm.valid"
+      >
+        Save and Close
+      </button>
+
+      <button
+        class="secondary-button"
+        *ngIf="!isNewPayment"
+        (click)="onCancelAppointmentClick()"
+      >
+        Void Payment
+      </button>
+      <button class="secondary-button" (click)="onCloseClick()">Close</button>
     </div>
-    <button
-      class="remove-button"
-      *ngIf="!isNewPayment"
-      (click)="onCancelAppointmentClick()"
-    >
-      Void Payment
-    </button>
   </form>
 </div>

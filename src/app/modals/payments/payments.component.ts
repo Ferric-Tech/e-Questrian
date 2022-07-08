@@ -25,6 +25,8 @@ export class PaymentsComponent implements OnInit {
 
   isNewPayment = true;
   isDeletePayment = false;
+  isSaveAndNew = false;
+
   clients = {} as Clients;
 
   ngOnInit(): void {
@@ -35,12 +37,22 @@ export class PaymentsComponent implements OnInit {
 
   onSubmitClick() {
     this.parseKeysToInt();
-    this.isDeletePayment
-      ? this.voidPayment.emit()
-      : this.isNewPayment
+
+    if (this.isDeletePayment) {
+      this.voidPayment.emit();
+    }
+
+    this.isNewPayment
       ? this.newPayment.emit(this.paymentForm.value as PaymentDetails)
       : this.editedPayment.emit(this.paymentForm.value as PaymentDetails);
+
+    this.isSaveAndNew ? this.ngOnInit() : this.closed.emit();
   }
+
+  onSaveClick(saveAndNew: boolean) {
+    this.isSaveAndNew = saveAndNew;
+  }
+
   onCloseClick() {
     this.closed.emit();
   }
@@ -64,6 +76,7 @@ export class PaymentsComponent implements OnInit {
 
   private setForm() {
     if (this.isNewPayment) {
+      this.paymentForm.controls['amount'].setValue('');
       return;
     }
     this.paymentForm = new FormGroup({

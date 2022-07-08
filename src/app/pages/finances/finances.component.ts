@@ -118,13 +118,11 @@ export class FinancesComponent {
 
   paymentCreated(payment: PaymentDetails) {
     this.paymentsService.addPayment(payment);
-    this.switchViewState(ViewState.VIEW_PAYMENTS);
   }
 
   paymentEdited(payment: PaymentDetails) {
     payment.voided = false;
     this.paymentsService.editPayment(this.currentPaymentID, payment);
-    this.switchViewState(ViewState.PAYMENTS);
   }
 
   paymentVoided() {
