@@ -22,7 +22,10 @@
   ></app-doc-view>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_PARAMETERS">
-    <app-generate-invoice-modal></app-generate-invoice-modal>
+    <app-generate-invoice-modal
+      (generateInvoiceParameters)="generateInvoices($event)"
+      (cancelled)="backToFinancetMain()"
+    ></app-generate-invoice-modal>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_RESULTS">

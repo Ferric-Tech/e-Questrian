@@ -14,6 +14,7 @@ import {
   MenuPageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
+import { GenerateInvoiceParameters } from 'src/app/modals/generate-invoice/generate-invoice.modal';
 
 export enum ViewState {
   MAIN,
@@ -146,6 +147,13 @@ export class FinancesComponent {
     this.switchViewState(ViewState.VIEW_PAYMENTS);
   }
 
+  generateInvoices(params: GenerateInvoiceParameters) {
+    this.isInvoiceGenerationComplete = false;
+    this.invoiceService.generateInvoices(params);
+    this.isInvoiceGenerationComplete = true;
+    this.switchViewState(ViewState.GENERATE_INVOICES_RESULTS);
+  }
+
   private switchViewState(viewStateSelected: ViewState) {
     switch (viewStateSelected) {
       case ViewState.VIEW_INVOICES:
@@ -153,9 +161,6 @@ export class FinancesComponent {
         break;
       case ViewState.INVOICE_DETAIL:
         this.setInvoiceDocsForDisplay();
-        break;
-      case ViewState.GENERATE_INVOICES_RESULTS:
-        this.generateInvoices();
         break;
       case ViewState.VIEW_PAYMENTS:
         this.setPaymentDocsForDisplay();
@@ -239,12 +244,6 @@ export class FinancesComponent {
   private getPaymentData() {
     let paymentString = localStorage.getItem('payments');
     this.payments = JSON.parse(paymentString || '{}');
-  }
-
-  private generateInvoices() {
-    this.isInvoiceGenerationComplete = false;
-    this.invoiceService.generateInvoices();
-    this.isInvoiceGenerationComplete = true;
   }
 
   private getClients() {

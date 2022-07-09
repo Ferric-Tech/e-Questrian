@@ -24,9 +24,9 @@ export enum ClientRange {
 export interface GenerateInvoiceParameters {
   invoiceRange: InvoiceRange;
   dateRange: DateRange;
-  clientSelector: ClientRange;
+  clientRange: ClientRange;
   date: Date;
-  clients: Clients[];
+  clients: ClientDetail[];
 }
 
 @Component({
@@ -46,7 +46,7 @@ export class GenerateInvoiceModal implements OnInit {
   dateRange = DateRange.NONE;
   clientRange = ClientRange.NONE;
   selectedDate = new Date();
-  selectedClients = [] as Clients[];
+  selectedClients = [] as ClientDetail[];
 
   generateInvoicesParametersForm = new FormGroup({
     invoiceRange: new FormControl(1),
@@ -68,11 +68,11 @@ export class GenerateInvoiceModal implements OnInit {
       let params = {} as GenerateInvoiceParameters;
       params.invoiceRange = this.invoiceRange;
       params.dateRange = this.dateRange;
-      params.clientSelector = this.clientRange;
+      params.clientRange = this.clientRange;
       params.date = this.selectedDate;
       params.clients = this.selectedClients;
-      console.log(params);
       this.generateInvoiceParameters.emit(params);
+      return;
     }
     this.cancelled.emit();
   }
