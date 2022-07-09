@@ -26,6 +26,7 @@ import { FinancialDocListComponent } from './common-components/pages/financial-d
 import { GeneralPageComponent } from './common-components/pages/general-page/general-page.component';
 import { DocViewComponent } from './common-components/pages/doc-view/doc-view.component';
 import { WarningsComponent } from './modals/warnings/warnings.component';
+import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { WarningsComponent } from './modals/warnings/warnings.component';
     GeneralPageComponent,
     DocViewComponent,
     WarningsComponent,
+    GenerateInvoiceModal,
   ],
   imports: [
     BrowserModule,
