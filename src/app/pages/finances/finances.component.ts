@@ -20,7 +20,8 @@ export enum ViewState {
   VIEW_INVOICES,
   INVOICE_DETAIL,
   VIEW_STATEMENTS,
-  GENERATE_INVOICES,
+  GENERATE_INVOICES_PARAMETERS,
+  GENERATE_INVOICES_RESULTS,
   PAYMENTS,
   PAYMENT_DETAIL,
   VIEW_PAYMENTS,
@@ -42,7 +43,10 @@ export class FinancesComponent {
     menu: [
       { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
       { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
-      { display: 'Generate invoices', viewState: ViewState.GENERATE_INVOICES },
+      {
+        display: 'Generate invoices',
+        viewState: ViewState.GENERATE_INVOICES_PARAMETERS,
+      },
       { display: 'Payments', viewState: ViewState.PAYMENTS },
     ],
   } as MenuPageConfig;
@@ -150,7 +154,7 @@ export class FinancesComponent {
       case ViewState.INVOICE_DETAIL:
         this.setInvoiceDocsForDisplay();
         break;
-      case ViewState.GENERATE_INVOICES:
+      case ViewState.GENERATE_INVOICES_RESULTS:
         this.generateInvoices();
         break;
       case ViewState.VIEW_PAYMENTS:

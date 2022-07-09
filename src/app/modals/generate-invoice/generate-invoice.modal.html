@@ -1,1 +1,123 @@
-<p>generate-invoice works!</p>
+<div class="main-container">
+  <form
+    class="form-container"
+    [formGroup]="generateInvoicesParametersForm"
+    (ngSubmit)="onSubmitClick()"
+  >
+    <!-- Header -->
+    <div class="form-header">
+      <div class="header-text">Generate invoices parameters</div>
+    </div>
+
+    <!-- Invoices range radio buttons -->
+    <div class="form-line">
+      <div class="form-line-title">Invoices range:</div>
+      <mat-radio-group
+        formControlName="invoiceRange"
+        [ngClass]="'radio-group'"
+        (change)="onInvoiceRangeRadioClick()"
+      >
+        <mat-radio-button class="radio-button" value="1" [checked]="true"
+          >All</mat-radio-button
+        >
+        <mat-radio-button class="radio-button" value="2"
+          >Custom</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+
+    <!-- Date -->
+    <div *ngIf="invoiceRange ===2" class="form-line">
+      <div class="form-line-title">Date range:</div>
+      <mat-radio-group
+        formControlName="dateRange"
+        [ngClass]="'radio-group'"
+        (change)="onDateRangeRadioClick()"
+      >
+        <mat-radio-button class="radio-button" value="1" [checked]="true"
+          >All</mat-radio-button
+        >
+        <mat-radio-button class="radio-button" value="2"
+          >Limited</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="dateRange === 2 && invoiceRange === 2" class="form-line">
+      <div class="form-line-title">Date until:</div>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <input
+        formControlName="date"
+        [ngClass]="'date-input'"
+        [matDatepicker]="picker"
+        (dateChange)="onDateChange()"
+      />
+    </div>
+
+    <!-- Multi clients radio buttons -->
+    <div *ngIf="invoiceRange ===2" class="form-line">
+      <div class="form-line-title">Clients:</div>
+      <mat-radio-group
+        formControlName="clientRange"
+        [ngClass]="'radio-group'"
+        (change)="onClientRangeClick()"
+      >
+        <mat-radio-button class="radio-button" value="1" [checked]="true"
+          >All</mat-radio-button
+        >
+        <mat-radio-button class="radio-button" value="2"
+          >Single</mat-radio-button
+        >
+        <mat-radio-button class="radio-button" value="3"
+          >Multiple selected</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+
+    <!-- Client Selector -->
+    <div *ngIf="invoiceRange ===2" [ngSwitch]="clientRange">
+      <div *ngSwitchCase="clientSelectorType.SINGLE" class="form-line">
+        <div class="form-line-title">Client:</div>
+        <mat-select
+          [compareWith]="compareClients"
+          [ngClass]="'selector'"
+          (selectionChange)="onClientSelected()"
+          formControlName="clients"
+        >
+          <mat-option
+            *ngFor="let option of clients | keyvalue"
+            [value]="option.value"
+            >{{ option.value.displayName }}</mat-option
+          >
+        </mat-select>
+      </div>
+      <div *ngSwitchCase="clientSelectorType.MULTI" class="form-line">
+        <div class="form-line-title">Clients:</div>
+
+        <mat-select
+          [compareWith]="compareClients"
+          [ngClass]="'selector'"
+          (selectionChange)="onClientSelected()"
+          formControlName="clients"
+          multiple
+        >
+          <mat-option
+            *ngFor="let option of clients | keyvalue"
+            [value]="option.value"
+            >{{ option.value.displayName }}</mat-option
+          >
+          >
+        </mat-select>
+      </div>
+    </div>
+
+    <!-- Buttons  -->
+    <div class="button-container">
+      <button class="primary-button" (click)="onGenerateInvoicesClick()">
+        Generate invoices
+      </button>
+      <button class="secondary-button">Cancel</button>
+    </div>
+  </form>
+</div>

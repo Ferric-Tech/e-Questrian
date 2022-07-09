@@ -11,6 +11,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NavbarComponent } from './common-components/navbar/navbar.component';
 import { AppComponent } from './app.component';
@@ -58,6 +60,8 @@ import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -21,7 +21,11 @@
     [config]="invoiceDocViewConfig"
   ></app-doc-view>
 
-  <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES">
+  <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_PARAMETERS">
+    <app-generate-invoice-modal></app-generate-invoice-modal>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_RESULTS">
     <div *ngIf="!isInvoiceGenerationComplete">
       Generating invoices - one moment
     </div>
