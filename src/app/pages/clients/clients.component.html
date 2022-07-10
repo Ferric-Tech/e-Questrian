@@ -12,7 +12,10 @@
         {{ client.value.displayName }}
       </div>
     </div>
-    <button (click)="backToClientMain()">Back to client menu</button>
+    <app-menu-page
+      [config]="viewClientsMenuConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-page>
   </div>
 
   <app-client-details

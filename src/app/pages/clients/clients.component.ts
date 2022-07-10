@@ -29,6 +29,12 @@ export class ClientsComponent implements OnInit {
     ],
   } as MenuPageConfig;
 
+  viewClientsMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'Back to Client Menu', viewState: ViewState.MAIN }],
+  } as MenuPageConfig;
+
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;
   clients = {} as Clients;
