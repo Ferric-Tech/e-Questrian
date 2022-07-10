@@ -29,6 +29,7 @@ import { GeneralPageComponent } from './common-components/pages/general-page/gen
 import { DocViewComponent } from './common-components/pages/doc-view/doc-view.component';
 import { WarningsComponent } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
+import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice
     DocViewComponent,
     WarningsComponent,
     GenerateInvoiceModal,
+    GenerateStatementModal,
   ],
   imports: [
     BrowserModule,

@@ -55,6 +55,13 @@
     ></app-menu-page>
   </div>
 
+  <div *ngSwitchCase="viewStateEnum.GENERATE_STATEMENTS_PARAMETERS">
+    <app-generate-statement-modal
+      (generateStatementParameters)="generateStatement($event)"
+      (cancelled)="backToFinancetMain()"
+    ></app-generate-statement-modal>
+  </div>
+
   <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">
     <app-payments
       [currentPayment]="payments[currentPaymentID] || {}"

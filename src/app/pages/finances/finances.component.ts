@@ -15,17 +15,19 @@ import {
 } from 'src/app/interfaces/common-page-configs.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import { GenerateInvoiceParameters } from 'src/app/modals/generate-invoice/generate-invoice.modal';
+import { GenerateStatementParameters } from 'src/app/modals/generate-statement/generate-statement.modal';
 
 export enum ViewState {
   MAIN,
   VIEW_INVOICES,
   INVOICE_DETAIL,
-  VIEW_STATEMENTS,
   GENERATE_INVOICES_PARAMETERS,
   GENERATE_INVOICES_RESULTS,
   PAYMENTS,
   PAYMENT_DETAIL,
   VIEW_PAYMENTS,
+  GENERATE_STATEMENTS_PARAMETERS,
+  VIEW_STATEMENT,
 }
 
 export interface MenuOption {
@@ -43,7 +45,10 @@ export class FinancesComponent {
     subHeader: 'Finance Menu',
     menu: [
       { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
-      { display: 'View Statements', viewState: ViewState.VIEW_STATEMENTS },
+      {
+        display: 'View Statements',
+        viewState: ViewState.GENERATE_STATEMENTS_PARAMETERS,
+      },
       {
         display: 'Generate invoices',
         viewState: ViewState.GENERATE_INVOICES_PARAMETERS,
@@ -152,6 +157,11 @@ export class FinancesComponent {
     this.invoiceService.generateInvoices(params);
     this.isInvoiceGenerationComplete = true;
     this.switchViewState(ViewState.GENERATE_INVOICES_RESULTS);
+  }
+
+  generateStatement(params: GenerateStatementParameters) {
+    console.log(params);
+    this.switchViewState(ViewState.VIEW_STATEMENT);
   }
 
   private switchViewState(viewStateSelected: ViewState) {
