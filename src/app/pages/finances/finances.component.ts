@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { InvoicesService } from 'src/app/services/invoices.service';
+import {
+  GenerateInvoiceResult,
+  InvoicesService,
+} from 'src/app/services/invoices.service';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
 import {
@@ -12,6 +15,8 @@ import {
   FinancialDoc,
   FinancialDocListPageConfig,
   MenuPageConfig,
+  ProcessResultsPageConfig,
+  ResultType,
 } from 'src/app/interfaces/common-page-configs.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import { GenerateInvoiceParameters } from 'src/app/modals/generate-invoice/generate-invoice.modal';
@@ -91,6 +96,19 @@ export class FinancesComponent {
     menu: [{ display: 'Back to Payments Menu', viewState: ViewState.PAYMENTS }],
   } as MenuPageConfig;
 
+  generateInvoiceResultsMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'View invoices', viewState: ViewState.VIEW_INVOICES }],
+  } as MenuPageConfig;
+
+  generateInvoiceResultsPageConfig = {
+    header: '',
+    subHeader: 'Invoices generated',
+    explainer: 'The results of the invoice generation are presented below',
+    results: [],
+  } as ProcessResultsPageConfig;
+
   invoiceDocViewConfig = {} as DocView;
 
   appointments: Appointments = {};
@@ -154,7 +172,8 @@ export class FinancesComponent {
 
   generateInvoices(params: GenerateInvoiceParameters) {
     this.isInvoiceGenerationComplete = false;
-    this.invoiceService.generateInvoices(params);
+    const results = this.invoiceService.generateInvoices(params);
+    this.setInvoiceGenerationResultsForDisplay(results);
     this.isInvoiceGenerationComplete = true;
     this.switchViewState(ViewState.GENERATE_INVOICES_RESULTS);
   }
@@ -240,6 +259,66 @@ export class FinancesComponent {
     this.getInvoiceData();
     this.getAppointmentData();
   }
+
+  private setInvoiceGenerationResultsForDisplay(
+    results: GenerateInvoiceResult
+  ) {
+    this.generateInvoiceResultsPageConfig.results = [];
+    this.generateInvoiceResultsPageConfig.results.push(
+      {
+        description: 'Clients invoiced:',
+        resultType: ResultType.LIST,
+        result: results.clients,
+      },
+      {
+        description: 'Number of invoices:',
+        resultType: ResultType.NUMBER,
+        result: results.numberOfInvoices,
+      },
+      {
+        description: 'Total value of invoices:',
+        resultType: ResultType.NUMBER,
+        result: results.totalValue,
+      },
+      {
+        description: 'Average value of invoices:',
+        resultType: ResultType.NUMBER,
+        result: results.averageValue,
+      },
+      {
+        description: 'Largest invoice value:',
+        resultType: ResultType.NUMBER,
+        result: results.largestValue,
+      },
+      {
+        description: 'Earliest appointment date invoice:',
+        resultType: ResultType.DATE,
+        result: results.startDate,
+      },
+      {
+        description: 'Latest appointment date invoice:',
+        resultType: ResultType.DATE,
+        result: results.endDate,
+      }
+    );
+  }
+
+  // averageValue: 312.5
+  // clients: Array(4)
+  // 0: "Jill Henry"
+  // 1: "Kenny Timson"
+  // 2: "Nurse Ash"
+  // 3: "Little Ash"
+  // length: 4
+  // [[Prototype]]: Array(0)
+  // endDate: Mon Jul 11 2022 11:07:36 GMT+0200 (South Africa Standard Time)
+  // [[Prototype]]: Object
+  // largestValue: 500
+  // numberOfInvoices: 4
+  // startDate: Sun Jul 10 2022 11:07:36 GMT+0200 (South Africa Standard Time)
+  // [[Prototype]]: Object
+  // totalValue: 1250
+  // [[Prototype]]: Object
 
   private getInvoiceData() {
     let invoiceList = localStorage.getItem('invoices');

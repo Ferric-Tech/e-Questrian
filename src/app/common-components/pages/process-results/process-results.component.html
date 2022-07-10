@@ -1,0 +1,19 @@
+<div *ngIf="generalConfig.header" class="page-header">
+  {{ generalConfig.header }}
+</div>
+<div *ngIf="generalConfig.subHeader" class="page-sub-header">
+  {{ generalConfig.subHeader }}
+</div>
+<div *ngIf="config.explainer" class="page-explainer">
+  {{ config.explainer }}
+</div>
+<div class="results-container" *ngFor="let result of config.results">
+  <div class="description-line">{{ result.description }}</div>
+  <div [ngSwitch]="result.resultType">
+    <div *ngSwitchCase="resultsType.NUMBER">{{ result.result }}</div>
+    <div *ngSwitchCase="resultsType.DATE">{{ result.result }}</div>
+    <div *ngSwitchCase="resultsType.LIST">
+      <div *ngFor="let item of result.result">{{ item }}</div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
 import { DocType } from '../enums/doc-types.enum';
 import { ClientDetail } from './clients.interface';
 import { MenuOption } from './menu-options.interface';
-import { Payments } from './payments.interface';
 
 export interface PageConfig {
   header: string;
@@ -39,4 +38,21 @@ export interface LineItem {
   date: Date;
   detail: string;
   amount: number;
+}
+
+export interface ProcessResultsPageConfig extends PageConfig {
+  explainer: string;
+  results: ProcessResult[];
+}
+
+export enum ResultType {
+  NUMBER,
+  DATE,
+  LIST,
+}
+
+export interface ProcessResult {
+  description: string;
+  resultType: ResultType;
+  result: any;
 }

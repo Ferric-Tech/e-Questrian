@@ -8,6 +8,16 @@ import {
   GenerateInvoiceParameters,
 } from '../modals/generate-invoice/generate-invoice.modal';
 
+export interface GenerateInvoiceResult {
+  numberOfInvoices: number;
+  clients: string[];
+  startDate: Date;
+  endDate: Date;
+  totalValue: number;
+  largestValue: number;
+  averageValue: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +27,17 @@ export class InvoicesService {
   appointments: Appointments = {};
   invoices = {} as Invoices;
 
-  generateInvoices(params: GenerateInvoiceParameters) {
+  generateInvoices(params: GenerateInvoiceParameters): GenerateInvoiceResult {
+    let results = {
+      numberOfInvoices: 0,
+      clients: [],
+      startDate: new Date(),
+      endDate: new Date(),
+      totalValue: 0,
+      largestValue: 0,
+      averageValue: 0,
+    } as GenerateInvoiceResult;
+
     this.getAppointmentData();
 
     // If there is a clientRange - Get list of clients to be invoiced
@@ -64,15 +84,27 @@ export class InvoicesService {
       if (appointmentDate > cutOffDate) {
         return;
       }
+      if (appointmentDate > results.endDate) {
+        results.endDate = appointmentDate;
+      }
+      if (appointmentDate < results.startDate) {
+        results.startDate = appointmentDate;
+      }
 
       currentClient in appointmentsToInvoice
         ? appointmentsToInvoice[currentClient].push(appointmentID)
         : (appointmentsToInvoice[currentClient] = [appointmentID]);
+
+      if (results.clients.includes(currentClient)) {
+        return;
+      }
+      results.clients.push(currentClient);
     });
 
     // Add an invoice for each assigning the appointments to that invoice
     this.getInvoiceData();
     let nextInvoiceNumber = Object.keys(this.invoices).length + 1;
+    let invoiceCount = 0;
     Object.keys(appointmentsToInvoice).forEach((client) => {
       this.invoices[nextInvoiceNumber] = {
         date: new Date(),
@@ -82,11 +114,21 @@ export class InvoicesService {
         this.appointments[appointmentID].invoice = nextInvoiceNumber;
       });
       nextInvoiceNumber++;
+      invoiceCount++;
+      results.totalValue =
+        results.totalValue + appointmentsToInvoice[client].length * 250;
+      if (appointmentsToInvoice[client].length * 250 > results.largestValue) {
+        results.largestValue = appointmentsToInvoice[client].length * 250;
+      }
     });
 
+    results.numberOfInvoices = invoiceCount;
+    results.averageValue = results.totalValue / results.numberOfInvoices;
     // Add new invoices and appointements to stored data
     localStorage.setItem('invoices', JSON.stringify(this.invoices));
     localStorage.setItem('appointments', JSON.stringify(this.appointments));
+
+    return results;
   }
 
   private getAppointmentData() {

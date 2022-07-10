@@ -30,6 +30,7 @@ import { DocViewComponent } from './common-components/pages/doc-view/doc-view.co
 import { WarningsComponent } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
+import { ProcessResultsComponent } from './common-components/pages/process-results/process-results.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { GenerateStatementModal } from './modals/generate-statement/generate-sta
     WarningsComponent,
     GenerateInvoiceModal,
     GenerateStatementModal,
+    ProcessResultsComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,12 +29,15 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_RESULTS">
-    <div *ngIf="!isInvoiceGenerationComplete">
-      Generating invoices - one moment
-    </div>
+    <app-process-results
+      [config]="generateInvoiceResultsPageConfig"
+    ></app-process-results>
+
     <div *ngIf="isInvoiceGenerationComplete">
-      <div>Invoices generated</div>
-      <button (click)="backToInvoiceList()">View invoices</button>
+      <app-menu-page
+        [config]="generateInvoiceResultsMenuConfig"
+        (viewStateSelected)="onMenuOptionClicked($event)"
+      ></app-menu-page>
     </div>
   </div>
 
