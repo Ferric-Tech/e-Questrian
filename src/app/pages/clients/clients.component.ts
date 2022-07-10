@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/clients.service';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
+import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface';
 
 export enum ViewState {
   MAIN,
@@ -19,10 +20,14 @@ export interface MenuOption {
   styleUrls: ['./clients.component.scss'],
 })
 export class ClientsComponent implements OnInit {
-  readonly menuOptions: MenuOption[] = [
-    { display: 'View clients', viewState: ViewState.VIEW },
-    { display: 'Add new client', viewState: ViewState.ADD_EDIT },
-  ];
+  clientMenuPageConfig = {
+    header: '',
+    subHeader: 'Clients Menu',
+    menu: [
+      { display: 'View clients', viewState: ViewState.VIEW },
+      { display: 'Add new client', viewState: ViewState.ADD_EDIT },
+    ],
+  } as MenuPageConfig;
 
   viewStateEnum = ViewState;
   currentViewState = ViewState.MAIN;

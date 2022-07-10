@@ -1,16 +1,9 @@
 <div class="page-container" [ngSwitch]="currentViewState">
-  <div
-    *ngSwitchCase="viewStateEnum.MAIN"
-    class="navigation-page-button-container"
-  >
-    <button
-      *ngFor="let option of menuOptions"
-      class="navbar-button"
-      (click)="onMenuOptionClicked(option.viewState)"
-      mat-button
-    >
-      {{ option.display }}
-    </button>
+  <div *ngSwitchCase="viewStateEnum.MAIN">
+    <app-menu-page
+      [config]="clientMenuPageConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-page>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.VIEW">
