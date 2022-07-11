@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ClientDetail } from 'src/app/interfaces/clients.interface';
+import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClientsService {
-  clients: ClientDetail[] = [];
+  clients = {} as Clients;
 
   editClient(oldClient: ClientDetail, newClient: ClientDetail) {
     this.getClientData();
@@ -15,9 +15,10 @@ export class ClientsService {
   }
 
   removeClient(client: ClientDetail) {
-    for (let index = 0; index < this.clients.length; index++) {
-      if (JSON.stringify(this.clients[index]) === JSON.stringify(client)) {
-        this.clients.splice(index, 1);
+    const numberOfClients = Object.keys(this.clients).length;
+    for (let clientID = 1; clientID < numberOfClients + 1; clientID++) {
+      if (JSON.stringify(this.clients[clientID]) === JSON.stringify(client)) {
+        delete this.clients[clientID];
         break;
       }
     }

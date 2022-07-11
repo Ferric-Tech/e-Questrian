@@ -1,4 +1,5 @@
 import { DocType } from '../enums/doc-types.enum';
+import { StatementBasics } from '../services/statements.service';
 import { ClientDetail } from './clients.interface';
 import { MenuOption } from './menu-options.interface';
 
@@ -11,11 +12,17 @@ export interface MenuPageConfig extends PageConfig {
   menu: MenuOption[];
 }
 
-export interface FinancialDocListPageConfig extends PageConfig {
-  list: FinancialDoc[];
+export enum FinancialDocType {
+  LIST,
+  STATEMENT,
 }
 
-export interface FinancialDoc {
+export interface FinancialDocListPageConfig extends PageConfig {
+  financialDocType: FinancialDocType;
+  items: FinancialDocItem[];
+}
+
+export interface FinancialDocItem {
   number: number;
   date: Date;
   detail: string;

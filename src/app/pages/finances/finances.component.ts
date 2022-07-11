@@ -12,8 +12,9 @@ import {
 import { PaymentsService } from 'src/app/services/payments.service';
 import {
   DocView,
-  FinancialDoc,
+  FinancialDocItem,
   FinancialDocListPageConfig,
+  FinancialDocType,
   MenuPageConfig,
   ProcessResultsPageConfig,
   ResultType,
@@ -21,6 +22,7 @@ import {
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import { GenerateInvoiceParameters } from 'src/app/modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementParameters } from 'src/app/modals/generate-statement/generate-statement.modal';
+import { StatementsService } from 'src/app/services/statements.service';
 
 export enum ViewState {
   MAIN,
@@ -75,7 +77,8 @@ export class FinancesComponent {
   invoiceListPageConfig = {
     header: '',
     subHeader: 'Invoices',
-    list: [],
+    financialDocType: FinancialDocType.LIST,
+    items: [],
   } as FinancialDocListPageConfig;
 
   invoiceListMenuConfig = {
@@ -87,7 +90,8 @@ export class FinancesComponent {
   paymentListPageConfig = {
     header: '',
     subHeader: 'Payments',
-    list: [],
+    financialDocType: FinancialDocType.LIST,
+    items: [],
   } as FinancialDocListPageConfig;
 
   paymentListMenuConfig = {
@@ -96,18 +100,31 @@ export class FinancesComponent {
     menu: [{ display: 'Back to Payments Menu', viewState: ViewState.PAYMENTS }],
   } as MenuPageConfig;
 
-  generateInvoiceResultsMenuConfig = {
-    header: '',
-    subHeader: '',
-    menu: [{ display: 'View invoices', viewState: ViewState.VIEW_INVOICES }],
-  } as MenuPageConfig;
-
   generateInvoiceResultsPageConfig = {
     header: '',
     subHeader: 'Invoices generated',
     explainer: 'The results of the invoice generation are presented below',
     results: [],
   } as ProcessResultsPageConfig;
+
+  generateInvoiceResultsMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'View invoices', viewState: ViewState.VIEW_INVOICES }],
+  } as MenuPageConfig;
+
+  statementPageConfig = {
+    header: '',
+    subHeader: 'Statement',
+    financialDocType: FinancialDocType.STATEMENT,
+    items: [],
+  } as FinancialDocListPageConfig;
+
+  statementMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'Back to Finance Menu', viewState: ViewState.MAIN }],
+  } as MenuPageConfig;
 
   invoiceDocViewConfig = {} as DocView;
 
@@ -123,7 +140,8 @@ export class FinancesComponent {
 
   constructor(
     private invoiceService: InvoicesService,
-    private paymentsService: PaymentsService
+    private paymentsService: PaymentsService,
+    private statementService: StatementsService
   ) {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
@@ -139,6 +157,8 @@ export class FinancesComponent {
     this.currentPaymentID = paymentID;
     this.switchViewState(ViewState.PAYMENT_DETAIL);
   }
+
+  onStatementClicked(document: number) {}
 
   backToFinancetMain() {
     this.switchViewState(ViewState.MAIN);
@@ -179,7 +199,8 @@ export class FinancesComponent {
   }
 
   generateStatement(params: GenerateStatementParameters) {
-    console.log(params);
+    this.statementPageConfig.items =
+      this.statementService.generateStatement(params);
     this.switchViewState(ViewState.VIEW_STATEMENT);
   }
 
@@ -203,10 +224,10 @@ export class FinancesComponent {
 
   private setDataForDisplay() {
     this.getDataForDisplay();
-    this.invoiceListPageConfig.list = [];
+    this.invoiceListPageConfig.items = [];
     Object.keys(this.invoices).forEach((key) => {
       const number = parseInt(key);
-      this.invoiceListPageConfig.list.push({
+      this.invoiceListPageConfig.items.push({
         number: number,
         date: this.invoices[number].date,
         detail: this.appointments[this.invoices[number].appointments[0]].client
@@ -243,15 +264,15 @@ export class FinancesComponent {
     this.getPaymentData();
     this.getClients();
     this.currentPaymentID = 0;
-    this.paymentListPageConfig.list = [];
+    this.paymentListPageConfig.items = [];
     Object.keys(this.payments).forEach((key) => {
-      let finDoc = {} as FinancialDoc;
+      let finDoc = {} as FinancialDocItem;
       finDoc.number = parseInt(key);
       finDoc.amount = this.payments[parseInt(key)].amount as number;
       finDoc.date = this.payments[parseInt(key)].date as Date;
       let clientNum = this.payments[parseInt(key)].client;
       finDoc.detail = this.clients[clientNum].displayName;
-      this.paymentListPageConfig.list.push(finDoc);
+      this.paymentListPageConfig.items.push(finDoc);
     });
   }
 

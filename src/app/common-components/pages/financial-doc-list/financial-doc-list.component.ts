@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  FinancialDoc,
+  FinancialDocItem,
   FinancialDocListPageConfig,
   PageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
@@ -20,13 +20,17 @@ export class FinancialDocListComponent implements OnInit {
   constructor(public router: Router) {}
 
   ngOnInit() {
+    this.setPageConfig();
+  }
+
+  private setPageConfig() {
     this.generalConfig = {
       header: this.config.header,
       subHeader: this.config.subHeader,
     };
   }
 
-  onItemClicked(item: FinancialDoc) {
+  onItemClicked(item: FinancialDocItem) {
     this.itemClicked.emit(item.number);
   }
 }

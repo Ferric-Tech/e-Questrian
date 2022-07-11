@@ -176,8 +176,8 @@ export class TestDataService {
 
   private setInvoices() {
     this.invoices = {
-      1: { date: new Date(), appointments: [1] },
-      2: { date: new Date(), appointments: [2, 3] },
+      1: { clientID: 3, date: this.yesterday, appointments: [1] },
+      2: { clientID: 4, date: this.yesterday, appointments: [2, 3] },
     };
   }
 
@@ -188,14 +188,14 @@ export class TestDataService {
   private setPayments() {
     this.payments = {
       1: {
-        date: this.yesterday,
+        date: this.today,
         client: 1,
         paymentType: PaymentType.EFT,
         amount: 175,
         voided: false,
       },
       2: {
-        date: this.yesterday,
+        date: this.today,
         client: 2,
         paymentType: PaymentType.CASH,
         amount: 100,

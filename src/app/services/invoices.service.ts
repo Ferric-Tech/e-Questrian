@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Appointments } from 'src/app/interfaces/appointments.interface';
 import { CalendarData } from 'src/app/interfaces/calander.interface';
 import { Invoices } from 'src/app/interfaces/invoices.interface';
+import { Clients } from '../interfaces/clients.interface';
 import {
   ClientRange,
   DateRange,
@@ -26,6 +27,7 @@ export class InvoicesService {
   calendarData: CalendarData = {};
   appointments: Appointments = {};
   invoices = {} as Invoices;
+  clients = {} as Clients;
 
   generateInvoices(params: GenerateInvoiceParameters): GenerateInvoiceResult {
     let results = {
@@ -39,6 +41,7 @@ export class InvoicesService {
     } as GenerateInvoiceResult;
 
     this.getAppointmentData();
+    this.getClientData();
 
     // If there is a clientRange - Get list of clients to be invoiced
     let clientsToBeInvoiced: string[] = [];
@@ -72,6 +75,14 @@ export class InvoicesService {
       }
       let currentClient = this.appointments[appointmentID].client
         ?.displayName as string;
+      let currentClientID = 0;
+      const numberOfClients = Object.keys(this.clients).length;
+      for (let clientID = 1; clientID < numberOfClients + 1; clientID++) {
+        if (this.clients[clientID].displayName === currentClient) {
+          currentClientID = clientID;
+          break;
+        }
+      }
 
       // If there is a clientRange - is the current client in that range
       if (clientsToBeInvoiced.length > 0) {
@@ -92,8 +103,8 @@ export class InvoicesService {
       }
 
       currentClient in appointmentsToInvoice
-        ? appointmentsToInvoice[currentClient].push(appointmentID)
-        : (appointmentsToInvoice[currentClient] = [appointmentID]);
+        ? appointmentsToInvoice[currentClientID].push(appointmentID)
+        : (appointmentsToInvoice[currentClientID] = [appointmentID]);
 
       if (results.clients.includes(currentClient)) {
         return;
@@ -105,20 +116,21 @@ export class InvoicesService {
     this.getInvoiceData();
     let nextInvoiceNumber = Object.keys(this.invoices).length + 1;
     let invoiceCount = 0;
-    Object.keys(appointmentsToInvoice).forEach((client) => {
+    Object.keys(appointmentsToInvoice).forEach((clientID) => {
       this.invoices[nextInvoiceNumber] = {
+        clientID: parseInt(clientID),
         date: new Date(),
-        appointments: appointmentsToInvoice[client],
+        appointments: appointmentsToInvoice[clientID],
       };
-      appointmentsToInvoice[client].forEach((appointmentID) => {
+      appointmentsToInvoice[clientID].forEach((appointmentID) => {
         this.appointments[appointmentID].invoice = nextInvoiceNumber;
       });
       nextInvoiceNumber++;
       invoiceCount++;
       results.totalValue =
-        results.totalValue + appointmentsToInvoice[client].length * 250;
-      if (appointmentsToInvoice[client].length * 250 > results.largestValue) {
-        results.largestValue = appointmentsToInvoice[client].length * 250;
+        results.totalValue + appointmentsToInvoice[clientID].length * 250;
+      if (appointmentsToInvoice[clientID].length * 250 > results.largestValue) {
+        results.largestValue = appointmentsToInvoice[clientID].length * 250;
       }
     });
 
@@ -139,5 +151,10 @@ export class InvoicesService {
   private getInvoiceData() {
     let invoiceList = localStorage.getItem('invoices');
     this.invoices = JSON.parse(invoiceList || '[]');
+  }
+
+  private getClientData() {
+    let clientsList = localStorage.getItem('clients');
+    this.clients = JSON.parse(clientsList || '{}');
   }
 }
