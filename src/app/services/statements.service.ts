@@ -65,7 +65,7 @@ export class StatementsService {
           number: parseInt(key),
           date: new Date(payment.date),
           detail: 'Payment',
-          amount: payment.amount as number,
+          amount: -payment.amount as number,
         };
         statementBasics.transactions.push(docToAdd);
       }
@@ -77,17 +77,11 @@ export class StatementsService {
     statementBasics.transactions = [];
     allTransactions.forEach((transaction) => {
       if (transaction.date < params.startDate) {
-        transaction.detail === 'Invoice'
-          ? (statementBasics.openingBalance =
-              statementBasics.openingBalance + transaction.amount)
-          : (statementBasics.openingBalance =
-              statementBasics.openingBalance - transaction.amount);
+        statementBasics.openingBalance =
+          statementBasics.openingBalance + transaction.amount;
       } else if (transaction.date <= params.endDate) {
-        transaction.detail === 'Invoice'
-          ? (statementBasics.closingBalance =
-              statementBasics.closingBalance + transaction.amount)
-          : (statementBasics.closingBalance =
-              statementBasics.closingBalance - transaction.amount);
+        statementBasics.closingBalance =
+          statementBasics.closingBalance + transaction.amount;
         statementBasics.transactions.push(transaction);
       }
     });

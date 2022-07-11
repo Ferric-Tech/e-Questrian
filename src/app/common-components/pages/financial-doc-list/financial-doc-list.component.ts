@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {
   FinancialDocItem,
   FinancialDocListPageConfig,
+  FinancialDocType,
   PageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
 
@@ -15,6 +16,7 @@ export class FinancialDocListComponent implements OnInit {
   @Input() config = {} as FinancialDocListPageConfig;
   @Output() itemClicked = new EventEmitter<number>();
 
+  financialDocType = FinancialDocType;
   generalConfig = {} as PageConfig;
 
   constructor(public router: Router) {}
