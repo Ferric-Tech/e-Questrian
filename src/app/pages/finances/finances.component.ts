@@ -23,6 +23,7 @@ import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import { GenerateInvoiceParameters } from 'src/app/modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementParameters } from 'src/app/modals/generate-statement/generate-statement.modal';
 import { StatementsService } from 'src/app/services/statements.service';
+import { ClientNotificationService } from 'src/app/services/client-notification.service';
 
 export enum ViewState {
   MAIN,
@@ -141,7 +142,8 @@ export class FinancesComponent {
   constructor(
     private invoiceService: InvoicesService,
     private paymentsService: PaymentsService,
-    private statementService: StatementsService
+    private statementService: StatementsService,
+    private clientNotificationService: ClientNotificationService
   ) {}
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
@@ -177,6 +179,8 @@ export class FinancesComponent {
   }
 
   paymentCreated(payment: PaymentDetails) {
+    console.log('Here');
+    this.clientNotificationService.sendPaymentReceipt();
     this.paymentsService.addPayment(payment);
   }
 

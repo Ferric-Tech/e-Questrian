@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -66,6 +67,7 @@ import { ProcessResultsComponent } from './common-components/pages/process-resul
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
