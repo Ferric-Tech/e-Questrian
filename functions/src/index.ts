@@ -1,43 +1,50 @@
 const functions = require('firebase-functions');
-const sendgrid = require('sendgrid');
-const client = sendgrid(
-  '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'
-);
+const cors = require('cors')({ origin: true });
+const nodemailer = require('nodemailer');
 
-function parseBody(body: any) {
-  const helper = sendgrid.mail;
-  const fromEmail = new helper.Email(body.from);
-  const toEmail = new helper.Email(body.to);
-  const subject = body.subject;
-  const content = new helper.Content('text/html', body.content);
-  const mail = new helper.Mail(fromEmail, subject, toEmail, content);
-  return mail.toJSON();
-}
+var transporter = nodemailer.createTransport({
+  host: 'smtp-mail.outlook.com', // hostname
+  secureConnection: false, // TLS requires secureConnection to be false
+  port: 587, // port for secure SMTP
+  tls: {
+    ciphers: 'SSLv3',
+  },
+  auth: {
+    user: 'e-questrianonline@outlook.com',
+    pass: 'AlphaBeta@1',
+  },
+});
 
-// https://us-central1-e-questrian.cloudfunctions.net/httpEmail
-exports.httpEmail = functions.https.onRequest((req: any, res: any) => {
-  return Promise.resolve()
-    .then(() => {
-      if (req.method != 'POST') {
-        const error = new Error('Only POST requests are accepted');
-        throw error;
+// https://us-central1-e-questrian.cloudfunctions.net/helloWorld
+exports.helloWorld = functions.https.onRequest((req: any, res: any) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  cors(req, res, () => {
+    res.send({ text: 'Hello there' });
+  });
+});
+
+exports.sendMail = functions.https.onRequest((req: any, res: any) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  cors(req, res, () => {
+    // getting dest email by query string
+    // const dest = req.query.dest;
+
+    const mailOptions = {
+      from: 'e-Questrian <e-questrianonline@outlook.com>', // Something like: Jane Doe <janedoe@gmail.com>
+      to: 'ferric.tech@gmail.com',
+      subject: "I'M A PICKLE!!!", // email subject
+      html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
+              <br />
+              <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
+          `, // email content in HTML
+    };
+
+    // returning result
+    return transporter.sendMail(mailOptions, (erro: any, info: any) => {
+      if (erro) {
+        return res.send(JSON.stringify(erro));
       }
-      const request = client.emptyRequest({
-        method: 'POST',
-        path: '/v3/mail/send',
-        body: parseBody(req.body),
-      });
-      return client.API(request);
-    })
-    .then((response) => {
-      if (response.body) {
-        res.send(response.body);
-      } else {
-        res.end;
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      return Promise.reject(err);
+      return res.send(JSON.stringify('Sended'));
     });
+  });
 });

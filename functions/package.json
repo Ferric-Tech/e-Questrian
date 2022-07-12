@@ -15,8 +15,11 @@
   "main": "lib/index.js",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "cors": "^2.8.5",
     "firebase-admin": "^10.2.0",
     "firebase-functions": "^3.21.0",
+    "node-mailjet": "^5.0.1",
+    "nodemailer": "^6.7.7",
     "sendgrid": "^5.2.3"
   },
   "devDependencies": {

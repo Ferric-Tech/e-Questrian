@@ -1,0 +1,24 @@
+[debug] [2022-07-12T12:53:29.833Z] ----------------------------------------------------------------------
+[debug] [2022-07-12T12:53:29.835Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ruben\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2022-07-12T12:53:29.836Z] CLI Version:   11.2.0
+[debug] [2022-07-12T12:53:29.836Z] Platform:      win32
+[debug] [2022-07-12T12:53:29.836Z] Node Version:  v14.18.1
+[debug] [2022-07-12T12:53:29.837Z] Time:          Tue Jul 12 2022 14:53:29 GMT+0200 (South Africa Standard Time)
+[debug] [2022-07-12T12:53:29.837Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-07-12T12:53:29.909Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-07-12T12:53:29.909Z] > authorizing via signed-in user (ferric.tech@gmail.com)
+[debug] [2022-07-12T12:53:29.909Z] [iam] checking project e-questrian for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2022-07-12T12:53:29.911Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/e-questrian:testIamPermissions [none]
+[debug] [2022-07-12T12:53:29.911Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/e-questrian:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-07-12T12:53:31.825Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/e-questrian:testIamPermissions 200
+[debug] [2022-07-12T12:53:31.825Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/e-questrian:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2022-07-12T12:53:31.826Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/e-questrian/serviceAccounts/e-questrian@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2022-07-12T12:53:31.826Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/e-questrian/serviceAccounts/e-questrian@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2022-07-12T12:53:33.697Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/e-questrian/serviceAccounts/e-questrian@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2022-07-12T12:53:33.698Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/e-questrian/serviceAccounts/e-questrian@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'e-questrian'...
+[info] 
+[info] i  deploying functions 
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build

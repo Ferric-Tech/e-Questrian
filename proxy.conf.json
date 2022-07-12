@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://us-central1-e-questrian.cloudfunctions.net/",
+    "secure": false
+  }
+}

@@ -179,7 +179,7 @@ export class FinancesComponent {
   }
 
   paymentCreated(payment: PaymentDetails) {
-    console.log('Here');
+    console.log('We here');
     this.clientNotificationService.sendPaymentReceipt();
     this.paymentsService.addPayment(payment);
   }
