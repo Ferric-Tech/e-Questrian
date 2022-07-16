@@ -1,4 +1,6 @@
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+
 const cors = require('cors')({ origin: true });
 const nodemailer = require('nodemailer');
 
@@ -15,16 +17,40 @@ var transporter = nodemailer.createTransport({
   },
 });
 
+// https://us-central1-e-questrian.cloudfunctions.net/auth
+exports.auth = functions.https.onRequest((req: any, res: any) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET,POST,DELETE,HEAD,PUT,OPTIONS'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+
+  cors(req, res, () => {
+    const tokenId = req.get('Authorization').split('Bearer ')[1];
+
+    return admin
+      .auth()
+      .verifyIdToken(tokenId)
+      .then((decoded: any) => res.status(200).send(decoded))
+      .catch((err: any) => res.status(401).send(err));
+  });
+});
+
 // https://us-central1-e-questrian.cloudfunctions.net/helloWorld
 exports.helloWorld = functions.https.onRequest((req: any, res: any) => {
-  res.set('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   cors(req, res, () => {
     res.send({ text: 'Hello there' });
   });
 });
 
+// https://us-central1-e-questrian.cloudfunctions.net/sendMail
 exports.sendMail = functions.https.onRequest((req: any, res: any) => {
-  res.set('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   cors(req, res, () => {
     // getting dest email by query string
     // const dest = req.query.dest;

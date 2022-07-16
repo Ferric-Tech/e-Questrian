@@ -38,7 +38,6 @@ export class AuthenticationService {
     this.angularFireAuth
       .signInWithEmailAndPassword(signInDetails.email, signInDetails.password)
       .then((res: any) => {
-        console.log("You're in!");
         this.router.navigate(['home']);
       })
       .catch((err: any) => {
@@ -52,7 +51,7 @@ export class AuthenticationService {
   }
 
   async isAuthenticated(): Promise<boolean> {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
       await this.angularFireAuth.onAuthStateChanged((user) => {
         user ? resolve(true) : resolve(false);
       });
