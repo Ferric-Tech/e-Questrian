@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -32,6 +36,8 @@ import { WarningsComponent } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
 import { ProcessResultsComponent } from './common-components/pages/process-results/process-results.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { SignInModal } from './modals/sign-in/sign-in.modal';
 
 @NgModule({
   declarations: [
@@ -52,6 +58,8 @@ import { ProcessResultsComponent } from './common-components/pages/process-resul
     GenerateInvoiceModal,
     GenerateStatementModal,
     ProcessResultsComponent,
+    SignInComponent,
+    SignInModal,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +76,8 @@ import { ProcessResultsComponent } from './common-components/pages/process-resul
     MatCheckboxModule,
     MatRadioModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './services/authentication.service';
 import { TestDataService } from './services/test-data.service';
 
 @Component({
@@ -9,6 +10,9 @@ import { TestDataService } from './services/test-data.service';
 })
 export class AppComponent {
   title = 'e-questrian';
+
+  email: string = '';
+  password: string = '';
 
   constructor(public router: Router, private td: TestDataService) {
     router.navigate(['/home']);
