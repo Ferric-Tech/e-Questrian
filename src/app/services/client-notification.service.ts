@@ -19,20 +19,17 @@ export class ClientNotificationService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,DELETE,HEAD,PUT,OPTIONS',
     });
   }
 
   async sendPaymentReceipt() {
-    let url = 'https://us-central1-e-questrian.cloudfunctions.net/helloWorld';
+    let body: { email: string; emailBody: string } = {
+      email: 'rubenf85@gmail.com',
+      emailBody: '<p>Thank you for your payment</p>',
+    };
+    let url = 'https://us-central1-e-questrian.cloudfunctions.net/sendReceipt';
     let headers = await this.getAuthHeaders();
-    this.http.post(url, '', { headers }).subscribe((res) => {
-      console.log(res);
-    });
-    url = 'https://us-central1-e-questrian.cloudfunctions.net/auth';
-    headers = await this.getAuthHeaders();
-    this.http.post(url, '', { headers }).subscribe((res) => {
+    this.http.post(url, body, { headers }).subscribe((res) => {
       console.log(res);
     });
   }
