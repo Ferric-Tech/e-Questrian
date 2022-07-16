@@ -20,12 +20,9 @@ export class AuthGuardService {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<Observable<boolean> | Promise<boolean> | boolean> {
-    console.log('1');
     if (await this.authService.isAuthenticated()) {
-      console.log('True');
       return true;
     }
-    console.log('False');
     this.router.navigate(['signin']);
     return false;
   }
