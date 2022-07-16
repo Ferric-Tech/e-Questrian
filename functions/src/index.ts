@@ -30,6 +30,15 @@ exports.auth = functions.https.onRequest((req: any, res: any) => {
   );
 
   cors(req, res, () => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET,POST,DELETE,HEAD,PUT,OPTIONS'
+    );
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+    );
     const tokenId = req.get('Authorization').split('Bearer ')[1];
 
     return admin
