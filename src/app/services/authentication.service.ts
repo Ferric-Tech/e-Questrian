@@ -52,10 +52,10 @@ export class AuthenticationService {
   }
 
   async isAuthenticated(): Promise<boolean> {
-    let result = false;
-    await this.angularFireAuth.onAuthStateChanged((user) => {
-      result = user ? true : false;
+    return new Promise(async (resolve, reject) => {
+      await this.angularFireAuth.onAuthStateChanged((user) => {
+        user ? resolve(true) : resolve(false);
+      });
     });
-    return result;
   }
 }
