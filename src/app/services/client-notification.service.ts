@@ -25,8 +25,13 @@ export class ClientNotificationService {
   }
 
   async sendPaymentReceipt() {
-    const url = 'https://us-central1-e-questrian.cloudfunctions.net/auth';
-    const headers = await this.getAuthHeaders();
+    let url = 'https://us-central1-e-questrian.cloudfunctions.net/helloWorld';
+    let headers = await this.getAuthHeaders();
+    this.http.post(url, '', { headers }).subscribe((res) => {
+      console.log(res);
+    });
+    url = 'https://us-central1-e-questrian.cloudfunctions.net/auth';
+    headers = await this.getAuthHeaders();
     this.http.post(url, '', { headers }).subscribe((res) => {
       console.log(res);
     });
