@@ -9,7 +9,7 @@
     "target": "es2017",
     "lib": ["ES2020", "dom"],
     "typeRoots": ["../node_modules/@types"],
-    "types": ["core-js"]
+    "types": ["node"]
   },
   "compileOnSave": true,
   "include": ["src"]
