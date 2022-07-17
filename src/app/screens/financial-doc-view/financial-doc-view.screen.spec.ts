@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DocViewScreen } from './financial-doc-view.screen';
 
-describe('DocViewComponent', () => {
+describe('DocViewScreen', () => {
   let component: DocViewScreen;
   let fixture: ComponentFixture<DocViewScreen>;
 

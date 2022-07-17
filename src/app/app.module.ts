@@ -38,7 +38,7 @@ import { GenerateStatementModal } from './modals/generate-statement/generate-sta
 import { ProcessResultsScreen } from './screens/process-results/process-results.screen';
 import { SignInPage } from './pages/sign-in/sign-in.component';
 import { SignInModal } from './modals/sign-in/sign-in.modal';
-import { GeneralItemsListComponent } from './screens/general-items-list/general-items-list.component';
+import { GeneralItemsListScreen } from './screens/general-items-list/general-items-list.screen';
 
 @NgModule({
   declarations: [
@@ -61,7 +61,7 @@ import { GeneralItemsListComponent } from './screens/general-items-list/general-
     ProcessResultsScreen,
     SignInPage,
     SignInModal,
-    GeneralItemsListComponent,
+    GeneralItemsListScreen,
   ],
   imports: [
     BrowserModule,
