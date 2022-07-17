@@ -22,10 +22,10 @@
     ></app-menu-screen>
   </div>
 
-  <app-doc-view-screen
+  <app-financial-doc-view-screen
     *ngSwitchCase="viewStateEnum.INVOICE_DETAIL"
     [config]="invoiceDocViewConfig"
-  ></app-doc-view-screen>
+  ></app-financial-doc-view-screen>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_PARAMETERS">
     <app-generate-invoice-modal

@@ -5,9 +5,9 @@ import {
 } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
-  selector: 'app-doc-view-screen',
-  templateUrl: './doc-view.screen.html',
-  styleUrls: ['./doc-view.screen.scss'],
+  selector: 'app-financial-doc-view-screen',
+  templateUrl: './financial-doc-view.screen.html',
+  styleUrls: ['./financial-doc-view.screen.scss'],
 })
 export class DocViewScreen implements OnInit {
   @Input() config = {} as DocView;
