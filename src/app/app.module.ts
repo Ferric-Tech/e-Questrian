@@ -36,7 +36,7 @@ import { WarningsModal } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
 import { ProcessResultsScreen } from './screens/process-results/process-results.screen';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { SignInPage } from './pages/sign-in/sign-in.component';
 import { SignInModal } from './modals/sign-in/sign-in.modal';
 
 @NgModule({
@@ -58,7 +58,7 @@ import { SignInModal } from './modals/sign-in/sign-in.modal';
     GenerateInvoiceModal,
     GenerateStatementModal,
     ProcessResultsScreen,
-    SignInComponent,
+    SignInPage,
     SignInModal,
   ],
   imports: [
