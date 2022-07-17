@@ -4,11 +4,11 @@ import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface
 import { MenuOption } from 'src/app/interfaces/menu-options.interface';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-home-page',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class HomeComponent {
+export class HomePage {
   config = {} as MenuPageConfig;
   readonly header = 'e-Questrian';
   readonly subHeader = '';

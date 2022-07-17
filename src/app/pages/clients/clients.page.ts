@@ -15,11 +15,11 @@ export interface MenuOption {
 }
 
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss'],
+  selector: 'app-clients-page',
+  templateUrl: './clients.page.html',
+  styleUrls: ['./clients.page.scss'],
 })
-export class ClientsComponent implements OnInit {
+export class ClientsPage implements OnInit {
   clientMenuPageConfig = {
     header: '',
     subHeader: 'Clients Menu',

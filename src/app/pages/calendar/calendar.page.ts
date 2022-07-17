@@ -13,11 +13,11 @@ import {
 } from 'src/app/interfaces/calander.interface';
 
 @Component({
-  selector: 'app-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss'],
+  selector: 'app-calendar-page',
+  templateUrl: './calendar.page.html',
+  styleUrls: ['./calendar.page.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarPage implements OnInit {
   appointmentType = AppointmentType;
   date = new Date();
   dateFormatted = '';

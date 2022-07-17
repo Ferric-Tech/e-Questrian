@@ -21,10 +21,10 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { NavbarComponent } from './common-components/navbar/navbar.component';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CalendarComponent } from './pages/calendar/calendar.component';
-import { FinancesComponent } from './pages/finances/finances.component';
-import { ClientsComponent } from './pages/clients/clients.component';
+import { HomePage } from './pages/home/home.page';
+import { CalendarPage } from './pages/calendar/calendar.page';
+import { FinancesPage } from './pages/finances/finances.page';
+import { ClientsPage } from './pages/clients/clients.page';
 import { NewAppointmentModal } from './modals/appointment-details/appointment-detail.modal';
 import { ClientDetailsModal } from './modals/client-details/client-details.modal';
 import { PaymentsModal } from './modals/payments/payments.modal';
@@ -43,10 +43,10 @@ import { SignInModal } from './modals/sign-in/sign-in.modal';
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent,
-    CalendarComponent,
-    FinancesComponent,
-    ClientsComponent,
+    HomePage,
+    CalendarPage,
+    FinancesPage,
+    ClientsPage,
     NewAppointmentModal,
     ClientDetailsModal,
     PaymentsModal,

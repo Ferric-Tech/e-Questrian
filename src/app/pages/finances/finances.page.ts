@@ -43,11 +43,11 @@ export interface MenuOption {
   viewState: ViewState;
 }
 @Component({
-  selector: 'app-finances',
-  templateUrl: './finances.component.html',
-  styleUrls: ['./finances.component.scss'],
+  selector: 'app-finances-page',
+  templateUrl: './finances.page.html',
+  styleUrls: ['./finances.page.scss'],
 })
-export class FinancesComponent {
+export class FinancesPage {
   financeMenuPageConfig = {
     header: '',
     subHeader: 'Finance Menu',
