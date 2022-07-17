@@ -11,7 +11,7 @@ export interface SignInDetails {
   templateUrl: './sign-in.modal.html',
   styleUrls: ['./sign-in.modal.scss'],
 })
-export class SignInModal implements OnInit {
+export class SignInModal {
   @Output() closed = new EventEmitter<void>();
   @Output() signin = new EventEmitter<SignInDetails>();
   @Output() register = new EventEmitter<SignInDetails>();
@@ -22,8 +22,6 @@ export class SignInModal implements OnInit {
   });
 
   isRegister: boolean = false;
-
-  ngOnInit(): void {}
 
   onSubmitClick() {
     if (this.isRegister) {

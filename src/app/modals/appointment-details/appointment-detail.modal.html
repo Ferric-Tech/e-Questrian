@@ -115,7 +115,7 @@
     </div>
 
     <!-- Invoice number -->
-    <div *ngIf="currentAppointment.invoice != 0" class="form-line">
+    <div *ngIf="currentAppointment.invoice !== 0" class="form-line">
       <div class="form-line-title">Invoice number:</div>
       <div>{{currentAppointment.invoice}}</div>
     </div>

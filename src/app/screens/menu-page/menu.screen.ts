@@ -18,7 +18,7 @@ export class MenuScreen {
 
   constructor(public router: Router) {}
 
-  ngOnInit() {
+  OnInit() {
     this.generalConfig = {
       header: this.config.header,
       subHeader: this.config.subHeader,

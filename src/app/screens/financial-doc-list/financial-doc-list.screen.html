@@ -46,7 +46,7 @@
         *ngIf="config.financialDocType === financialDocType.STATEMENT"
         class="number-column"
       >
-        {{ item.number != 0 ? item.number : "" }}
+        {{ item.number !== 0 ? item.number : "" }}
       </div>
       <div class="amount-column">{{ item.amount }}</div>
     </div>
