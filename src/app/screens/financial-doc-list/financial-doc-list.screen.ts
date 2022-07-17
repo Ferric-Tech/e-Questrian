@@ -8,11 +8,11 @@ import {
 } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
-  selector: 'app-financial-doc-list',
-  templateUrl: './financial-doc-list.component.html',
-  styleUrls: ['./financial-doc-list.component.scss'],
+  selector: 'app-financial-doc-list-screen',
+  templateUrl: './financial-doc-list.screen.html',
+  styleUrls: ['./financial-doc-list.screen.scss'],
 })
-export class FinancialDocListComponent implements OnInit {
+export class FinancialDocListScreen implements OnInit {
   @Input() config = {} as FinancialDocListPageConfig;
   @Output() itemClicked = new EventEmitter<number>();
 

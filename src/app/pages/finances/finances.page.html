@@ -1,19 +1,19 @@
 <div class="page-container" [ngSwitch]="currentViewState">
-  <app-menu-page
+  <app-menu-screen
     *ngSwitchCase="viewStateEnum.MAIN"
     [config]="financeMenuPageConfig"
     (viewStateSelected)="onMenuOptionClicked($event)"
-  ></app-menu-page>
+  ></app-menu-screen>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
-    <app-financial-doc-list
+    <app-financial-doc-list-screen
       [config]="this.invoiceListPageConfig"
       (itemClicked)="onInvoiceClicked($event)"
-    ></app-financial-doc-list>
-    <app-menu-page
+    ></app-financial-doc-list-screen>
+    <app-menu-screen
       [config]="invoiceListMenuConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"
-    ></app-menu-page>
+    ></app-menu-screen>
   </div>
 
   <app-doc-view-screen
@@ -29,33 +29,33 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_RESULTS">
-    <app-process-results
+    <app-process-results-screen
       [config]="generateInvoiceResultsPageConfig"
-    ></app-process-results>
+    ></app-process-results-screen>
 
     <div *ngIf="isInvoiceGenerationComplete">
-      <app-menu-page
+      <app-menu-screen
         [config]="generateInvoiceResultsMenuConfig"
         (viewStateSelected)="onMenuOptionClicked($event)"
-      ></app-menu-page>
+      ></app-menu-screen>
     </div>
   </div>
 
-  <app-menu-page
+  <app-menu-screen
     *ngSwitchCase="viewStateEnum.PAYMENTS"
     [config]="paymentMenuPageConfig"
     (viewStateSelected)="onMenuOptionClicked($event)"
-  ></app-menu-page>
+  ></app-menu-screen>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_PAYMENTS">
-    <app-financial-doc-list
+    <app-financial-doc-list-screen
       [config]="paymentListPageConfig"
       (itemClicked)="onPaymentClicked($event)"
-    ></app-financial-doc-list>
-    <app-menu-page
+    ></app-financial-doc-list-screen>
+    <app-menu-screen
       [config]="paymentListMenuConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"
-    ></app-menu-page>
+    ></app-menu-screen>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_STATEMENTS_PARAMETERS">
@@ -66,14 +66,14 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.VIEW_STATEMENT">
-    <app-financial-doc-list
+    <app-financial-doc-list-screen
       [config]="statementPageConfig"
       (itemClicked)="onStatementClicked($event)"
-    ></app-financial-doc-list>
-    <app-menu-page
+    ></app-financial-doc-list-screen>
+    <app-menu-screen
       [config]="statementMenuConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"
-    ></app-menu-page>
+    ></app-menu-screen>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">

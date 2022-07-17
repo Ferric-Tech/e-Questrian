@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DocViewScreen } from './doc-view.screen';
 
-describe('DocViewComponent', () => {
-  let component: DocViewScreen;
-  let fixture: ComponentFixture<DocViewScreen>;
+import { ProcessResultsScreen } from './process-results.screen';
+
+describe('ProcessResultsScreen', () => {
+  let component: ProcessResultsScreen;
+  let fixture: ComponentFixture<ProcessResultsScreen>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DocViewScreen],
+      declarations: [ProcessResultsScreen],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocViewScreen);
+    fixture = TestBed.createComponent(ProcessResultsScreen);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

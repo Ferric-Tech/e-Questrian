@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { GeneralScreen } from './general.screen';
 
-import { MenuPageComponent } from './menu-page.component';
-
-describe('MenuPageComponent', () => {
-  let component: MenuPageComponent;
-  let fixture: ComponentFixture<MenuPageComponent>;
+describe('GeneralScreen', () => {
+  let component: GeneralScreen;
+  let fixture: ComponentFixture<GeneralScreen>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MenuPageComponent ]
-    })
-    .compileComponents();
+      declarations: [GeneralScreen],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuPageComponent);
+    fixture = TestBed.createComponent(GeneralScreen);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

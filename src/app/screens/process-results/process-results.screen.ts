@@ -1,20 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  MenuPageConfig,
   PageConfig,
+  ProcessResultsPageConfig,
+  ResultType,
 } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
-  selector: 'app-menu-page',
-  templateUrl: './menu-page.component.html',
-  styleUrls: ['./menu-page.component.scss'],
+  selector: 'app-process-results-screen',
+  templateUrl: './process-results.screen.html',
+  styleUrls: ['./process-results.screen.scss'],
 })
-export class MenuPageComponent {
-  @Input() config = {} as MenuPageConfig;
+export class ProcessResultsScreen implements OnInit {
+  @Input() config = {} as ProcessResultsPageConfig;
   @Output() viewStateSelected = new EventEmitter<any>();
 
   generalConfig = {} as PageConfig;
+  resultsType = ResultType;
 
   constructor(public router: Router) {}
 

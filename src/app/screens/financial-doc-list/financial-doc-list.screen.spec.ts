@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DocViewScreen } from './doc-view.screen';
 
-describe('DocViewComponent', () => {
-  let component: DocViewScreen;
-  let fixture: ComponentFixture<DocViewScreen>;
+import { FinancialDocListScreen } from './financial-doc-list.screen';
+
+describe('FinancialDocListScreen', () => {
+  let component: FinancialDocListScreen;
+  let fixture: ComponentFixture<FinancialDocListScreen>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DocViewScreen],
+      declarations: [FinancialDocListScreen],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocViewScreen);
+    fixture = TestBed.createComponent(FinancialDocListScreen);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

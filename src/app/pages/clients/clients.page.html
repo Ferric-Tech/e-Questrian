@@ -1,9 +1,9 @@
 <div class="page-container" [ngSwitch]="currentViewState">
   <div *ngSwitchCase="viewStateEnum.MAIN">
-    <app-menu-page
+    <app-menu-screen
       [config]="clientMenuPageConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"
-    ></app-menu-page>
+    ></app-menu-screen>
   </div>
 
   <div *ngSwitchCase="viewStateEnum.VIEW">
@@ -12,10 +12,10 @@
         {{ client.value.displayName }}
       </div>
     </div>
-    <app-menu-page
+    <app-menu-screen
       [config]="viewClientsMenuConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"
-    ></app-menu-page>
+    ></app-menu-screen>
   </div>
 
   <app-client-details-modal

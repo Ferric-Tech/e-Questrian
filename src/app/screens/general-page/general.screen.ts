@@ -6,11 +6,11 @@ import {
 } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
-  selector: 'app-general-page',
-  templateUrl: './general-page.component.html',
-  styleUrls: ['./general-page.component.scss'],
+  selector: 'app-general-screen',
+  templateUrl: './general.screen.html',
+  styleUrls: ['./general.screen.scss'],
 })
-export class GeneralPageComponent {
+export class GeneralScreen {
   @Input() generalConfig = {} as PageConfig;
   @Output() viewStateSelected = new EventEmitter<any>();
 }
