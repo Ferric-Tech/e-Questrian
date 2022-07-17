@@ -10,7 +10,7 @@ import {
   templateUrl: './menu.screen.html',
   styleUrls: ['./menu.screen.scss'],
 })
-export class MenuScreen {
+export class MenuScreen implements OnInit {
   @Input() config = {} as MenuPageConfig;
   @Output() viewStateSelected = new EventEmitter<any>();
 
@@ -18,7 +18,7 @@ export class MenuScreen {
 
   constructor(public router: Router) {}
 
-  OnInit() {
+  ngOnInit(): void {
     this.generalConfig = {
       header: this.config.header,
       subHeader: this.config.subHeader,

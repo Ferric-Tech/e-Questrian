@@ -27,6 +27,7 @@ import { ClientNotificationService } from 'src/app/services/client-notification.
 
 export enum ViewState {
   MAIN,
+  INVOICES,
   VIEW_INVOICES,
   INVOICE_DETAIL,
   GENERATE_INVOICES_PARAMETERS,
@@ -52,25 +53,24 @@ export class FinancesPage {
     header: '',
     subHeader: 'Finance Menu',
     menu: [
-      { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
+      { display: 'Invoices', viewState: ViewState.INVOICES },
+      { display: 'Payments', viewState: ViewState.PAYMENTS },
       {
-        display: 'View Statements',
+        display: 'Statements',
         viewState: ViewState.GENERATE_STATEMENTS_PARAMETERS,
       },
+    ],
+  } as MenuPageConfig;
+
+  invoicesMenuPageConfig = {
+    header: '',
+    subHeader: 'Invoices Menu',
+    menu: [
+      { display: 'View Invoices', viewState: ViewState.VIEW_INVOICES },
       {
         display: 'Generate invoices',
         viewState: ViewState.GENERATE_INVOICES_PARAMETERS,
       },
-      { display: 'Payments', viewState: ViewState.PAYMENTS },
-    ],
-  } as MenuPageConfig;
-
-  paymentMenuPageConfig = {
-    header: '',
-    subHeader: 'Payments Menu',
-    menu: [
-      { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
-      { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
       { display: 'Back to Finance Menu', viewState: ViewState.MAIN },
     ],
   } as MenuPageConfig;
@@ -88,19 +88,6 @@ export class FinancesPage {
     menu: [{ display: 'Back to Finance Menu', viewState: ViewState.MAIN }],
   } as MenuPageConfig;
 
-  paymentListPageConfig = {
-    header: '',
-    subHeader: 'Payments',
-    financialDocType: FinancialDocType.LIST,
-    items: [],
-  } as FinancialDocListPageConfig;
-
-  paymentListMenuConfig = {
-    header: '',
-    subHeader: '',
-    menu: [{ display: 'Back to Payments Menu', viewState: ViewState.PAYMENTS }],
-  } as MenuPageConfig;
-
   generateInvoiceResultsPageConfig = {
     header: '',
     subHeader: 'Invoices generated',
@@ -112,6 +99,29 @@ export class FinancesPage {
     header: '',
     subHeader: '',
     menu: [{ display: 'View invoices', viewState: ViewState.VIEW_INVOICES }],
+  } as MenuPageConfig;
+
+  paymentsMenuPageConfig = {
+    header: '',
+    subHeader: 'Payments Menu',
+    menu: [
+      { display: 'RecordPayment', viewState: ViewState.PAYMENT_DETAIL },
+      { display: 'View Payments', viewState: ViewState.VIEW_PAYMENTS },
+      { display: 'Back to Finance Menu', viewState: ViewState.MAIN },
+    ],
+  } as MenuPageConfig;
+
+  paymentListPageConfig = {
+    header: '',
+    subHeader: 'Payments',
+    financialDocType: FinancialDocType.LIST,
+    items: [],
+  } as FinancialDocListPageConfig;
+
+  paymentListMenuConfig = {
+    header: '',
+    subHeader: '',
+    menu: [{ display: 'Back to Payments Menu', viewState: ViewState.PAYMENTS }],
   } as MenuPageConfig;
 
   statementPageConfig = {

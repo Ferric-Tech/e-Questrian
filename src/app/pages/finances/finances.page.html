@@ -5,6 +5,12 @@
     (viewStateSelected)="onMenuOptionClicked($event)"
   ></app-menu-screen>
 
+  <app-menu-screen
+    *ngSwitchCase="viewStateEnum.INVOICES"
+    [config]="invoicesMenuPageConfig"
+    (viewStateSelected)="onMenuOptionClicked($event)"
+  ></app-menu-screen>
+
   <div *ngSwitchCase="viewStateEnum.VIEW_INVOICES">
     <app-financial-doc-list-screen
       [config]="this.invoiceListPageConfig"
@@ -43,7 +49,7 @@
 
   <app-menu-screen
     *ngSwitchCase="viewStateEnum.PAYMENTS"
-    [config]="paymentMenuPageConfig"
+    [config]="paymentsMenuPageConfig"
     (viewStateSelected)="onMenuOptionClicked($event)"
   ></app-menu-screen>
 

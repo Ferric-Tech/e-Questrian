@@ -1,9 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-  MenuPageConfig,
-  PageConfig,
-} from 'src/app/interfaces/common-page-configs.interface';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PageConfig } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
   selector: 'app-general-screen',
@@ -11,6 +7,6 @@ import {
   styleUrls: ['./general.screen.scss'],
 })
 export class GeneralScreen {
-  @Input() generalConfig = {} as PageConfig;
+  @Input() config = {} as PageConfig;
   @Output() viewStateSelected = new EventEmitter<any>();
 }
