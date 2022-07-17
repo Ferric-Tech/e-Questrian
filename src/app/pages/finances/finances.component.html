@@ -16,10 +16,10 @@
     ></app-menu-page>
   </div>
 
-  <app-doc-view
+  <app-doc-view-screen
     *ngSwitchCase="viewStateEnum.INVOICE_DETAIL"
     [config]="invoiceDocViewConfig"
-  ></app-doc-view>
+  ></app-doc-view-screen>
 
   <div *ngSwitchCase="viewStateEnum.GENERATE_INVOICES_PARAMETERS">
     <app-generate-invoice-modal

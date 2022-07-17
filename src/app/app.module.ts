@@ -28,14 +28,14 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
 import { ClientDetailsComponent } from './modals/client-details/client-details.component';
 import { PaymentsComponent } from './modals/payments/payments.component';
-import { MenuPageComponent } from './common-components/pages/menu-page/menu-page.component';
-import { FinancialDocListComponent } from './common-components/pages/financial-doc-list/financial-doc-list.component';
-import { GeneralPageComponent } from './common-components/pages/general-page/general-page.component';
-import { DocViewComponent } from './common-components/pages/doc-view/doc-view.component';
+import { MenuPageComponent } from './screens/menu-page/menu-page.component';
+import { FinancialDocListComponent } from './screens/financial-doc-list/financial-doc-list.component';
+import { GeneralPageComponent } from './screens/general-page/general-page.component';
+import { DocViewScreen } from './screens/doc-view/doc-view.screen';
 import { WarningsComponent } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
-import { ProcessResultsComponent } from './common-components/pages/process-results/process-results.component';
+import { ProcessResultsComponent } from './screens/process-results/process-results.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignInModal } from './modals/sign-in/sign-in.modal';
 
@@ -53,7 +53,7 @@ import { SignInModal } from './modals/sign-in/sign-in.modal';
     MenuPageComponent,
     FinancialDocListComponent,
     GeneralPageComponent,
-    DocViewComponent,
+    DocViewScreen,
     WarningsComponent,
     GenerateInvoiceModal,
     GenerateStatementModal,

@@ -5,11 +5,11 @@ import {
 } from 'src/app/interfaces/common-page-configs.interface';
 
 @Component({
-  selector: 'app-doc-view',
-  templateUrl: './doc-view.component.html',
-  styleUrls: ['./doc-view.component.scss'],
+  selector: 'app-doc-view-screen',
+  templateUrl: './doc-view.screen.html',
+  styleUrls: ['./doc-view.screen.scss'],
 })
-export class DocViewComponent implements OnInit {
+export class DocViewScreen implements OnInit {
   @Input() config = {} as DocView;
 
   generalConfig = {} as PageConfig;
