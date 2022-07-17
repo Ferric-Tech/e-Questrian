@@ -158,11 +158,11 @@
   </form>
 </div>
 
-<app-warnings
+<app-warnings-modal
   #warningsComponent
   *ngIf="isWarning"
   [warning]="warningType"
   [subject]="warningSubject"
   (proceed)="warningProceed(true)"
   (cancel)="warningProceed(false)"
-></app-warnings>
+></app-warnings-modal>

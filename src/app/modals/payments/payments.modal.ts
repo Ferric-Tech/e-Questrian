@@ -1,15 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { fakeAsync } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
+import { Clients } from 'src/app/interfaces/clients.interface';
 import { PaymentDetails } from 'src/app/interfaces/payments.interface';
 
 @Component({
-  selector: 'app-payments',
-  templateUrl: './payments.component.html',
-  styleUrls: ['./payments.component.scss'],
+  selector: 'app-payments-modal',
+  templateUrl: './payments.modal.html',
+  styleUrls: ['./payments.modal.scss'],
 })
-export class PaymentsComponent implements OnInit {
+export class PaymentsModal implements OnInit {
   @Input() currentPayment = {} as PaymentDetails;
   @Output() closed = new EventEmitter<void>();
   @Output() newPayment = new EventEmitter<PaymentDetails>();

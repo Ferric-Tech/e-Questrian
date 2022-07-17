@@ -18,11 +18,11 @@
     ></app-menu-page>
   </div>
 
-  <app-client-details
+  <app-client-details-modal
     *ngSwitchCase="viewStateEnum.ADD_EDIT"
     [currentClient]="currentClient"
     (closed)="closeClientModal()"
     (newClient)="addNewClient($event)"
     (editedClient)="editClient($event)"
-  ></app-client-details>
+  ></app-client-details-modal>
 </div>

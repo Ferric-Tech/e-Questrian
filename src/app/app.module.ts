@@ -25,14 +25,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { FinancesComponent } from './pages/finances/finances.component';
 import { ClientsComponent } from './pages/clients/clients.component';
-import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
-import { ClientDetailsComponent } from './modals/client-details/client-details.component';
-import { PaymentsComponent } from './modals/payments/payments.component';
+import { NewAppointmentModal } from './modals/appointment-details/appointment-detail.modal';
+import { ClientDetailsModal } from './modals/client-details/client-details.modal';
+import { PaymentsModal } from './modals/payments/payments.modal';
 import { MenuPageComponent } from './screens/menu-page/menu-page.component';
 import { FinancialDocListComponent } from './screens/financial-doc-list/financial-doc-list.component';
 import { GeneralPageComponent } from './screens/general-page/general-page.component';
 import { DocViewScreen } from './screens/doc-view/doc-view.screen';
-import { WarningsComponent } from './modals/warnings/warnings.component';
+import { WarningsModal } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
 import { ProcessResultsComponent } from './screens/process-results/process-results.component';
@@ -47,14 +47,14 @@ import { SignInModal } from './modals/sign-in/sign-in.modal';
     CalendarComponent,
     FinancesComponent,
     ClientsComponent,
-    NewAppointmentComponent,
-    ClientDetailsComponent,
-    PaymentsComponent,
+    NewAppointmentModal,
+    ClientDetailsModal,
+    PaymentsModal,
     MenuPageComponent,
     FinancialDocListComponent,
     GeneralPageComponent,
     DocViewScreen,
-    WarningsComponent,
+    WarningsModal,
     GenerateInvoiceModal,
     GenerateStatementModal,
     ProcessResultsComponent,

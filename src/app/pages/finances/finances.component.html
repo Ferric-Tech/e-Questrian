@@ -77,12 +77,12 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.PAYMENT_DETAIL">
-    <app-payments
+    <app-payments-modal
       [currentPayment]="payments[currentPaymentID] || {}"
       (closed)="paymentDetailModalClosed()"
       (newPayment)="paymentCreated($event)"
       (editedPayment)="paymentEdited($event)"
       (voidPayment)="paymentVoided()"
-    ></app-payments>
+    ></app-payments-modal>
   </div>
 </div>

@@ -3,11 +3,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ClientDetail } from 'src/app/interfaces/clients.interface';
 
 @Component({
-  selector: 'app-client-details',
-  templateUrl: './client-details.component.html',
-  styleUrls: ['./client-details.component.scss'],
+  selector: 'app-client-details-modal',
+  templateUrl: './client-details.modal.html',
+  styleUrls: ['./client-details.modal.scss'],
 })
-export class ClientDetailsComponent implements OnInit {
+export class ClientDetailsModal implements OnInit {
   @Input() currentClient = {} as ClientDetail;
   @Output() closed = new EventEmitter<void>();
   @Output() newClient = new EventEmitter<ClientDetail>();
