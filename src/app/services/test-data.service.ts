@@ -77,11 +77,18 @@ export class TestDataService {
         telephoneNumber: '066 565 0000',
       },
       5: {
-        displayName: 'Jess vWyk',
+        displayName: 'Jess van Wyk',
         firstName: 'Jess',
         lastName: 'van Wyk',
         email: 'vwykjess@gmail.com',
         telephoneNumber: '083 579 4251',
+      },
+      6: {
+        displayName: 'Ruben Ferreira',
+        firstName: 'Ruben',
+        lastName: 'Ferreira',
+        email: 'rubenf85@gmail.com',
+        telephoneNumber: '072 761 0423',
       },
     };
   }
