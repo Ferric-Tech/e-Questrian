@@ -76,6 +76,13 @@ export class TestDataService {
         email: 'nurseash@life.co.za',
         telephoneNumber: '066 565 0000',
       },
+      5: {
+        displayName: 'Jess vWyk',
+        firstName: 'Jess',
+        lastName: 'van Wyk',
+        email: 'vwykjess@gmail.com',
+        telephoneNumber: '083 579 4251',
+      },
     };
   }
 
