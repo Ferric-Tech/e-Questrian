@@ -15,7 +15,7 @@ import {
 } from 'src/app/interfaces/appointments.interface';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
 import {
-  WarningsComponent,
+  WarningsModal,
   WarningSubjectType,
   WarningType,
 } from '../warnings/warnings.component';
@@ -30,7 +30,7 @@ export interface TimeOption {
   templateUrl: './appointment-detail.modal.html',
   styleUrls: ['./appointment-detail.modal.scss'],
 })
-export class NewAppointmentComponent implements OnInit {
+export class NewAppointmentModal implements OnInit {
   @Input() date: Date | undefined;
   @Input() proposedStartTime: Time = {} as Time;
   @Input() currentAppointment = {} as AppointmentDetail;
@@ -39,8 +39,8 @@ export class NewAppointmentComponent implements OnInit {
   @Output() editedAppointment = new EventEmitter<AppointmentDetail>();
   @Output() cancelAppointment = new EventEmitter<void>();
 
-  @ViewChild(WarningsComponent, { static: false }) warningsComponent:
-    | WarningsComponent
+  @ViewChild(WarningsModal, { static: false }) warningsComponent:
+    | WarningsModal
     | undefined;
 
   appointmentType = AppointmentType;

@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CalendarComponent } from './pages/calendar/calendar.component';
-import { ClientsComponent } from './pages/clients/clients.component';
-import { FinancesComponent } from './pages/finances/finances.component';
-import { HomeComponent } from './pages/home/home.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { CalendarPage } from './pages/calendar/calendar.page';
+import { ClientsPage } from './pages/clients/clients.page';
+import { FinancesPage } from './pages/finances/finances.page';
+import { HomePage } from './pages/home/home.page';
+import { SignInPage } from './pages/sign-in/sign-in.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 export const routes: Routes = [
-  { path: 'signin', component: SignInComponent },
-  { path: 'home', canActivate: [AuthGuardService], component: HomeComponent },
+  { path: 'signin', component: SignInPage },
+  { path: 'home', canActivate: [AuthGuardService], component: HomePage },
   {
     path: 'calendar',
     canActivate: [AuthGuardService],
-    component: CalendarComponent,
+    component: CalendarPage,
   },
   {
     path: 'finances',
     canActivate: [AuthGuardService],
-    component: FinancesComponent,
+    component: FinancesPage,
   },
   {
     path: 'clients',
     canActivate: [AuthGuardService],
-    component: ClientsComponent,
+    component: ClientsPage,
   },
 ];
 

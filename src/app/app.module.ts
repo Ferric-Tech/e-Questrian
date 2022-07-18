@@ -21,45 +21,47 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { NavbarComponent } from './common-components/navbar/navbar.component';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CalendarComponent } from './pages/calendar/calendar.component';
-import { FinancesComponent } from './pages/finances/finances.component';
-import { ClientsComponent } from './pages/clients/clients.component';
-import { NewAppointmentComponent } from './modals/appointment-details/appointment-detail.modal';
-import { ClientDetailsComponent } from './modals/client-details/client-details.component';
-import { PaymentsComponent } from './modals/payments/payments.component';
-import { MenuPageComponent } from './common-components/pages/menu-page/menu-page.component';
-import { FinancialDocListComponent } from './common-components/pages/financial-doc-list/financial-doc-list.component';
-import { GeneralPageComponent } from './common-components/pages/general-page/general-page.component';
-import { DocViewComponent } from './common-components/pages/doc-view/doc-view.component';
-import { WarningsComponent } from './modals/warnings/warnings.component';
+import { HomePage } from './pages/home/home.page';
+import { CalendarPage } from './pages/calendar/calendar.page';
+import { FinancesPage } from './pages/finances/finances.page';
+import { ClientsPage } from './pages/clients/clients.page';
+import { NewAppointmentModal } from './modals/appointment-details/appointment-detail.modal';
+import { ClientDetailsModal } from './modals/client-details/client-details.modal';
+import { PaymentsModal } from './modals/payments/payments.modal';
+import { MenuScreen } from './screens/menu/menu.screen';
+import { FinancialDocListScreen } from './screens/financial-doc-list/financial-doc-list.screen';
+import { GeneralScreen } from './screens/general/general.screen';
+import { DocViewScreen } from './screens/financial-doc-view/financial-doc-view.screen';
+import { WarningsModal } from './modals/warnings/warnings.component';
 import { GenerateInvoiceModal } from './modals/generate-invoice/generate-invoice.modal';
 import { GenerateStatementModal } from './modals/generate-statement/generate-statement.modal';
-import { ProcessResultsComponent } from './common-components/pages/process-results/process-results.component';
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { ProcessResultsScreen } from './screens/process-results/process-results.screen';
+import { SignInPage } from './pages/sign-in/sign-in.component';
 import { SignInModal } from './modals/sign-in/sign-in.modal';
+import { GeneralItemsListScreen } from './screens/general-items-list/general-items-list.screen';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomeComponent,
-    CalendarComponent,
-    FinancesComponent,
-    ClientsComponent,
-    NewAppointmentComponent,
-    ClientDetailsComponent,
-    PaymentsComponent,
-    MenuPageComponent,
-    FinancialDocListComponent,
-    GeneralPageComponent,
-    DocViewComponent,
-    WarningsComponent,
+    HomePage,
+    CalendarPage,
+    FinancesPage,
+    ClientsPage,
+    NewAppointmentModal,
+    ClientDetailsModal,
+    PaymentsModal,
+    MenuScreen,
+    FinancialDocListScreen,
+    GeneralScreen,
+    DocViewScreen,
+    WarningsModal,
     GenerateInvoiceModal,
     GenerateStatementModal,
-    ProcessResultsComponent,
-    SignInComponent,
+    ProcessResultsScreen,
+    SignInPage,
     SignInModal,
+    GeneralItemsListScreen,
   ],
   imports: [
     BrowserModule,

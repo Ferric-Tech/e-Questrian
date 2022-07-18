@@ -1,0 +1,28 @@
+<div class="page-container" [ngSwitch]="currentViewState">
+  <div *ngSwitchCase="viewStateEnum.MAIN">
+    <app-menu-screen
+      [config]="clientMenuPageConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-screen>
+  </div>
+
+  <div *ngSwitchCase="viewStateEnum.VIEW">
+    <div *ngFor="let client of clients | keyvalue">
+      <div (click)="viewClient(client.value)">
+        {{ client.value.displayName }}
+      </div>
+    </div>
+    <app-menu-screen
+      [config]="viewClientsMenuConfig"
+      (viewStateSelected)="onMenuOptionClicked($event)"
+    ></app-menu-screen>
+  </div>
+
+  <app-client-details-modal
+    *ngSwitchCase="viewStateEnum.ADD_EDIT"
+    [currentClient]="currentClient"
+    (closed)="closeClientModal()"
+    (newClient)="addNewClient($event)"
+    (editedClient)="editClient($event)"
+  ></app-client-details-modal>
+</div>

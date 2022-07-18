@@ -11,11 +11,11 @@ export enum WarningSubjectType {
 }
 
 @Component({
-  selector: 'app-warnings',
+  selector: 'app-warnings-modal',
   templateUrl: './warnings.component.html',
   styleUrls: ['./warnings.component.scss'],
 })
-export class WarningsComponent implements OnInit {
+export class WarningsModal implements OnInit {
   @Input() warning: WarningType | undefined;
   @Input() subject: WarningSubjectType | undefined;
   @Output() proceed: EventEmitter<void> = new EventEmitter();

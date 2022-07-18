@@ -115,7 +115,7 @@
     </div>
 
     <!-- Invoice number -->
-    <div *ngIf="currentAppointment.invoice != 0" class="form-line">
+    <div *ngIf="currentAppointment.invoice !== 0" class="form-line">
       <div class="form-line-title">Invoice number:</div>
       <div>{{currentAppointment.invoice}}</div>
     </div>
@@ -158,11 +158,11 @@
   </form>
 </div>
 
-<app-warnings
+<app-warnings-modal
   #warningsComponent
   *ngIf="isWarning"
   [warning]="warningType"
   [subject]="warningSubject"
   (proceed)="warningProceed(true)"
   (cancel)="warningProceed(false)"
-></app-warnings>
+></app-warnings-modal>

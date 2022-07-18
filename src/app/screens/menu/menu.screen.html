@@ -1,0 +1,13 @@
+<div class="page-container">
+  <app-general-screen [config]="generalConfig"></app-general-screen>
+  <div class="button-container">
+    <button
+      mat-button
+      *ngFor="let option of config.menu"
+      class="navbar-button"
+      (click)="onMenuOptionClicked(option.path, option.viewState)"
+    >
+      {{ option.display }}
+    </button>
+  </div>
+</div>
