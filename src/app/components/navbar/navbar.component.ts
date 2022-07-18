@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   innerWidth: number | undefined;
   isMobileView: boolean = false;
   displayMenu: boolean = true;
+  firstClick: boolean = true;
 
   readonly menuOptions: MenuOption[] = [
     { display: 'Calendar', path: '/calendar' },
@@ -30,13 +31,17 @@ export class NavbarComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   clickout(event: { target: any }) {
     if (!this.eRef.nativeElement.contains(event.target)) {
-      this.displayMenu = false;
+      if (!this.firstClick) {
+        this.displayMenu = false;
+        this.firstClick = false;
+      }
     }
   }
 
   constructor(public router: Router, private eRef: ElementRef) {}
 
   ngOnInit(): void {
+    console.log('Triggered 2');
     this.determineView();
   }
 
