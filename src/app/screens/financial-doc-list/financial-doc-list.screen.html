@@ -24,12 +24,15 @@
     *ngFor="let item of config.items; let i = index"
     (click)="onItemClicked(item)"
   >
-    <div class="hr-container" *ngIf="i === config.items.length - 1">
+    <div
+      class="hr-container"
+      *ngIf="i === config.items.length - 1 && config.financialDocType === financialDocType.STATEMENT"
+    >
       <hr />
     </div>
     <div
       [ngClass]="
-        i === 0 || i === config.items.length - 1
+        (i === 0 || i === config.items.length - 1) && config.financialDocType === financialDocType.STATEMENT
           ? 'emphasis-line'
           : 'general-line'
       "
@@ -50,7 +53,10 @@
       </div>
       <div class="amount-column">{{ item.amount }}</div>
     </div>
-    <div class="hr-container" *ngIf="i === config.items.length - 1">
+    <div
+      class="hr-container"
+      *ngIf="i === config.items.length - 1 && config.financialDocType === financialDocType.STATEMENT"
+    >
       <hr />
       <hr />
     </div>
