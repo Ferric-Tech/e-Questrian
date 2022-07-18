@@ -41,7 +41,6 @@ export class NavbarComponent implements OnInit {
   constructor(public router: Router, private eRef: ElementRef) {}
 
   ngOnInit(): void {
-    console.log('Triggered 2');
     this.determineView();
   }
 
