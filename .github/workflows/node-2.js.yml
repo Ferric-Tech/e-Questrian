@@ -11,8 +11,10 @@ on:
 
 jobs:
   build:
-
+       
     runs-on: ubuntu-latest
+    env:
+      CI: true
 
     strategy:
       matrix:
@@ -29,6 +31,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: CI=true npm test
-    - run: echo works and pipeline continues
-      env:
-          CI: true
+
