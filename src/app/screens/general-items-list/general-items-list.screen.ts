@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  FinancialDocItem,
   GeneralItemsListPageConfig,
   PageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
