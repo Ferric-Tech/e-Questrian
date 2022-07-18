@@ -8,19 +8,24 @@ import { MenuOption } from 'src/app/interfaces/menu-options.interface';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
-  config = {} as MenuPageConfig;
-  readonly header = 'e-Questrian';
-  readonly subHeader = '';
-  readonly menuOptions: MenuOption[] = [
-    { display: 'Calendar', path: '/calendar' },
-    { display: 'Finances', path: '/finances' },
-    { display: 'Clients', path: '/clients' },
-  ];
+export class HomePage implements OnInit {
+  config: MenuPageConfig | undefined;
 
-  constructor(public router: Router) {
-    this.config.header = this.header;
-    this.config.subHeader = this.subHeader;
-    this.config.menu = this.menuOptions;
+  constructor(public router: Router) {}
+
+  ngOnInit() {
+    this.setConfig();
+  }
+
+  setConfig() {
+    this.config = {
+      header: 'e-Questrian',
+      subHeader: '',
+      menu: [
+        { display: 'Calendar', path: '/calendar' },
+        { display: 'Finances', path: '/finances' },
+        { display: 'Clients', path: '/clients' },
+      ],
+    };
   }
 }
