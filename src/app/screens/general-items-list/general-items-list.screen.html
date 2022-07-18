@@ -1,1 +1,26 @@
-<p>general-items-list works!</p>
+<app-general-screen [config]="generalConfig"></app-general-screen>
+<div class="list-container">
+  <!-- Headers -->
+  <div class="header-line">
+    <div
+      *ngFor="let column of config.columns"
+      [ngStyle]="{width: column.widthPerc}"
+    >
+      {{column.content}}
+    </div>
+  </div>
+
+  <!-- Details -->
+  <div
+    class="general-item-line"
+    *ngFor="let generalItem of config.items | keyvalue"
+    (click)="onItemClicked(generalItem.key)"
+  >
+    <div
+      [ngStyle]="{width: field.widthPerc}"
+      *ngFor="let field of generalItem.value"
+    >
+      <div>{{field.content}}</div>
+    </div>
+  </div>
+</div>

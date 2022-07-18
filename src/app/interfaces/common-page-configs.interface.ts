@@ -63,3 +63,23 @@ export interface ProcessResult {
   resultType: ResultType;
   result: any;
 }
+
+export interface GeneralItemsListPageConfig extends PageConfig {
+  columns: PageColumns[];
+  items: GeneralItem;
+}
+
+export interface PageColumns {
+  content: string;
+  widthFactor: number;
+  widthPerc?: string;
+}
+
+export interface GeneralItem {
+  [refID: number]: GeneralItemField[];
+}
+
+export interface GeneralItemField {
+  content: string;
+  widthPerc?: string;
+}

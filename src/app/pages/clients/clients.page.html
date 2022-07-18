@@ -7,11 +7,10 @@
   </div>
 
   <div *ngSwitchCase="viewStateEnum.VIEW">
-    <div *ngFor="let client of clients | keyvalue">
-      <div (click)="viewClient(client.value)">
-        {{ client.value.displayName }}
-      </div>
-    </div>
+    <app-general-items-list-screen
+      [config]="clientListPageConfig"
+      (itemClicked)="viewClient($event)"
+    ></app-general-items-list-screen>
     <app-menu-screen
       [config]="viewClientsMenuConfig"
       (viewStateSelected)="onMenuOptionClicked($event)"

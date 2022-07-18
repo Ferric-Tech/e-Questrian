@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/clients.service';
 import { ClientDetail, Clients } from 'src/app/interfaces/clients.interface';
-import { MenuPageConfig } from 'src/app/interfaces/common-page-configs.interface';
+import {
+  GeneralItem,
+  GeneralItemsListPageConfig,
+  MenuPageConfig,
+} from 'src/app/interfaces/common-page-configs.interface';
 
 export enum ViewState {
   MAIN,
@@ -29,6 +33,17 @@ export class ClientsPage implements OnInit {
     ],
   } as MenuPageConfig;
 
+  clientListPageConfig = {
+    header: '',
+    subHeader: 'Clients',
+    columns: [
+      { content: 'Client', widthFactor: 3 },
+      { content: 'Email', widthFactor: 5 },
+      { content: 'Contact', widthFactor: 3 },
+    ],
+    items: {} as GeneralItem,
+  } as GeneralItemsListPageConfig;
+
   viewClientsMenuConfig = {
     header: '',
     subHeader: '',
@@ -48,6 +63,11 @@ export class ClientsPage implements OnInit {
 
   onMenuOptionClicked(viewStateSelected: ViewState) {
     this.currentViewState = viewStateSelected;
+    switch (this.currentViewState) {
+      case ViewState.VIEW: {
+        this.setClientList();
+      }
+    }
   }
 
   backToClientMain() {
@@ -58,9 +78,9 @@ export class ClientsPage implements OnInit {
     this.currentViewState = ViewState.VIEW;
   }
 
-  viewClient(client: ClientDetail) {
+  viewClient(clientID: number) {
     this.setClients();
-    this.currentClient = client;
+    this.currentClient = this.clients[clientID];
     this.currentViewState = ViewState.ADD_EDIT;
   }
 
@@ -77,5 +97,16 @@ export class ClientsPage implements OnInit {
   private setClients() {
     let clientsList = localStorage.getItem('clients');
     this.clients = JSON.parse(clientsList || '[]');
+  }
+
+  private setClientList() {
+    this.setClients();
+    Object.keys(this.clients).forEach((key) => {
+      this.clientListPageConfig.items[parseInt(key)] = [
+        { content: this.clients[parseInt(key)].displayName },
+        { content: this.clients[parseInt(key)].email },
+        { content: this.clients[parseInt(key)].telephoneNumber },
+      ];
+    });
   }
 }
