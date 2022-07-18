@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
+  GeneralItem,
   GeneralItemsListPageConfig,
   PageConfig,
 } from 'src/app/interfaces/common-page-configs.interface';
@@ -29,19 +30,21 @@ export class GeneralItemsListScreen implements OnInit {
 
   private setColumnsWidths() {
     let totalFactor = 0;
-    this.config.columns.forEach((column) => {
+    this.config.columns?.forEach((column) => {
       totalFactor = totalFactor + column.widthFactor;
     });
-    this.config.columns.forEach((column, index) => {
+    this.config.columns?.forEach((column, index) => {
       this.config.columns[index].widthPerc =
         (this.config.columns[index].widthFactor / totalFactor) * 100 + '%';
     });
-    Object.keys(this.config.items).forEach((itemKey) => {
-      this.config.items[parseInt(itemKey)].forEach((field, fieldIndex) => {
-        this.config.items[parseInt(itemKey)][fieldIndex].widthPerc =
-          this.config.columns[fieldIndex].widthPerc;
+    if (this.config.items) {
+      Object.keys(this.config.items).forEach((itemKey) => {
+        this.config.items[parseInt(itemKey)].forEach((field, fieldIndex) => {
+          this.config.items[parseInt(itemKey)][fieldIndex].widthPerc =
+            this.config.columns[fieldIndex].widthPerc;
+        });
       });
-    });
+    }
   }
 
   onItemClicked(itemKey: string) {

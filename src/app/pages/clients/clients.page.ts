@@ -41,7 +41,7 @@ export class ClientsPage implements OnInit {
       { content: 'Email', widthFactor: 5 },
       { content: 'Contact', widthFactor: 3 },
     ],
-    items: [],
+    items: {} as GeneralItem,
   } as GeneralItemsListPageConfig;
 
   viewClientsMenuConfig = {
