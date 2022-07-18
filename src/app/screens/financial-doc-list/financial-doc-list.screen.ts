@@ -23,6 +23,7 @@ export class FinancialDocListScreen implements OnInit {
 
   ngOnInit() {
     this.setPageConfig();
+    console.log(this.config.financialDocType);
   }
 
   private setPageConfig() {
