@@ -298,6 +298,15 @@ export class FinancesPage {
     results: GenerateInvoiceResult
   ) {
     this.generateInvoiceResultsPageConfig.results = [];
+
+    if (results.numberOfInvoices === 0) {
+      this.generateInvoiceResultsPageConfig.subHeader = 'No Invoices Generated';
+      this.generateInvoiceResultsPageConfig.explainer =
+        'Based on the current appointments and invoices previously, \
+        we were unable to find any further invoices possible to generate';
+      return;
+    }
+
     this.generateInvoiceResultsPageConfig.results.push(
       {
         description: 'Clients invoiced:',
