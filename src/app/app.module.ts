@@ -19,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 
-import { NavbarComponent } from './common-components/navbar/navbar.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { AppComponent } from './app.component';
 import { HomePage } from './pages/home/home.page';
 import { CalendarPage } from './pages/calendar/calendar.page';
