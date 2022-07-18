@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   GeneralItemsListPageConfig,
   PageConfig,
@@ -15,8 +14,6 @@ export class GeneralItemsListScreen implements OnInit {
   @Output() itemClicked = new EventEmitter<number>();
 
   generalConfig = {} as PageConfig;
-
-  constructor(public router: Router) {}
 
   ngOnInit() {
     this.setPageConfig();
